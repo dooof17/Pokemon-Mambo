@@ -658,12 +658,12 @@ class PokeBattle_Battle
     pbCommonAnimation(PBWeather.animationName(@field.weather)) if showAnim
     pbHideAbilitySplash(user) if user
     case @field.weather
-    when PBWeather::Sun;         pbDisplay(_INTL("The sunlight turned harsh!"))
-    when PBWeather::Rain;        pbDisplay(_INTL("It started to rain!"))
-    when PBWeather::Sandstorm;   pbDisplay(_INTL("A sandstorm brewed!"))
-    when PBWeather::Hail;        pbDisplay(_INTL("It started to hail!"))
-    when PBWeather::HarshSun;    pbDisplay(_INTL("The sunlight turned extremely harsh!"))
-    when PBWeather::HeavyRain;   pbDisplay(_INTL("A heavy rain began to fall!"))
+    when PBWeather::Sun;         pbDisplay(_INTL("The sunlight got\nbright!"))
+    when PBWeather::Rain;        pbDisplay(_INTL("A downpour\nstarted!"))
+    when PBWeather::Sandstorm;   pbDisplay(_INTL("A SANDSTORM\nbrewed!"))
+    when PBWeather::Hail;        pbDisplay(_INTL("It started\nto hail!"))
+    when PBWeather::HarshSun;    pbDisplay(_INTL("The sunlight turned\nextremely harsh!"))
+    when PBWeather::HeavyRain;   pbDisplay(_INTL("A heavy rain began\nto fall!"))
     when PBWeather::StrongWinds; pbDisplay(_INTL("Mysterious strong winds are protecting Flying-type Pokémon!"))
     when PBWeather::ShadowSky;   pbDisplay(_INTL("A shadow sky appeared!"))
     when PBWeather::Fog;         pbDisplay(_INTL("The fog is deep..."))

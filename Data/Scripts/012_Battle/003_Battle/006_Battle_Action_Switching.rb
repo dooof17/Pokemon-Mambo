@@ -283,7 +283,7 @@ class PokeBattle_Battle
       end
     else
       owner = pbGetOwnerFromBattlerIndex(idxBattler)
-      pbDisplayBrief(_INTL("{1} sent out {2}!",owner.fullname,newPkmnName))
+      pbDisplayBrief(_INTL("{1}\nsent out {2}!",owner.fullname,newPkmnName))
     end
   end
 

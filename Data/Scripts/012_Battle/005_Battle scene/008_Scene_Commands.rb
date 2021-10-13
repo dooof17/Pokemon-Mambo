@@ -9,7 +9,7 @@ class PokeBattle_Scene
        _INTL(""),#,@battle.battlers[idxBattler].name),
        _INTL("FIGHT"),
        _INTL("PACK"),
-       _INTL("@*"),
+       _INTL("{}"),
        (shadowTrainer) ? _INTL("CALL") : (firstAction) ? _INTL("RUN") : _INTL("CANCEL")
     ]
     ret = pbCommandMenuEx(idxBattler,cmds,(shadowTrainer) ? 2 : (firstAction) ? 0 : 1)
@@ -269,12 +269,12 @@ class PokeBattle_Scene
         # Start party screen
         pkmnScene = PokemonParty_Scene.new
         pkmnScreen = PokemonPartyScreen.new(pkmnScene,modParty)
-        pkmnScreen.pbStartScene(_INTL("Use on which @*?"),@battle.pbNumPositions(0,0))
+        pkmnScreen.pbStartScene(_INTL("Use on which {}?"),@battle.pbNumPositions(0,0))
         idxParty = -1
         # Loop while in party screen
         loop do
           # Select a Pokémon
-          pkmnScene.pbSetHelpText(_INTL("Use on which @*?"))
+          pkmnScene.pbSetHelpText(_INTL("Use on which {}?"))
           idxParty = pkmnScreen.pbChoosePokemon
           break if idxParty<0
           idxPartyRet = -1

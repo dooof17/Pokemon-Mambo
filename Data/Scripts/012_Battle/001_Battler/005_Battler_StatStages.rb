@@ -52,9 +52,9 @@ class PokeBattle_Battler
     # Stat up animation and message
     @battle.pbCommonAnimation("StatUp",self) if showAnim
     arrStatTexts = [
-       _INTL("{1}'s {2} rose!",pbThis,PBStats.getName(stat)),
-       _INTL("{1}'s {2} rose sharply!",pbThis,PBStats.getName(stat)),
-       _INTL("{1}'s {2} rose drastically!",pbThis,PBStats.getName(stat))]
+       _INTL("{1}'s {2} went up!",pbThis,PBStats.getName(stat)),
+       _INTL("{1}'s {2} went way up!",pbThis,PBStats.getName(stat)),
+       _INTL("{1}'s {2} went very way up!",pbThis,PBStats.getName(stat))]
     @battle.pbDisplay(arrStatTexts[[increment-1,2].min])
     # Trigger abilities upon stat gain
     if abilityActive?
@@ -130,7 +130,7 @@ class PokeBattle_Battler
       end
       if pbOwnSide.effects[PBEffects::Mist]>0 &&
          !(user && user.hasActiveAbility?(:INFILTRATOR))
-        @battle.pbDisplay(_INTL("{1} is protected by Mist!",pbThis)) if showFailMsg
+        @battle.pbDisplay(_INTL("{1} is protected by MIST!",pbThis)) if showFailMsg
         return false
       end
       if abilityActive?
@@ -181,7 +181,7 @@ class PokeBattle_Battler
     if !ignoreMirrorArmor && hasActiveAbility?(:MIRRORARMOR) && (!user || user.index!=@index) && 
 	  !@battle.moldBreaker && pbCanLowerStatStage?(stat)
       battle.pbShowAbilitySplash(self)
-      @battle.pbDisplay(_INTL("{1}'s Mirror Armor activated!",pbThis))
+      @battle.pbDisplay(_INTL("{1}'s MIRROR ARMOR activated!",pbThis))
       if !user
         battle.pbHideAbilitySplash(self)
         return false
@@ -224,7 +224,7 @@ class PokeBattle_Battler
     if !ignoreMirrorArmor && hasActiveAbility?(:MIRRORARMOR) && (!user || user.index!=@index) && 
 	  !@battle.moldBreaker && pbCanLowerStatStage?(stat)
       battle.pbShowAbilitySplash(self)
-      @battle.pbDisplay(_INTL("{1}'s Mirror Armor activated!",pbThis))
+      @battle.pbDisplay(_INTL("{1}'s MIRROR ARMOR activated!",pbThis))
       if !user
         battle.pbHideAbilitySplash(self)
         return false
@@ -300,7 +300,7 @@ class PokeBattle_Battler
     #       Intimidate ability by name).
     if !hasActiveAbility?(:CONTRARY)
       if pbOwnSide.effects[PBEffects::Mist]>0
-        @battle.pbDisplay(_INTL("{1} is protected from {2}'s {3} by Mist!",
+        @battle.pbDisplay(_INTL("{1} is protected from {2}'s {3} by MIST!",
            pbThis,user.pbThis(true),user.abilityName))
         return false
       end

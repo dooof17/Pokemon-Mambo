@@ -246,11 +246,11 @@ class PokemonPokedexInfo_Scene
       if pbGetCountry==0xF4   # If the user is in the United States
         inches = (height/0.254).round
         pounds = (weight/0.45359).round
-        textpos.push([_ISPRINTF("{1:d}'{2:02d}''",inches/12,inches%12),310,101,1,base,shadow])
-        textpos.push([_ISPRINTF("{1:4.1f} lb",pounds/10.0),310,134,1,base,shadow])
+        textpos.push([_ISPRINTF("{1:d}'{2:02d}''",inches/12,inches%12),310,104,1,base,shadow])
+        textpos.push([_ISPRINTF("{1:4.1f} lb",pounds/10.0),310,136,1,base,shadow])
       else
-        textpos.push([_ISPRINTF("{1:.1f} m",height/10.0),310,101,1,base,shadow])
-        textpos.push([_ISPRINTF("{1:.1f} kg",weight/10.0),310,134,1,base,shadow])
+        textpos.push([_ISPRINTF("{1:.1f} m",height/10.0),310,104,1,base,shadow])
+        textpos.push([_ISPRINTF("{1:.1f} kg",weight/10.0),310,136,1,base,shadow])
       end
       # Draw the Pokédex entry text
       entry = pbGetMessage(MessageTypes::Entries,fSpecies)
@@ -290,11 +290,11 @@ class PokemonPokedexInfo_Scene
       textpos.push([_INTL("?????"),134,74,0,base,shadow])
       # Write the height and weight
       if pbGetCountry()==0xF4 # If the user is in the United States
-        textpos.push([_INTL("?'??''"),310,101,1,base,shadow])
-        textpos.push([_INTL("????.? lb"),310,134,1,base,shadow])
+        textpos.push([_INTL("?'??''"),310,104,1,base,shadow])
+        textpos.push([_INTL("????.? lb"),310,136,1,base,shadow])
       else
-        textpos.push([_INTL("????.? m"),310,101,1,base,shadow])
-        textpos.push([_INTL("????.? kg"),310,134,1,base,shadow])
+        textpos.push([_INTL("????.? m"),310,104,1,base,shadow])
+        textpos.push([_INTL("????.? kg"),310,136,1,base,shadow])
       end
     end
     # Draw all text

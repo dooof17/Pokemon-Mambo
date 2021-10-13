@@ -1725,7 +1725,9 @@ BattleHandlers::TargetAbilityOnHit.add(:WANDERINGSPIRIT,
        :FLOWERGIFT,
        :GULPMISSILE,
        :ICEFACE,
+	   :ILLUSION,
        :IMPOSTER,
+	   :MUMMY,
        :RECEIVER,
        :RKSSYSTEM,
        :SCHOOLING,
@@ -2258,7 +2260,7 @@ BattleHandlers::EOREffectAbility.add(:HUNGERSWITCH,
       battler.form=(battler.form==0) ? 1 : 0
       battler.pbUpdate(true)
       battle.scene.pbChangePokemon(battler,battler.pokemon)
-      battle.pbDisplay(_INTL("{1} transformed!",battler.pbThis))
+      battle.pbDisplay(_INTL("{1}\ntransformed!",battler.pbThis))
       battle.pbHideAbilitySplash(battler)
     end
   }
@@ -2667,7 +2669,7 @@ BattleHandlers::AbilityOnSwitchIn.add(:UNNERVE,
 BattleHandlers::AbilityOnSwitchIn.add(:ASONEICE,
   proc { |ability,battler,battle|
     battle.pbShowAbilitySplash(battler)
-    battle.pbDisplay(_INTL("{1} has 2 Abilities!",battler.name))
+    battle.pbDisplay(_INTL("{1}\nhas two abilities!",battler.name))
     battle.pbShowAbilitySplash(battler,false,true,PBAbilities.getName(getID(PBAbilities,:UNNERVE)))
     battle.pbDisplay(_INTL("{1} is too nervous to eat Berries!",battler.pbOpposingTeam))
     battle.pbHideAbilitySplash(battler)

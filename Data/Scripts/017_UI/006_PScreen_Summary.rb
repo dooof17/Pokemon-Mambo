@@ -373,8 +373,6 @@ class PokemonSummary_Scene
 	  if nextlevel < 10
 	    textpos.push([nextlevel.to_s_formatted,304,216,1,base,shadow])
 	  elsif nextlevel >= 10 # Position of level text when level is greater or equal to 10
-	    textpos.push([nextlevel.to_s_formatted,318,216,1,base,shadow])
-	  elsif nextlevel > 100 # Text which appears when next level is greater than 100
 	    textpos.push([nextlevel.to_s_formatted,320,216,1,base,shadow])
 	  end
     end
@@ -458,13 +456,13 @@ class PokemonSummary_Scene
     moveBase   = Color.new(0,0,0)
     moveShadow = Color.new(255,255,255,0)
     ppBase   = [moveBase,                # More than 1/2 of total PP
-                Color.new(248,192,0),    # 1/2 of total PP or less
-                Color.new(248,136,32),   # 1/4 of total PP or less
-                Color.new(248,72,72)]    # Zero PP
-    ppShadow = [moveShadow,             # More than 1/2 of total PP
-                Color.new(255,255,255,0),   # 1/2 of total PP or less
-                Color.new(255,255,255,0),   # 1/4 of total PP or less
-                Color.new(255,255,255,0)]   # Zero PP
+                moveBase,                # 1/2 of total PP or less
+                moveBase,                # 1/4 of total PP or less
+                moveBase]                # Zero PP
+    ppShadow = [moveShadow,              # More than 1/2 of total PP
+                moveShadow,              # 1/2 of total PP or less
+                moveShadow,              # 1/4 of total PP or less
+                moveShadow]              # Zero PP
     @sprites["pokemon"].visible  = true
     @sprites["pokeicon"].visible = false
     @sprites["itemicon"].visible = true
@@ -475,12 +473,12 @@ class PokemonSummary_Scene
        [_INTL("PRESS Z"),0,216,0,base,shadow]	   
     ]
     # Write the held item's name
-	itemName = PBItems.getName(@pokemon.item)
     if @pokemon.hasItem?
+	  itemName = PBItems.getName(@pokemon.item)
 	  if itemName.to_s.length > 12
-	    textpos.push([PBItems.getName(@pokemon.item),320,120,1,base,shadow])
+	    textpos.push([itemName,320,120,1,base,shadow])
 	  else
-	    textpos.push([PBItems.getName(@pokemon.item),128,120,0,base,shadow])
+	    textpos.push([itemName,128,120,0,base,shadow])
 	  end
     else
       textpos.push([_INTL("---"),192,120,1,base,shadow])
@@ -489,9 +487,14 @@ class PokemonSummary_Scene
     # Write move names, types and PP amounts for each known move
     yPos = 152
     for i in 0...@pokemon.moves.length
-      move=@pokemon.moves[i]
+      move = @pokemon.moves[i]
+	  moveName = PBMoves.getName(move.id)
       if move.id>0
-        textpos.push([PBMoves.getName(move.id),128,yPos,0,moveBase,moveShadow])
+	    if moveName.to_s.length > 12
+          textpos.push([moveName,320,yPos,1,moveBase,moveShadow])
+		else
+		  textpos.push([moveName,128,yPos,0,moveBase,moveShadow])
+		end
         if move.totalpp>0
           textpos.push([_INTL("pp"),192,yPos+14,0,moveBase,moveShadow])
           ppfraction = 0
@@ -535,7 +538,7 @@ class PokemonSummary_Scene
     accuracy   = moveData[MOVE_ACCURACY]
     move = moveid
     textpos = []
-    # Write power and accuracy values for selected move
+    # Write power value for selected move
     if basedamage==0 # Status move
       textpos.push(["---",200,260,1,base,shadow])
     elsif basedamage==1 # Variable power move
@@ -543,10 +546,11 @@ class PokemonSummary_Scene
     else
       textpos.push([sprintf("%d",basedamage),200,260,1,base,shadow])
     end
+	# Write accuracy value for selected move
     if accuracy==0
       textpos.push(["---",308,260,1,base,shadow])
     else
-      textpos.push([sprintf("%d",accuracy),308+overlay.text_size("%").width,260,1,base,shadow])
+      textpos.push([sprintf("%d%",accuracy),294+overlay.text_size("%").width,260,1,base,shadow])
     end
     # Draw all text
     pbDrawTextPositions(overlay,textpos)
@@ -556,7 +560,7 @@ class PokemonSummary_Scene
     ]
     pbDrawImagePositions(overlay,imagepos)
     # Draw selected move's description
-    drawTextEx(overlay,0,0,320,6,
+    drawTextEx(overlay,2,0,318,5,
     pbGetMessage(MessageTypes::MoveDescriptions,moveid),base,shadow)
   end
 
@@ -634,9 +638,6 @@ class PokemonSummary_Scene
     base=Color.new(0,0,0)
     shadow=Color.new(255,255,255,0)
     pbSetSystemFont(overlay2)
-    # Ability
-    abilityname=PBAbilities.getName(pokemon.ability)
-    abilitydesc=pbGetMessage(MessageTypes::AbilityDescs,pokemon.ability)
     # Get data for selected move
     movedata   = pbGetMoveData(moveid)
     basedamage = moveData[MOVE_BASE_DAMAGE]
@@ -652,7 +653,7 @@ class PokemonSummary_Scene
     else
       textpos.push([_INTL("NONE"),160,123,0,Color.new(0,0,0)])
     end
-    # Write power and accuracy values for selected move
+    # Write power value for selected move
     if basedamage==0 # Status move
       textpos.push(["---",304,40,1,base])
     elsif basedamage==1 # Variable power move
@@ -660,10 +661,11 @@ class PokemonSummary_Scene
     else
       textpos.push([sprintf("%d",basedamage),304,40,1,base])
     end
+	# Write accuracy value for selected move
     if accuracy==0
       textpos.push(["---",302,56,1,base])
     else
-      textpos.push([sprintf("%d",accuracy),302,56,1,base])
+      textpos.push([sprintf("%d%",accuracy),294+overlay.text_size("%").width,56,1,base])
     end
     # Draw all text
     pbDrawTextPositions(overlay2,textpos)

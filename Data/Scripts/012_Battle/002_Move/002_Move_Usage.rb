@@ -17,7 +17,7 @@ class PokeBattle_Move
   end
 
   def pbDisplayUseMessage(user)
-    @battle.pbDisplayBrief(_INTL("{1} used {2}!",user.pbThis,@name))
+    @battle.pbDisplayBrief(_INTL("{1}\nused {2}!",user.pbThis,@name))
   end
 
   def pbMissMessage(user,target); return false; end
@@ -263,15 +263,15 @@ class PokeBattle_Move
     return if target.damageState.iceface
     if PBTypes.superEffective?(target.damageState.typeMod)
       if numTargets>1
-        @battle.pbDisplay(_INTL("It's super effective on {1}!",target.pbThis(true)))
+        @battle.pbDisplay(_INTL("It's super-\neffective on {1}!",target.pbThis(true)))
       else
-        @battle.pbDisplay(_INTL("It's super effective!"))
+        @battle.pbDisplay(_INTL("It's super-\neffective!"))
       end
     elsif PBTypes.notVeryEffective?(target.damageState.typeMod)
       if numTargets>1
-        @battle.pbDisplay(_INTL("It's not very effective on {1}...",target.pbThis(true)))
+        @battle.pbDisplay(_INTL("It's not very\neffective on {1}...",target.pbThis(true)))
       else
-        @battle.pbDisplay(_INTL("It's not very effective..."))
+        @battle.pbDisplay(_INTL("It's not very\neffective..."))
       end
     end
   end
@@ -313,7 +313,7 @@ class PokeBattle_Move
       target.pbReduceHP(target.totalhp/8)
     elsif target.damageState.iceface
       @battle.pbShowAbilitySplash(target)
-      target.pbChangeForm(1,_INTL("{1} transformed!",target.pbThis))
+      target.pbChangeForm(1,_INTL("{1}\ntransformed!",target.pbThis))
       @battle.pbHideAbilitySplash(target)
     elsif target.damageState.endured
       @battle.pbDisplay(_INTL("{1} endured the hit!",target.pbThis))

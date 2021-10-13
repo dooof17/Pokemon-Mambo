@@ -49,7 +49,7 @@ class PokeBattle_Move_003 < PokeBattle_SleepMove
     return if !user.isSpecies?(:MELOETTA)
     return if user.hasActiveAbility?(:SHEERFORCE) && @addlEffect>0
     newForm = (user.Form+1)%2
-    user.pbChangeForm(newForm,_INTL("{1} transformed!",user.pbThis))
+    user.pbChangeForm(newForm,_INTL("{1}\ntransformed!",user.pbThis))
   end
 end
 
@@ -2559,12 +2559,12 @@ class PokeBattle_Move_075 < PokeBattle_Move
   end
 
   def pbEffectAfterAllHits(user,target)
-    if !target.damageState.unaffected && !target.damageState.protected &&
-	  !target.damageState.missed &&
-	  isConst?(user.species,PBSpecies,:CRAMORANT) &&
-      user.hasActiveAbility?(:GULPMISSILE) && user.form==0
-      user.form=2
-      user.form=1 if user.hp>(user.totalhp/2)
+    if target.damageState.unaffected || target.damageState.protected ||
+	  target.damageState.missed ||
+	  isConst?(user.species,PBSpecies,:CRAMORANT) ||
+      user.hasActiveAbility?(:GULPMISSILE) || user.form == 0
+      user.form = 2
+      user.form = 1 if user.hp>(user.totalhp/2)
       @battle.scene.pbChangePokemon(user,user.pokemon)
     end
   end

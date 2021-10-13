@@ -208,7 +208,7 @@ class PokeBattle_Battler
     # Subtract PP
     if !specialUsage
       if !pbReducePP(move)
-        @battle.pbDisplay(_INTL("{1} used {2}!",pbThis,move.name))
+        @battle.pbDisplay(_INTL("{1}\nused {2}!",pbThis,move.name))
         @battle.pbDisplay(_INTL("But there was no PP left for the move!"))
         @lastMoveUsed          = -1
         @lastMoveUsedType      = -1
@@ -285,7 +285,7 @@ class PokeBattle_Battler
     @battle.pbPriority(true).each do |b|
       next if !b || !b.abilityActive?
       if BattleHandlers.triggerMoveBlockingAbility(b.ability,b,user,targets,move,@battle)
-        @battle.pbDisplayBrief(_INTL("{1} used {2}!",user.pbThis,move.name))
+        @battle.pbDisplayBrief(_INTL("{1}\nused {2}!",user.pbThis,move.name))
         @battle.pbShowAbilitySplash(b)
         @battle.pbDisplay(_INTL("{1} cannot use {2}!",user.pbThis,move.name))
         @battle.pbHideAbilitySplash(b)

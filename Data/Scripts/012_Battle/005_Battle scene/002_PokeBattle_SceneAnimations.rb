@@ -953,6 +953,6 @@ class PokeballThrowDeflectAnimation < PokeBattle_Animation
     delay = ball.totalDuration
     ball.setSE(delay,"Battle ball drop")
     ball.moveXY(delay,8,-32,Graphics.height-96+32)   # Back to player's corner
-    createBallTumbling(ball,delay,8)
+    #createBallTumbling(ball,delay,8)
   end
 end

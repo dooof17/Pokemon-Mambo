@@ -88,6 +88,7 @@ class SpriteWindow < Window
   attr_reader :contents_blend_type
   attr_reader :blend_type
   attr_reader :openness
+  attr_accessor :moveLeft
 
   def windowskin
     @_windowskin
@@ -166,6 +167,7 @@ class SpriteWindow < Window
     @skinformat=0
     @skinrect=Rect.new(0,0,0,0)
     @trim=[16,16,16,16]
+	@moveLeft = false
     privRefresh(true)
   end
 
@@ -396,10 +398,10 @@ class SpriteWindow < Window
       # Body = X, Y, width, height of body rectangle within windowskin
       @skinrect.set(32,16,16,16)
       # Trim = X, Y, width, height of trim rectangle within windowskin
-      @trim=[32,16,16,16]
+      @trim=[32,16,54,16]
     elsif self.windowskin.width==80 && self.windowskin.height==80
       @skinrect.set(32,32,16,16)
-      @trim=[32,16,16,48]
+      @trim=[32,16,54,48]
     end
   end
 
@@ -693,6 +695,7 @@ class SpriteWindow < Window
       @sprites["contents"].src_rect.set(0,0,0,0)
     end
     @sprites["contents"].x=@x+trimStartX
+	@sprites["contents"].x -= 16 if @moveLeft
     @sprites["contents"].y=@y+trimStartY
     if (@compat & CompatBits::ShowScrollArrows)>0 && @skinformat==0
       # Compatibility mode: Make scroll arrows visible

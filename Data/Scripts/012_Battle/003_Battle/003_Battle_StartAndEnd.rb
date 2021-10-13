@@ -163,7 +163,7 @@ class PokeBattle_Battle
       foeParty = pbParty(1)
       case foeParty.length
       when 1
-        pbDisplayPaused(_INTL("Wild {1} appeared!",foeParty[0].name))
+        pbDisplayPaused(_INTL("Wild {1}\nappeared!",foeParty[0].name))
       when 2
         pbDisplayPaused(_INTL("Wild {1} and {2} appeared!",foeParty[0].name,
            foeParty[1].name))
@@ -174,7 +174,7 @@ class PokeBattle_Battle
     else   # Trainer battle
       case @opponent.length
       when 1
-        pbDisplayPaused(_INTL("{1} wants to battle!",@opponent[0].fullname))
+        pbDisplayPaused(_INTL("{1}\nwants to battle!",@opponent[0].fullname))
       when 2
         pbDisplayPaused(_INTL("{1} and {2} want to battle!",@opponent[0].fullname,
            @opponent[1].fullname))
@@ -196,12 +196,12 @@ class PokeBattle_Battle
         sent = sendOuts[side][i]
         case sent.length
         when 1
-          msg += _INTL("{1} sent out {2}!",t.fullname,@battlers[sent[0]].name)
+          msg += _INTL("{1}\nsent out {2}!",t.fullname,@battlers[sent[0]].name)
         when 2
-          msg += _INTL("{1} sent out {2} and {3}!",t.fullname,
+          msg += _INTL("{1}\nsent out {2} and {3}!",t.fullname,
              @battlers[sent[0]].name,@battlers[sent[1]].name)
         when 3
-          msg += _INTL("{1} sent out {2}, {3} and {4}!",t.fullname,
+          msg += _INTL("{1}\nsent out {2}, {3} and {4}!",t.fullname,
              @battlers[sent[0]].name,@battlers[sent[1]].name,@battlers[sent[2]].name)
         end
         toSendOut.concat(sent)
@@ -276,12 +276,12 @@ class PokeBattle_Battle
     # Weather announcement
     pbCommonAnimation(PBWeather.animationName(@field.weather))
     case @field.weather
-    when PBWeather::Sun;         pbDisplay(_INTL("The sunlight is strong."))
-    when PBWeather::Rain;        pbDisplay(_INTL("It is raining."))
-    when PBWeather::Sandstorm;   pbDisplay(_INTL("A sandstorm is raging."))
-    when PBWeather::Hail;        pbDisplay(_INTL("Hail is falling."))
-    when PBWeather::HarshSun;    pbDisplay(_INTL("The sunlight is extremely harsh."))
-    when PBWeather::HeavyRain;   pbDisplay(_INTL("It is raining heavily."))
+    when PBWeather::Sun;         pbDisplay(_INTL("The sunlight is\nstrong."))
+    when PBWeather::Rain;        pbDisplay(_INTL("It is\nraining."))
+    when PBWeather::Sandstorm;   pbDisplay(_INTL("A SANDSTORM\nrages."))
+    when PBWeather::Hail;        pbDisplay(_INTL("Hail is\nfalling."))
+    when PBWeather::HarshSun;    pbDisplay(_INTL("The sunlight is extremely\nharsh."))
+    when PBWeather::HeavyRain;   pbDisplay(_INTL("It is raining\nheavily."))
     when PBWeather::StrongWinds; pbDisplay(_INTL("The wind is strong."))
     when PBWeather::ShadowSky;   pbDisplay(_INTL("The sky is shadowy."))
     when PBWeather::Fog;         pbDisplay(_INTL("The fog is deep..."))
@@ -399,12 +399,12 @@ class PokeBattle_Battle
         @scene.pbTrainerBattleSuccess
         case @opponent.length
         when 1
-          pbDisplayPaused(_INTL("{1} was defeated!",@opponent[0].fullname))
+          pbDisplayPaused(_INTL("{1}\nwas defeated!",@opponent[0].fullname))
         when 2
-          pbDisplayPaused(_INTL("{1} and {2} were defeated!",@opponent[0].fullname,
+          pbDisplayPaused(_INTL("{1} and {2}\nwere defeated!",@opponent[0].fullname,
              @opponent[1].fullname))
         when 3
-          pbDisplayPaused(_INTL("{1}, {2} and {3} were defeated!",@opponent[0].fullname,
+          pbDisplayPaused(_INTL("{1}, {2} and {3}\nwere defeated!",@opponent[0].fullname,
              @opponent[1].fullname,@opponent[2].fullname))
         end
         @opponent.each_with_index do |_t,i|

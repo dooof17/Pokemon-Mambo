@@ -31,20 +31,18 @@ class Window_Pokedex < Window_DrawableCommand
 
   def drawItem(index,_count,rect)
     return if index>=self.top_row+self.page_item_max
-    rect = Rect.new(rect.x+16,rect.y-1,rect.width-16,rect.height)
+    rect = Rect.new(rect.x+16,rect.y+2,rect.width-16,rect.height)
     species     = @commands[index][0]
     indexNumber = @commands[index][4]
     indexNumber -= 1 if @commands[index][5]
     if $Trainer.seen[species]
       if $Trainer.owned[species]
-        pbCopyBitmap(self.contents,@pokeballOwn.bitmap,rect.x-14,rect.y+17)
+        pbCopyBitmap(self.contents,@pokeballOwn.bitmap,rect.x-14,rect.y+14)
       else
-        pbCopyBitmap(self.contents,@pokeballSeen.bitmap,rect.x-14,rect.y+17)
+        pbCopyBitmap(self.contents,@pokeballSeen.bitmap,rect.x-14,rect.y+14)
       end
-      #text = sprintf("%03d%s %s",indexNumber," ",@commands[index][1])
 	  text = @commands[index][1]
     else
-      #text = sprintf("%03d  ----------",indexNumber)
 	  text = "-----"
     end
     pbDrawShadowText(self.contents,rect.x+2,rect.y+6,rect.width,rect.height,

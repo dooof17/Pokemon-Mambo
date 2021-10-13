@@ -62,7 +62,7 @@ class PokeBattle_BugContestBattle < PokeBattle_Battle
     if pbBugContestState.lastPokemon
       lastPokemon = pbBugContestState.lastPokemon
       pbDisplayPaused(_INTL("You already caught a {1}.",lastPokemon.name))
-      helptext = _INTL("STOCK @*:\nHP: {3}\n{1}({2})\nTHIS @*:\nHP: {6}\n{4}({5})",
+      helptext = _INTL("STOCK {}:\nHP: {3}\n{1}({2})\nTHIS @*:\nHP: {6}\n{4}({5})",
          lastPokemon.name,lastPokemon.level,lastPokemon.totalhp,
          pkmn.name,pkmn.level,pkmn.totalhp
       )

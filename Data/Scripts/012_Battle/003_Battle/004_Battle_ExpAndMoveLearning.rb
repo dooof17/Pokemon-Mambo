@@ -45,7 +45,7 @@ class PokeBattle_Battle
           eachInTeam(0,0) do |pkmn,i|
             next if !pkmn.able?
             next if b.participants.include?(i) || expShare.include?(i)
-            pbDisplayPaused(_INTL("Your party Pokémon in waiting also got Exp. Points!")) if showMessage
+            pbDisplayPaused(_INTL("Your party POKéMON in waiting also gained EXP. Points!")) if showMessage
             showMessage = false
             pbGainEVsOne(i,b)
             pbGainExpOne(i,b,numPartic,expShare,expAll,false)
@@ -157,9 +157,9 @@ class PokeBattle_Battle
     # "Exp gained" message
     if showMessages
       if isOutsider
-        pbDisplayPaused(_INTL("{1} got a boosted {2} Exp. Points!",pkmn.name,expGained))
+        pbDisplayPaused(_INTL("{1} gained a boosted {2} EXP. Points!",pkmn.name,expGained))
       else
-        pbDisplayPaused(_INTL("{1} got {2} Exp. Points!",pkmn.name,expGained))
+        pbDisplayPaused(_INTL("{1} gained\n{2} EXP. Points!",pkmn.name,expGained))
       end
     end
     curLevel = pkmn.level
@@ -207,7 +207,7 @@ class PokeBattle_Battle
       pkmn.calcStats
       battler.pbUpdate(false) if battler
       @scene.pbRefreshOne(battler.index) if battler
-      pbDisplayPaused(_INTL("{1} grew to Lv. {2}!",pkmn.name,curLevel))
+      pbDisplayPaused(_INTL("{1} grew to\nlevel {2}!",pkmn.name,curLevel))
       @scene.pbLevelUp(pkmn,battler,oldTotalHP,oldAttack,oldDefense,
                                     oldSpAtk,oldSpDef,oldSpeed)
       # Learn all moves learned at this level

@@ -32,7 +32,7 @@ class PokeBattle_Scene
     messageBox.z = 195
     # Create message window (displays the message)
     msgWindow = Window_AdvancedTextPokemon.newWithSize("",
-       16,Graphics.height-96+2,Graphics.width-32,96,@viewport)
+       0,Graphics.height-96+2,Graphics.width-5,96,@viewport)
     msgWindow.z              = 200
     msgWindow.opacity        = 0
     msgWindow.baseColor      = PokeBattle_SceneConstants::MESSAGE_BASE_COLOR

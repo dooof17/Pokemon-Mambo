@@ -43,7 +43,7 @@ def pbStorePokemon(pokemon)
       else
         pbMessage(_INTL("{1} was transferred to someone's PC.\1",pokemon.name))
       end
-      pbMessage(_INTL("It was stored in \'{1}.\'",boxname))
+      pbMessage(_INTL("It was stored in\n\'{1}.\'",boxname))
     end
   end
 end

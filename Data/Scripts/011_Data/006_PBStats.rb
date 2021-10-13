@@ -24,8 +24,8 @@ begin
       names[SPEED]    = _INTL("SPEED")
       names[SPATK]    = _INTL("SPCL. ATK")
       names[SPDEF]    = _INTL("SPCL. DEF")
-      names[ACCURACY] = _INTL("accuracy")
-      names[EVASION]  = _INTL("evasiveness")
+      names[ACCURACY] = _INTL("ACCURACY")
+      names[EVASION]  = _INTL("EVASION")
       return names[id]
     end
 
@@ -38,8 +38,8 @@ begin
       names[SPEED]    = _INTL("SPD")
       names[SPATK]    = _INTL("SPATK")
       names[SPDEF]    = _INTL("SPDEF")
-      names[ACCURACY] = _INTL("acc")
-      names[EVASION]  = _INTL("eva")
+      names[ACCURACY] = _INTL("ACC")
+      names[EVASION]  = _INTL("EVAS")
       return names[id]
     end
 

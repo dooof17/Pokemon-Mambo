@@ -50,7 +50,7 @@ module ShadowText
     elsif align==1
       x+=(w/2)-(width/2)
     end
-    pbDrawShadowText(bitmap,x,y,w,h,t,
+    pbDrawShadowText(bitmap,x,y + ($MKXP ? 6 :0),w,h,t,
        disabled ? Color.new(26*8,26*8,25*8) : Color.new(12*8,12*8,12*8),
        Color.new(26*8,26*8,25*8))
   end
@@ -884,7 +884,7 @@ class ControlWindow < SpriteWindow_Base
   def initialize(x,y,width,height)
     super(x,y,width,height)
     self.contents=Bitmap.new(width-32,height-32)
-    pbSetNarrowFont(self.contents)
+    pbSetSmallFont(self.contents)
     @controls=[]
   end
 
@@ -3485,7 +3485,11 @@ end
 # Main
 ################################################################################
 def animationEditorMain(animation)
-  viewport=Viewport.new(0,0,(512+288)*$ResizeFactor,(384+288)*$ResizeFactor)
+  if $MKXP
+    viewport = Viewport.new(0, 0, 512 + 288, 384 + 288)
+  else
+    viewport=Viewport.new(0,0,(512+288)*$ResizeFactor,(384+288)*$ResizeFactor)
+  end
   viewport.z=99999
   # Canvas
   canvas=AnimationCanvas.new(animation[animation.selected],viewport)
@@ -3719,16 +3723,23 @@ def pbAnimationEditor
     animation=PBAnimations.new
     animation[0].graphic=""
   end
-  oldsize=Win32API.client_size
-  oldzoom = $PokemonSystem.screensize
-  oldborder = $PokemonSystem.border
-  $PokemonSystem.border = 0
-  pbSetResizeFactor
-  Win32API.SetWindowPos((512+288)*$ResizeFactor,(384+288)*$ResizeFactor)
+  if $MKXP
+    Graphics.resize_screen(512 + 288, 384 + 288)
+	pbSetResizeFactor(1)
+  else
+    oldsize=Win32API.client_size
+    oldzoom = $PokemonSystem.screensize
+    pbSetResizeFactor
+    Win32API.SetWindowPos((512+288)*$ResizeFactor,(384+288)*$ResizeFactor)
+  end
   animationEditorMain(animation)
-  $PokemonSystem.border = oldborder
-  pbSetResizeFactor(oldzoom)
-  Win32API.SetWindowPos(oldsize[0],oldsize[1])
+  if $MKXP
+    Graphics.resize_screen(SCREEN_WIDTH, SCREEN_HEIGHT)
+	pbSetResizeFactor($PokemonSystem.screensize)
+  else
+    pbSetResizeFactor(oldzoom)
+	Win32API.SetWindowPos(oldsize[0],oldsize[1])
+  end
   $game_map.autoplay if $game_map
 end
 

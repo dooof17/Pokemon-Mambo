@@ -16,6 +16,7 @@ module MessageConfig
   CURSORMODE      = 1
   FontSubstitutes = {
      "GSCFont" => "GSCFont",
+	 "Power Green Small" => "Power Green Small",
 	 "Pokémon GB Font [Extended]" => "Pokémon GB Font [Extended]"
   }
   @@systemFrame     = nil

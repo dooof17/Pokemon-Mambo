@@ -173,9 +173,9 @@ module PokeBattle_BallAnimationMixin
       y = a*t**2 + b*t + c           # Quadratic in t
       ball.moveXY(delay+i-1,1,x,y)
     end
-    createBallTumbling(ball,delay,duration)
+    #createBallTumbling(ball,delay,duration)
   end
-
+=begin
   def createBallTumbling(ball,delay,duration)
     # Animate ball frames
     numTumbles = 1
@@ -199,7 +199,7 @@ module PokeBattle_BallAnimationMixin
     ball.moveAngle(delay,duration,360*3)
     ball.setAngle(delay+duration,0)
   end
-
+=end
   def ballSetOpen(ball,delay,ballType)
     ball.setName(delay,sprintf("Graphics/Battle animations/ball_%02d_open",ballType))
     if @ballSprite && @ballSprite.bitmap.width>=@ballSprite.bitmap.height

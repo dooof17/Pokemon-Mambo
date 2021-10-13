@@ -35,7 +35,7 @@ module PokeBattle_BattleCommon
       else
         pbDisplayPaused(_INTL("{1} was transferred to someone's PC.",pkmn.name))
       end
-      pbDisplayPaused(_INTL("It was stored in \'{1}\'.",boxName))
+      pbDisplayPaused(_INTL("It was stored in\n\'{1}\'.",boxName))
     end
   end
 
@@ -128,7 +128,7 @@ module PokeBattle_BattleCommon
       pbDisplay(_INTL("Oh no! The POKéMON broke free!"))
       BallHandlers.onFailCatch(ball,self,battler)
     when 1
-      pbDisplay(_INTL("Aww! It appeared to be caught!"))
+      pbDisplay(_INTL("Aww! It appeared\nto be caught!"))
       BallHandlers.onFailCatch(ball,self,battler)
     when 2
       pbDisplay(_INTL("Aargh! Almost had it!"))

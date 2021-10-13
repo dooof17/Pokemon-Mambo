@@ -214,9 +214,9 @@ class FightMenuDisplay < BattleMenuBase
   TYPE_ICON_HEIGHT = 14
   # Text colours of PP of selected move
   PP_COLORS = [
-     Color.new(248,72,72),Color.new(136,48,48),    # Red, zero PP
-     Color.new(248,136,32),Color.new(144,72,24),   # Orange, 1/4 of total PP or less
-     Color.new(248,192,0),Color.new(144,104,0),    # Yellow, 1/2 of total PP or less
+     TEXT_BASE_COLOR,TEXT_SHADOW_COLOR,    # Red, zero PP
+     TEXT_BASE_COLOR,TEXT_SHADOW_COLOR,   # Orange, 1/4 of total PP or less
+     TEXT_BASE_COLOR,TEXT_SHADOW_COLOR,    # Yellow, 1/2 of total PP or less
      TEXT_BASE_COLOR,TEXT_SHADOW_COLOR             # Black, more than 1/2 of total PP
   ]
   MAX_MOVES = 4   # Number of moves to display at once
@@ -224,7 +224,7 @@ class FightMenuDisplay < BattleMenuBase
   def initialize(viewport,z)
     super(viewport)
     self.x = 0
-    self.y = 128 #Graphics.height-96
+    self.y = 128
     @battler   = nil
     @shiftMode = 0
     # NOTE: @mode is for the display of the Mega Evolution button.
@@ -506,7 +506,7 @@ class TargetMenuDisplay < BattleMenuBase
     @overlay = BitmapSprite.new(Graphics.width,Graphics.height-self.y,viewport)
     @overlay.x = self.x
     @overlay.y = self.y
-    pbSetNarrowFont(@overlay.bitmap)
+    pbSetSmallFont(@overlay.bitmap)
     addSprite("overlay",@overlay)
     self.z = z
     refresh
@@ -550,7 +550,7 @@ class TargetMenuDisplay < BattleMenuBase
     @buttons.each_with_index do |button,i|
       next if !button || @texts[i].nil? || @texts[i]==""
       x = button.x-self.x+button.src_rect.width/2
-      y = button.y-self.y+8
+      y = button.y-self.y+15
       textpos.push([@texts[i],x,y,2,TEXT_BASE_COLOR,TEXT_SHADOW_COLOR])
     end
     pbDrawTextPositions(@overlay.bitmap,textpos)

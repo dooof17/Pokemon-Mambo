@@ -1199,9 +1199,9 @@ ItemHandlers::UseOnPokemon.add(:EXPCANDYXS,proc { |item,pkmn,scene|
      curlevel=pkmn.level
      leveldif = newlevel - curlevel
      if PBExperience.pbGetMaxExperience(pkmn.growthrate) < (pkmn.exp + experience)
-       scene.pbDisplay(_INTL("Your Pokémon gained {1} Exp. Points!",(PBExperience.pbGetMaxExperience(pkmn.growthrate)-pkmn.exp)))
+       scene.pbDisplay(_INTL("Your POKéMON gained\n{1} EXP. Points!",(PBExperience.pbGetMaxExperience(pkmn.growthrate)-pkmn.exp)))
      else
-       scene.pbDisplay(_INTL("Your Pokémon gained {1} Exp. Points!",experience))
+       scene.pbDisplay(_INTL("Your POKéMON gained\n{1} EXP. Points!",experience))
      end
      if newlevel==curlevel
        pkmn.exp=newexp

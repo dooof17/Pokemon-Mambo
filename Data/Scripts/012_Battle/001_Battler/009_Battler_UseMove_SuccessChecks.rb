@@ -274,7 +274,7 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("{1} snapped out of its confusion.",pbThis))
       else
         @battle.pbCommonAnimation("Confusion",self)
-        @battle.pbDisplay(_INTL("{1} is confused!",pbThis))
+        @battle.pbDisplay(_INTL("{1}\nis confused!",pbThis))
         threshold = (NEWEST_BATTLE_MECHANICS) ? 33 : 50   # % chance
         if @battle.pbRandom(100)<threshold
           pbConfusionDamage(_INTL("It hurt itself in its confusion!"))

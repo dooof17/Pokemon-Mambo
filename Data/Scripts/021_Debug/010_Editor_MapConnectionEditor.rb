@@ -504,13 +504,13 @@ class MapScreenScene
     @dragOffsetX=0
     @dragOffsetY=0
     @selmapid=-1
-    addBackgroundPlane(@sprites,"background","Trainer Card/bg",@viewport)
+    addBackgroundPlane(@sprites,"background","bg_blue",@viewport)
     @sprites["selsprite"]=SelectionSprite.new(@viewport)
     @sprites["title"]=Window_UnformattedTextPokemon.new(_INTL("F: Help"))
-    @sprites["title"].x=0
-    @sprites["title"].y=600-64
-    @sprites["title"].width=800
-    @sprites["title"].height=64
+    @sprites["title"].x = 0
+    @sprites["title"].y = 224
+    @sprites["title"].width = 160
+    @sprites["title"].height = 64
     @sprites["title"].viewport=@viewport
     @sprites["title"].z=2
     @mapinfos=load_data("Data/MapInfos.rxdata")
@@ -554,19 +554,15 @@ class MapScreenScene
   end
 
   def helpWindow
-    helptext=_INTL("A: Add map to canvas\r\n")
-    helptext+=_INTL("DEL: Delete map from canvas\r\n")
-    helptext+=_INTL("S: Go to another map\r\n")
-    helptext+=_INTL("Click to select a map\r\n")
-    helptext+=_INTL("Double-click: Edit map's metadata\r\n")
-    helptext+=_INTL("E: Edit map's encounters\r\n")
-    helptext+=_INTL("Drag map to move it\r\n")
-    helptext+=_INTL("Arrow keys/drag canvas: Move around canvas")
+    helptext = _INTL("1 click: select; 2 clicks: edit map's metadata.\n")
+	helptext += _INTL("Drag: move map; A: add map; DEL: delete map.\n")
+    helptext +=_INTL("S: go to map; E: edit encounters.\n")
+    helptext +=_INTL("Arrow keys/drag canvas: move UI.")
     title=Window_UnformattedTextPokemon.new(helptext)
     title.x=0
     title.y=0
-    title.width=800*8/10
-    title.height=600
+    title.width = 320
+    title.height = 288
     title.viewport=@viewport
     title.z=2
     loop do

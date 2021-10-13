@@ -981,6 +981,7 @@ end
 
 def pbCreateMessageWindow(viewport=nil,skin=nil)
   msgwindow=Window_AdvancedTextPokemon.new("")
+  msgwindow.moveLeft = true
   if !viewport
     msgwindow.z=99999
   else

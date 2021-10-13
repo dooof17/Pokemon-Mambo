@@ -89,85 +89,71 @@ WildItemUncommon = PSNCUREBERRY
 FormName = Cosplay Pikachu
 Compatibility = Undiscovered
 Pokedex = Whenever Pikachu comes across something new, it blasts it with a jolt of electricity. If you come across a blackened berry, it's evidence that this Pokémon mistook the intensity of its charge.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,4]
 FormName = Cosplay Pikachu - Belle
 Compatibility = Undiscovered
 Pokedex = Whenever Pikachu comes across something new, it blasts it with a jolt of electricity. If you come across a blackened berry, it's evidence that this Pokémon mistook the intensity of its charge.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,5]
 FormName = Cosplay Pikachu - Libre
 Compatibility = Undiscovered
 Pokedex = Whenever Pikachu comes across something new, it blasts it with a jolt of electricity. If you come across a blackened berry, it's evidence that this Pokémon mistook the intensity of its charge.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,6]
 FormName = Cosplay Pikachu - Ph.D.
 Compatibility = Undiscovered
 Pokedex = Whenever Pikachu comes across something new, it blasts it with a jolt of electricity. If you come across a blackened berry, it's evidence that this Pokémon mistook the intensity of its charge.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,7]
 FormName = Cosplay Pikachu - Pop Star
 Compatibility = Undiscovered
 Pokedex = Whenever Pikachu comes across something new, it blasts it with a jolt of electricity. If you come across a blackened berry, it's evidence that this Pokémon mistook the intensity of its charge.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,8]
 FormName = Cosplay Pikachu - Rock Star
 Compatibility = Undiscovered
 Pokedex = Whenever Pikachu comes across something new, it blasts it with a jolt of electricity. If you come across a blackened berry, it's evidence that this Pokémon mistook the intensity of its charge.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,9]
 FormName = Original Cap Pikachu
 Compatibility = Undiscovered
 Pokedex = This Pikachu wears its partner's cap, which is brimming with memories of traveling through many different regions.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,10]
 FormName = Hoenn Cap Pikachu
 Compatibility = Undiscovered
 Pokedex = This Pikachu wears its partner's cap, which is brimming with memories of traveling through the Hoenn region.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,11]
 FormName = Sinnoh Cap Pikachu
 Compatibility = Undiscovered
 Pokedex = This Pikachu wears its partner's cap, which is brimming with memories of traveling through the Sinnoh region.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,12]
 FormName = Unova Cap Pikachu
 Compatibility = Undiscovered
 Pokedex = This Pikachu wears its partner's cap, which is brimming with memories of traveling through the Unova region.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,13]
 FormName = Kalos Cap Pikachu
 Compatibility = Undiscovered
 Pokedex = This Pikachu wears its partner's cap, which is brimming with memories of traveling through the Kalos region.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,14]
 FormName = Alola Cap Pikachu
 Compatibility = Undiscovered
 Pokedex = This Pikachu wears its partner's cap, which is brimming with memories of traveling through the Alola region.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,15]
 FormName = Partner Cap Pikachu
 Compatibility = Undiscovered
 Pokedex = This Pikachu wears its partner's cap, which is brimming with memories of when they first met.
-BattlerEnemyY = 18
 #-------------------------------
 [PIKACHU,16]
 FormName = World Cap Pikachu
 Compatibility = Undiscovered
 Pokedex = This Pikachu is wearing its Trainer's cap. The cap is a precious symbol that travels across different regions with Pikachu.
-BattlerEnemyY = 18
 #-------------------------------
 [RAICHU,1]
 FormName = Alolan
@@ -276,8 +262,6 @@ Abilities = PICKUP,TOUGHCLAWS
 EggMoves = COVET,CURSE,DOUBLEEDGE,FLAIL,NIGHTSLASH,SPITE
 Color = Brown
 Pokedex = These daring Pokémon have coins on their foreheads. Darker coins are harder, and harder coins garner more respect among Meowth.
-BattlerPlayerY = 37
-BattlerEnemyY = 25
 Evolutions = PERRSERKER,Level,28
 #-------------------------------
 [PERSIAN,1]
@@ -489,8 +473,6 @@ Abilities = PARENTALBOND
 HiddenAbility = PARENTALBOND
 Weight = 100.0
 Pokedex = The explosive energy the child is bathed in causes temporary growth. The mother is beside herself with worry about it.
-BattlerPlayerY = 24
-BattlerEnemyY = 21
 #-------------------------------
 [MRMIME,1]
 FormName = Galarian
@@ -1536,35 +1518,27 @@ FormName = Heart Trim
 #-------------------------------
 [FURFROU,2]
 FormName = Star Trim
-BattlerEnemyY = 8
 #-------------------------------
 [FURFROU,3]
 FormName = Diamond Trim
-BattlerEnemyY = 8
 #-------------------------------
 [FURFROU,4]
 FormName = Debutante Trim
-BattlerEnemyY = 8
 #-------------------------------
 [FURFROU,5]
 FormName = Matron Trim
-BattlerEnemyY = 8
 #-------------------------------
 [FURFROU,6]
 FormName = Dandy Trim
-BattlerEnemyY = 8
 #-------------------------------
 [FURFROU,7]
 FormName = La Reine Trim
-BattlerEnemyY = 8
 #-------------------------------
 [FURFROU,8]
 FormName = Kabuki Trim
-BattlerEnemyY = 8
 #-------------------------------
 [FURFROU,9]
 FormName = Pharaoh Trim
-BattlerEnemyY = 8
 #-------------------------------
 [MEOWSTIC,1]
 FormName = Female
@@ -1703,8 +1677,6 @@ Height = 1.1
 Color = Red
 Shape = 6
 Pokedex = It goads its enemies into attacking, withstands the hits, and in return, delivers a headbutt, crushing their bones with its rocky mane.
-BattlerPlayerY = 13
-BattlerEnemyY = 14
 #-------------------------------
 [LYCANROC,2]
 FormName = Dusk Form
@@ -1802,8 +1774,6 @@ EffortPoints = 0,1,0,0,1,0
 Weight = 0.3
 Color = Red
 Pokedex = If its core stays exposed, it will soon die off. It's possible that it may survive if it's put into a Poké Ball quickly enough.
-BattlerPlayerY = 32
-BattlerEnemyY = 36
 #-------------------------------
 [MINIOR,2]
 FormName = Orange Core
@@ -1812,8 +1782,6 @@ EffortPoints = 0,1,0,0,1,0
 Weight = 0.3
 Color = Red
 Pokedex = If its core stays exposed, it will soon die off. It's possible that it may survive if it's put into a Poké Ball quickly enough.
-BattlerPlayerY = 32
-BattlerEnemyY = 36
 #-------------------------------
 [MINIOR,3]
 FormName = Yellow Core
@@ -1822,8 +1790,6 @@ EffortPoints = 0,1,0,0,1,0
 Weight = 0.3
 Color = Yellow
 Pokedex = If its core stays exposed, it will soon die off. It's possible that it may survive if it's put into a Poké Ball quickly enough.
-BattlerPlayerY = 32
-BattlerEnemyY = 36
 #-------------------------------
 [MINIOR,4]
 FormName = Green Core
@@ -1832,8 +1798,6 @@ EffortPoints = 0,1,0,0,1,0
 Weight = 0.3
 Color = Green
 Pokedex = If its core stays exposed, it will soon die off. It's possible that it may survive if it's put into a Poké Ball quickly enough.
-BattlerPlayerY = 32
-BattlerEnemyY = 36
 #-------------------------------
 [MINIOR,5]
 FormName = Blue Core
@@ -1842,8 +1806,6 @@ EffortPoints = 0,1,0,0,1,0
 Weight = 0.3
 Color = Blue
 Pokedex = If its core stays exposed, it will soon die off. It's possible that it may survive if it's put into a Poké Ball quickly enough.
-BattlerPlayerY = 32
-BattlerEnemyY = 36
 #-------------------------------
 [MINIOR,6]
 FormName = Indigo Core
@@ -1852,8 +1814,6 @@ EffortPoints = 0,1,0,0,1,0
 Weight = 0.3
 Color = Blue
 Pokedex = If its core stays exposed, it will soon die off. It's possible that it may survive if it's put into a Poké Ball quickly enough.
-BattlerPlayerY = 32
-BattlerEnemyY = 36
 #-------------------------------
 [MINIOR,7]
 FormName = Violet Core
@@ -1862,8 +1822,6 @@ EffortPoints = 0,1,0,0,1,0
 Weight = 0.3
 Color = Purple
 Pokedex = If its core stays exposed, it will soon die off. It's possible that it may survive if it's put into a Poké Ball quickly enough.
-BattlerPlayerY = 32
-BattlerEnemyY = 36
 #-------------------------------
 [MIMIKYU,1]
 FormName = Busted Form
@@ -1880,8 +1838,6 @@ Weight = 460.0
 Color = Yellow
 Shape = 8
 Pokedex = This is Necrozma's form while it's absorbing the power of Solgaleo, making it extremely ferocious and impossible to control.
-BattlerPlayerY = 3
-BattlerEnemyY = 5
 #-------------------------------
 [NECROZMA,2]
 FormName = Dawn Wings
@@ -1904,7 +1860,6 @@ Abilities = NEUROFORCE
 Height = 7.5
 Color = Yellow
 Pokedex = The light pouring out from all over its body affects living things and nature, impacting them in various ways.
-BattlerPlayerY = 3
 #-------------------------------
 [NECROZMA,4]
 PokedexForm = 3
@@ -1938,7 +1893,6 @@ BattlerEnemyY = 11
 #-------------------------------
 [ALCREMIE,1]
 FormName = Berry - Vanilla Cream
-BattlerEnemyY = 8
 #-------------------------------
 [ALCREMIE,2]
 FormName = Love - Vanilla Cream

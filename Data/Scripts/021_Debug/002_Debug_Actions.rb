@@ -66,17 +66,17 @@ class SpriteWindow_DebugVariables < Window_DrawableCommand
     elsif align==2 # Centre aligned
       x += (w/2)-(width/2)
     end
-    base = Color.new(12*8,12*8,12*8)
+    base = Color.new(0,0,0)
     if colors==1 # Red
-      base = Color.new(168,48,56)
+      base = Color.new(248,0,0)
     elsif colors==2 # Green
-      base = Color.new(0,144,0)
+      base = Color.new(0,248,0)
     end
-    pbDrawShadowText(self.contents,x,y,[width,w].max,h,t,base,Color.new(26*8,26*8,25*8))
+    pbDrawShadowText(self.contents,x,y,[width,w].max,h,t,base,Color.new(255,255,255))
   end
 
   def drawItem(index,_count,rect)
-    pbSetNarrowFont(self.contents)
+    pbSetSmallFont(self.contents)
     colors = 0; codeswitch = false
     if @mode==0
       name = $data_system.switches[index+1]
@@ -205,7 +205,7 @@ def pbDebugDayCare
   sprites = {}
   addBackgroundPlane(sprites,"background","hatchbg",viewport)
   sprites["overlay"] = BitmapSprite.new(Graphics.width,Graphics.height,viewport)
-  pbSetSystemFont(sprites["overlay"].bitmap)
+  pbSetSmallFont(sprites["overlay"].bitmap)
   sprites["cmdwindow"] = Window_CommandPokemonEx.new(commands)
   cmdwindow = sprites["cmdwindow"]
   cmdwindow.x        = 0
@@ -380,15 +380,15 @@ class SpriteWindow_DebugRoamers < Window_DrawableCommand
     if align==1 ;   x += (w-width)         # Right aligned
     elsif align==2; x += (w/2)-(width/2)   # Centre aligned
     end
-    base = Color.new(12*8,12*8,12*8)
-    if colors==1;    base = Color.new(168,48,56)   # Red
-    elsif colors==2; base = Color.new(0,144,0)     # Green
+    base = Color.new(0,0,0)
+    if colors==1;    base = Color.new(248,0,0)   # Red
+    elsif colors==2; base = Color.new(0,248,0)     # Green
     end
-    pbDrawShadowText(self.contents,x,y,[width,w].max,h,t,base,Color.new(26*8,26*8,25*8))
+    pbDrawShadowText(self.contents,x,y,[width,w].max,h,t,base,Color.new(255,255,255))
   end
 
   def drawItem(index,_count,rect)
-    pbSetNarrowFont(self.contents)
+    pbSetSmallFont(self.contents)
     rect = drawCursor(index,rect)
     nameWidth   = rect.width*50/100
     statusWidth = rect.width*50/100

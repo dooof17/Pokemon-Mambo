@@ -851,7 +851,7 @@ class PokemonPartyScreen
   end
 
   def pbPokemonGiveScreen(item)
-    @scene.pbStartScene(@party,_INTL("To which @*?"))
+    @scene.pbStartScene(@party,_INTL("To which {}?"))
     pkmnid = @scene.pbChoosePokemon
     ret = false
     if pkmnid>=0
@@ -863,7 +863,7 @@ class PokemonPartyScreen
   end
 
   def pbPokemonGiveMailScreen(mailIndex)
-    @scene.pbStartScene(@party,_INTL("To which @*?"))
+    @scene.pbStartScene(@party,_INTL("To which {}?"))
     pkmnid = @scene.pbChoosePokemon
     if pkmnid>=0
       pkmn = @party[pkmnid]
@@ -1174,7 +1174,7 @@ class PokemonPartyScreen
               pbDisplay(_INTL("Not enough HP..."))
               break
             end
-            @scene.pbSetHelpText(_INTL("Use on which @*?"))
+            @scene.pbSetHelpText(_INTL("Use on which {}?"))
             oldpkmnid = pkmnid
             loop do
               @scene.pbPreSelect(oldpkmnid)

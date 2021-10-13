@@ -73,74 +73,74 @@ def pbDebugMenuCommands(showall=true)
   commands = CommandMenuList.new
   if showall
     commands.add("main","fieldmenu",_INTL("Field options..."),
-       _INTL("Warp to maps, edit switches/variables, use the PC, edit Day Care, etc."))
+       _INTL("In field debug actions."))
     commands.add("fieldmenu","warp",_INTL("Warp to Map"),
-       _INTL("Instantly warp to another map of your choice."))
+       _INTL("Warp to another map of your choice."))
     # - Optional coordinates
     commands.add("fieldmenu","refreshmap",_INTL("Refresh Map"),
-       _INTL("Make all events on this map, and common events, refresh themselves."))
+       _INTL("Refresh all events on a map."))
     commands.add("fieldmenu","switches",_INTL("Switches"),
-       _INTL("Edit all Game Switches (except Script Switches)."))
+       _INTL("Edit all Game Switches."))
     commands.add("fieldmenu","variables",_INTL("Variables"),
-       _INTL("Edit all Game Variables. Can set them to numbers or text."))
+       _INTL("Edit all Game Variables."))
     commands.add("fieldmenu","usepc",_INTL("Use PC"),
-       _INTL("Use a PC to access Pokémon storage and player's PC."))
+       _INTL("Access the PC."))
     commands.add("fieldmenu","togglewallpapers",_INTL("Toggle Storage Wallpapers"),
-       _INTL("Unlock and lock special wallpapers used in Pokémon storage."))
+       _INTL("Manage wallpapers used in {} storage."))
     commands.add("fieldmenu","daycare",_INTL("Day Care"),
-       _INTL("View Pokémon in the Day Care and edit them."))
+       _INTL("Access the DAY CARE."))
     commands.add("fieldmenu","relicstone",_INTL("Use Relic Stone"),
-       _INTL("Shadow Pokémon. Choose a Pokémon to show to the Relic Stone for purification."))
+       _INTL("Use the Relic Stone for Shadow {}."))
     commands.add("fieldmenu","purifychamber",_INTL("Use Purify Chamber"),
-       _INTL("Shadow Pokémon. Open the Purify Chamber for purification."))
+       _INTL("Open it for purification."))
 
     commands.add("main","battlemenu",_INTL("Battle options..."),
-       _INTL("Start battles, reset this map's trainers, ready rematches, edit roamers, etc."))
+       _INTL("Battle debug actions."))
     commands.add("battlemenu","testwildbattle",_INTL("Test Wild Battle"),
-       _INTL("Start a single battle against a wild Pokémon. You choose the species/level."))
+       _INTL("Start a single battle against a wild {}."))
     commands.add("battlemenu","testwildbattleadvanced",_INTL("Test Wild Battle Advanced"),
-       _INTL("Start a battle against 1 or more wild Pokémon. Battle size is your choice."))
+       _INTL("Start a battle against 1 or more wild {}."))
     commands.add("battlemenu","testtrainerbattle",_INTL("Test Trainer Battle"),
-       _INTL("Start a single battle against a trainer of your choice."))
+       _INTL("Start a single battle against a trainer."))
     commands.add("battlemenu","testtrainerbattleadvanced",_INTL("Test Trainer Battle Advanced"),
-       _INTL("Start a battle against 1 or more trainers with a battle size of your choice."))
+       _INTL("Start a battle against 1 or more trainers."))
     commands.add("battlemenu","togglelogging",_INTL("Toggle Battle Logging"),
-       _INTL("Record debug logs for battles in Data/debuglog.txt."))
+       _INTL("Record debug logs for battles."))
     commands.add("battlemenu","resettrainers",_INTL("Reset Map's Trainers"),
-       _INTL("Turn off Self Switches A and B for all events with \"Trainer\" in their name."))
+       _INTL("Reset events with \"Trainer\" as name."))
     commands.add("battlemenu","readyrematches",_INTL("Ready All Phone Rematches"),
-       _INTL("Make all trainers in the phone ready for rematches."))
+       _INTL("Turn on all trainer rematches."))
     commands.add("battlemenu","roamers",_INTL("Roaming Pokémon"),
-       _INTL("Toggle and edit all roaming Pokémon."))
+       _INTL("Toggle and edit all roaming {}."))
 
     commands.add("main","itemsmenu",_INTL("Item options..."),
        _INTL("Give and take items."))
     commands.add("itemsmenu","additem",_INTL("Add Item"),
-       _INTL("Choose an item and a quantity of it to add to the Bag."))
+       _INTL("Add an item to the Bag."))
     commands.add("itemsmenu","fillbag",_INTL("Fill Bag"),
-       _INTL("Add a certain number of every item to the Bag."))
+       _INTL("Add all items to the Bag."))
     commands.add("itemsmenu","emptybag",_INTL("Empty Bag"),
        _INTL("Remove all items from the Bag."))
 
     commands.add("main","pokemonmenu",_INTL("Pokémon options..."),
-       _INTL("Give Pokémon, heal party, fill/empty PC storage, etc."))
+       _INTL("Pokémon-related debug actions."))
     commands.add("pokemonmenu","addpokemon",_INTL("Add Pokémon"),
-       _INTL("Give yourself a Pokémon of a chosen species/level. Goes to PC if party is full."))
+       _INTL("Give yourself a {}."))
     commands.add("pokemonmenu","demoparty",_INTL("Give Demo Party"),
-       _INTL("Give yourself 6 preset Pokémon. They overwrite the current party."))
+       _INTL("Give yourself 6 preset {}."))
     commands.add("pokemonmenu","healparty",_INTL("Heal Party"),
-       _INTL("Fully heal the HP/status/PP of all Pokémon in the party."))
+       _INTL("Fully heal all {} in the party."))
     commands.add("pokemonmenu","quickhatch",_INTL("Quick Hatch"),
-       _INTL("Make all eggs in the party require just one more step to hatch."))
+       _INTL("All EGGS hatch in one step."))
     commands.add("pokemonmenu","fillboxes",_INTL("Fill Storage Boxes"),
-       _INTL("Add one Pokémon of each species (at Level 50) to storage."))
+       _INTL("Fill the {} Storage."))
     commands.add("pokemonmenu","clearboxes",_INTL("Clear Storage Boxes"),
-       _INTL("Remove all Pokémon in storage."))
+       _INTL("Remove all {} in storage."))
     commands.add("pokemonmenu","openstorage",_INTL("Access Pokémon Storage"),
-       _INTL("Opens the Pokémon storage boxes in Organize Boxes mode."))
+       _INTL("Access Organize Boxes mode."))
 
     commands.add("main","playermenu",_INTL("Player options..."),
-       _INTL("Set money, badges, Pokédexes, player's appearance and name, etc."))
+       _INTL("Player-related debug actions."))
     commands.add("playermenu","setbadges",_INTL("Set Badges"),
        _INTL("Toggle possession of each Gym Badge."))
     commands.add("playermenu","setmoney",_INTL("Set Money"),
@@ -152,9 +152,9 @@ def pbDebugMenuCommands(showall=true)
     commands.add("playermenu","togglepokegear",_INTL("Toggle Pokégear"),
        _INTL("Toggle possession of the Pokégear."))
     commands.add("playermenu","dexlists",_INTL("Toggle Pokédex and Dexes"),
-       _INTL("Toggle possession of the Pokédex, and edit Regional Dex accessibility."))
+       _INTL("Toggle Pokédex and Dexes access."))
     commands.add("playermenu","setplayer",_INTL("Set Player Character"),
-       _INTL("Edit the player's character, as defined in \"metadata.txt\"."))
+       _INTL("Edit the player's character."))
     commands.add("playermenu","changeoutfit",_INTL("Set Player Outfit"),
        _INTL("Edit the player's outfit number."))
     commands.add("playermenu","renameplayer",_INTL("Set Player Name"),
@@ -164,52 +164,52 @@ def pbDebugMenuCommands(showall=true)
   end
 
   commands.add("main","editorsmenu",_INTL("Information editors..."),
-     _INTL("Edit information in the PBS files, terrain tags, battle animations, etc."))
+     _INTL("Edit PBS files and internal data."))
   commands.add("editorsmenu","setmetadata",_INTL("Edit Metadata"),
-     _INTL("Edit global and map-specific metadata."))
+     _INTL("Edit global and maps metadata."))
   commands.add("editorsmenu","mapconnections",_INTL("Edit Map Connections"),
-     _INTL("Connect maps using a visual interface. Can also edit map encounters/metadata."))
+     _INTL("Connect maps using a visual interface."))
   commands.add("editorsmenu","terraintags",_INTL("Edit Terrain Tags"),
      _INTL("Edit the terrain tags of tiles in tilesets. Required for tags 8+."))
   commands.add("editorsmenu","setencounters",_INTL("Edit Wild Encounters"),
-     _INTL("Edit the wild Pokémon that can be found on maps, and how they are encountered."))
+     _INTL("Edit wild {} from maps."))
   commands.add("editorsmenu","trainertypes",_INTL("Edit Trainer Types"),
      _INTL("Edit the properties of trainer types."))
   commands.add("editorsmenu","edittrainers",_INTL("Edit Individual Trainers"),
-     _INTL("Edit individual trainers, their Pokémon and items."))
+     _INTL("Edit individual trainers, their {} and items."))
   commands.add("editorsmenu","edititems",_INTL("Edit Items"),
      _INTL("Edit item data."))
   commands.add("editorsmenu","editpokemon",_INTL("Edit Pokémon"),
-     _INTL("Edit Pokémon species data."))
+     _INTL("Edit {} species data."))
   commands.add("editorsmenu","editdexes",_INTL("Edit Regional Dexes"),
-     _INTL("Create, rearrange and delete Regional Pokédex lists."))
+     _INTL("Manage the regional dexes of your game."))
   commands.add("editorsmenu","positionsprites",_INTL("Edit Pokémon Sprite Positions"),
-     _INTL("Reposition Pokémon sprites in battle."))
+     _INTL("Reposition {} sprites in battle."))
   commands.add("editorsmenu","autopositionsprites",_INTL("Auto-Position All Sprites"),
-     _INTL("Automatically reposition all Pokémon sprites in battle. Don't use lightly."))
+     _INTL("Auto-position {} sprites in batle."))
   commands.add("editorsmenu","animeditor",_INTL("Battle Animation Editor"),
      _INTL("Edit the battle animations."))
   commands.add("editorsmenu","animorganiser",_INTL("Battle Animation Organiser"),
      _INTL("Rearrange/add/delete battle animations."))
   commands.add("editorsmenu","importanims",_INTL("Import All Battle Animations"),
-     _INTL("Import all battle animations from the \"Animations\" folder."))
+     _INTL("Import \"Animations\" folder."))
   commands.add("editorsmenu","exportanims",_INTL("Export All Battle Animations"),
-     _INTL("Export all battle animations individually to the \"Animations\" folder."))
+     _INTL("Export to the \"Animations\" folder."))
 
   commands.add("main","othermenu",_INTL("Other options..."),
-     _INTL("Mystery Gifts, translations, compile data, etc."))
+     _INTL("Non-information debug actions."))
   commands.add("othermenu","mysterygift",_INTL("Manage Mystery Gifts"),
-    _INTL("Edit and enable/disable Mystery Gifts."))
+    _INTL("Manage Mystery Gifts."))
   commands.add("othermenu","extracttext",_INTL("Extract Text"),
-    _INTL("Extract all text in the game to a single file for translating."))
+    _INTL("Extract all text ingame to a single file."))
   commands.add("othermenu","compiletext",_INTL("Compile Text"),
-    _INTL("Import text and converts it into a language file."))
+    _INTL("Import extracted and edited text."))
   commands.add("othermenu","compiledata",_INTL("Compile Data"),
     _INTL("Fully compile all data."))
   commands.add("othermenu","debugconsole",_INTL("Debug Console"),
     _INTL("Open the Debug Console."))
   commands.add("othermenu","invalidtiles",_INTL("Fix Invalid Tiles"),
-    _INTL("Scans all maps and erases non-existent tiles."))
+    _INTL("Erases non-existent tiles."))
 
   return commands
 end

@@ -374,9 +374,9 @@ def pbChangeLevel(pkmn,newlevel,scene)
     pkmn.calcStats
     scene.pbRefresh
     if scene.is_a?(PokemonPartyScreen)
-      scene.pbDisplay(_INTL("{1} grew to Lv. {2}!",pkmn.name,pkmn.level))
+      scene.pbDisplay(_INTL("{1} grew to\nlevel {2}!",pkmn.name,pkmn.level))
     else
-      pbMessage(_INTL("{1} grew to Lv. {2}!",pkmn.name,pkmn.level))
+      pbMessage(_INTL("{1} grew to\nlevel {2}!",pkmn.name,pkmn.level))
     end
     attackdiff  = pkmn.attack-attackdiff
     defensediff = pkmn.defense-defensediff
@@ -725,9 +725,9 @@ def pbUseItem(bag,item,bagscene=nil)
     pbFadeOutIn {
       scene = PokemonParty_Scene.new
       screen = PokemonPartyScreen.new(scene,$Trainer.party)
-      screen.pbStartScene(_INTL("Use on which @*?"),false,annot)
+      screen.pbStartScene(_INTL("Use on which {}?"),false,annot)
       loop do
-        scene.pbSetHelpText(_INTL("Use on which @*?"))
+        scene.pbSetHelpText(_INTL("Use on which {}?"))
         chosen = screen.pbChoosePokemon
         if chosen<0
           ret = false

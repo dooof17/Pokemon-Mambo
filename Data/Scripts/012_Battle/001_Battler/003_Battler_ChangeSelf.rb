@@ -53,7 +53,7 @@ class PokeBattle_Battler
       return
     end
     return if @fainted   # Has already fainted properly
-    @battle.pbDisplayBrief(_INTL("{1} fainted!",pbThis)) if showMessage
+    @battle.pbDisplayBrief(_INTL("{1}\nfainted!",pbThis)) if showMessage
     PBDebug.log("[Pokémon fainted] #{pbThis} (#{@index})") if !showMessage
     @battle.scene.pbFaintBattler(self)
     pbInitEffects(false)
@@ -151,7 +151,7 @@ class PokeBattle_Battler
     return if fainted? || @effects[PBEffects::Transform]
     # Shaymin - reverts if frozen
     if isSpecies?(:SHAYMIN) && frozen?
-      pbChangeForm(0,_INTL("{1} transformed!",pbThis))
+      pbChangeForm(0,_INTL("{1}\ntransformed!",pbThis))
     end
   end
 
@@ -161,7 +161,7 @@ class PokeBattle_Battler
     if isSpecies?(:KELDEO)
       newForm = 0
       newForm = 1 if pbHasMove?(:SECRETSWORD)
-      pbChangeForm(newForm,_INTL("{1} transformed!",pbThis))
+      pbChangeForm(newForm,_INTL("{1}\ntransformed!",pbThis))
     end
   end
 
@@ -183,10 +183,10 @@ class PokeBattle_Battler
         if @form!=newForm
           @battle.pbShowAbilitySplash(self,true)
           @battle.pbHideAbilitySplash(self)
-          pbChangeForm(newForm,_INTL("{1} transformed!",pbThis))
+          pbChangeForm(newForm,_INTL("{1}\ntransformed!",pbThis))
         end
       else
-        pbChangeForm(0,_INTL("{1} transformed!",pbThis))
+        pbChangeForm(0,_INTL("{1}\ntransformed!",pbThis))
       end
     end
     # Cherrim - Flower Gift
@@ -199,10 +199,10 @@ class PokeBattle_Battler
         if @form!=newForm
           @battle.pbShowAbilitySplash(self,true)
           @battle.pbHideAbilitySplash(self)
-          pbChangeForm(newForm,_INTL("{1} transformed!",pbThis))
+          pbChangeForm(newForm,_INTL("{1}\ntransformed!",pbThis))
         end
       else
-        pbChangeForm(0,_INTL("{1} transformed!",pbThis))
+        pbChangeForm(0,_INTL("{1}\ntransformed!",pbThis))
       end
     end
     # Eiscue - Ice Face
@@ -210,7 +210,7 @@ class PokeBattle_Battler
       if @form==1
         @battle.pbShowAbilitySplash(self,true)
         @battle.pbHideAbilitySplash(self)
-        pbChangeForm(0,_INTL("{1} transformed!",pbThis))
+        pbChangeForm(0,_INTL("{1}\ntransformed!",pbThis))
       end
     end
   end
@@ -270,7 +270,7 @@ class PokeBattle_Battler
             @battle.pbDisplay(_INTL("{1}'s type changed to {3}!",pbThis,
              self.abilityName,PBTypes.getName(newTypes[0])))
           else
-            @battle.pbDisplay(_INTL("{1}'s {2} made it the {3} type!",pbThis,
+            @battle.pbDisplay(_INTL("{1}'s {2} made it {3} type!",pbThis,
              self.abilityName,PBTypes.getName(newTypes[0])))
           end
         else

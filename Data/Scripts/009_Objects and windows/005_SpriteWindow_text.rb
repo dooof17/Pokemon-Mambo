@@ -309,7 +309,7 @@ class Window_AdvancedTextPokemon < SpriteWindow_Base
       if @letterbyletter
         @fmtchars = []
         fmt = getFormattedText(self.contents,0,0,
-           self.width-self.borderX-SpriteWindow_Base::TEXTPADDING,-1,
+           self.width-self.borderX-SpriteWindow_Base::TEXTPADDING+20,-1,
            shadowctag(@baseColor,@shadowColor)+value,32,true)
         @oldfont = self.contents.font.clone
         for ch in fmt

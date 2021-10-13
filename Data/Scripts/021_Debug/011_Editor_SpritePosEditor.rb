@@ -80,6 +80,7 @@ class SpritePositioner
     @sprites["pokemon_1"].z = 4
     @sprites["info"] = Window_UnformattedTextPokemon.new("")
     @sprites["info"].viewport = @viewport
+	@sprites["info"].y = 224
     @sprites["info"].visible  = false
     @oldSpeciesIndex = 0
     @species = 0

@@ -424,7 +424,7 @@ class PokeBattle_SafariZone
       self.pbPlayer.seen[wildpoke.species] = true
       pbSeenForm(wildpoke)
       @scene.pbStartBattle(self)
-      pbDisplayPaused(_INTL("Wild {1} appeared!",wildpoke.name))
+      pbDisplayPaused(_INTL("Wild {1}\nappeared!",wildpoke.name))
       @scene.pbSafariStart
       @scene.pbCommonAnimation(PBWeather.animationName(@weather))
       safariBall = getConst(PBItems,:SAFARIBALL)

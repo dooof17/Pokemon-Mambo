@@ -61,12 +61,12 @@ class PokeBattle_Battle
     # Weather continues
     pbCommonAnimation(PBWeather.animationName(@field.weather))
     case @field.weather
-#    when PBWeather::Sun;         pbDisplay(_INTL("The sunlight is strong."))
-#    when PBWeather::Rain;        pbDisplay(_INTL("Rain continues to fall."))
-    when PBWeather::Sandstorm;   pbDisplay(_INTL("The sandstorm is raging."))
-    when PBWeather::Hail;        pbDisplay(_INTL("The hail is crashing down."))
-#    when PBWeather::HarshSun;    pbDisplay(_INTL("The sunlight is extremely harsh."))
-#    when PBWeather::HeavyRain;   pbDisplay(_INTL("It is raining heavily."))
+    when PBWeather::Sun;         pbDisplay(_INTL("The sunlight is\nstrong."))
+    when PBWeather::Rain;        pbDisplay(_INTL("Rain continues\nto fall."))
+    when PBWeather::Sandstorm;   pbDisplay(_INTL("The SANDSTORM\nrages."))
+    when PBWeather::Hail;        pbDisplay(_INTL("The hail is\ncrashing down."))
+    when PBWeather::HarshSun;    pbDisplay(_INTL("The sunlight is extremely\nharsh."))
+    when PBWeather::HeavyRain;   pbDisplay(_INTL("It is raining\nheavily."))
 #    when PBWeather::StrongWinds; pbDisplay(_INTL("The wind is strong."))
     when PBWeather::ShadowSky;   pbDisplay(_INTL("The shadow sky continues."));
     end
@@ -74,24 +74,23 @@ class PokeBattle_Battle
     curWeather = pbWeather
     priority.each do |b|
       # Weather-related abilities
-      if b.abilityActive?
-        next if !b.hasActiveAbility?(:ICEBODY)
-        BattleHandlers.triggerEORWeatherAbility(b.ability,curWeather,b,self)
-        b.pbFaint if b.fainted?
-      end
+	  if b.abilityActive?
+	    BattleHandlers.triggerEORWeatherAbility(b.ability,curWeather,b,self)
+		b.pbFaint if b.fainted?
+	  end
       # Weather damage
       # NOTE:
       case curWeather
       when PBWeather::Sandstorm
         next if !b.takesSandstormDamage?
-        pbDisplay(_INTL("{1} is buffeted by the sandstorm!",b.pbThis))
+        pbDisplay(_INTL("The SANDSTORM hits {1}!",b.pbThis))
         @scene.pbDamageAnimation(b)
         b.pbReduceHP(b.totalhp/16,false)
         b.pbItemHPHealCheck
         b.pbFaint if b.fainted?
       when PBWeather::Hail
         next if !b.takesHailDamage?
-        pbDisplay(_INTL("{1} is buffeted by the hail!",b.pbThis))
+        pbDisplay(_INTL("The hail hits\n{1}!",b.pbThis))
         @scene.pbDamageAnimation(b)
         b.pbReduceHP(b.totalhp/16,false)
         b.pbItemHPHealCheck
