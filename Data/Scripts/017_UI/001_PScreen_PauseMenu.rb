@@ -198,13 +198,9 @@ class PokemonPauseMenu
         end
       elsif cmdPokegear>=0 && command==cmdPokegear
         pbFadeOutIn {
-          #scene = PokemonPokegear_Scene.new
-          #screen = PokemonPokegearScreen.new(scene)
-          #screen.pbStartScreen
-          #@scene.pbRefresh
 		  scene = PokegearGS_Scene.new
-		   screen = PokegearGS_Screen.new(scene)
-		   screen.pbStartScreen
+		  screen = PokegearGS_Screen.new(scene)
+		  screen.pbStartScreen
           @scene.pbRefresh
         }
       elsif cmdTrainer>=0 && command==cmdTrainer

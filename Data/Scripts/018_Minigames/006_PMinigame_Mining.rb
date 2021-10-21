@@ -8,9 +8,9 @@ class MiningGameCounter < BitmapSprite
   attr_accessor :hits
 
   def initialize(x,y)
-    @viewport=Viewport.new(x,y,416,60)
+    @viewport=Viewport.new(x,y,256,32)
     @viewport.z=99999
-    super(416,60,@viewport)
+    super(256,32,@viewport)
     @hits=0
     @image=AnimatedBitmap.new(_INTL("Graphics/Pictures/Mining/cracks"))
     update
@@ -19,15 +19,15 @@ class MiningGameCounter < BitmapSprite
   def update
     self.bitmap.clear
     value=@hits
-    startx=416-48
+    startx=256-48
     while value>6
-      self.bitmap.blt(startx,0,@image.bitmap,Rect.new(0,0,48,52))
+      self.bitmap.blt(startx,0,@image.bitmap,Rect.new(0,0,48,32))
       startx-=48
       value-=6
     end
     startx-=48
     if value>0
-      self.bitmap.blt(startx,0,@image.bitmap,Rect.new(0,value*52,96,52))
+      self.bitmap.blt(startx,0,@image.bitmap,Rect.new(0,value*32,96,32))
     end
   end
 end
@@ -232,14 +232,14 @@ class MiningGameScene
     pbDistributeIron
     for i in 0...BOARDHEIGHT
       for j in 0...BOARDWIDTH
-        @sprites["tile#{j+i*BOARDWIDTH}"]=MiningGameTile.new(32*j,64+32*i)
+        @sprites["tile#{j+i*BOARDWIDTH}"]=MiningGameTile.new(16*j,32+16*i)
       end
     end
     @sprites["crack"]=MiningGameCounter.new(0,4)
-    @sprites["cursor"]=MiningGameCursor.new(58,0)   # central position, pick
-    @sprites["tool"]=IconSprite.new(434,254,@viewport)
+    @sprites["cursor"]=MiningGameCursor.new(0,0)   # central position, pick
+    @sprites["tool"]=IconSprite.new(268,160,@viewport)
     @sprites["tool"].setBitmap(sprintf("Graphics/Pictures/Mining/toolicons"))
-    @sprites["tool"].src_rect.set(0,0,68,100)
+    @sprites["tool"].src_rect.set(0,0,40,40)
     update
     pbFadeInAndShow(@sprites)
   end
@@ -512,7 +512,7 @@ class MiningGameScene
       Input.update
       next if @sprites["cursor"].isAnimating?
       # Check end conditions
-      if @sprites["crack"].hits>=49
+      if @sprites["crack"].hits>=31
         @sprites["cursor"].visible=false
         pbSEPlay("Mining collapse")
         collapseviewport=Viewport.new(0,0,Graphics.width,Graphics.height)
@@ -565,8 +565,8 @@ class MiningGameScene
         pbSEPlay("Mining tool change")
         newmode=(@sprites["cursor"].mode+1)%2
         @sprites["cursor"].mode=newmode
-        @sprites["tool"].src_rect.set(newmode*68,0,68,100)
-        @sprites["tool"].y=254-144*newmode
+        @sprites["tool"].src_rect.set(newmode*40,0,40,40)
+        @sprites["tool"].y=160-72*newmode
       elsif Input.trigger?(Input::C)   # Hit
         pbHit
       elsif Input.trigger?(Input::B)   # Quit

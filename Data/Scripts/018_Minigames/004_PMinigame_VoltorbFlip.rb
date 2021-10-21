@@ -75,7 +75,7 @@ class VoltorbFlip
     for i in 0...25
       x=i if i%5==0
       r=rand(squareValues.length)
-      @squares[i]=[(i-x).abs*64+128,(i/5).abs*64,squareValues[r],false]
+      @squares[i]=[(i-x).abs*34+82,(i/5).abs*34,squareValues[r],false]
       squareValues.delete_at(r)
     end
     pbCreateSprites
@@ -84,13 +84,13 @@ class VoltorbFlip
       pbUpdateRowNumbers(0,0,i)
       pbUpdateColumnNumbers(0,0,i)
     end
-    pbDrawShadowText(@sprites["text"].bitmap,8,16,118,26,
-       _INTL("Your coins"),Color.new(60,60,60),Color.new(150,190,170),1)
-    pbDrawShadowText(@sprites["text"].bitmap,8,82,118,26,
-       _INTL("Earned coins"),Color.new(60,60,60),Color.new(150,190,170),1)
+    pbDrawShadowText(@sprites["text"].bitmap,2,26,118,26,
+       _INTL("Coins:"),Color.new(0,0,0),Color.new(255,255,255,0),0)
+    pbDrawShadowText(@sprites["text"].bitmap,2,92,118,26,
+       _INTL("Won:"),Color.new(0,0,0),Color.new(255,255,255,0),0)
     # Draw current level
-    pbDrawShadowText(@sprites["level"].bitmap,8,150,118,28,
-       _INTL("Level {1}",@level.to_s),Color.new(60,60,60),Color.new(150,190,170),1)
+    pbDrawShadowText(@sprites["level"].bitmap,2,-2,118,28,
+       _INTL("Lv: {1}",@level.to_s),Color.new(0,0,0),Color.new(255,255,255,0),0)
     # Displays total and current coins
     pbUpdateCoins
     # Draw curtain effect
@@ -161,10 +161,8 @@ class VoltorbFlip
     @sprites["bg"].bitmap=BitmapCache.load_bitmap(@directory+"boardbg")
     @sprites["text"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     pbSetSystemFont(@sprites["text"].bitmap)
-    @sprites["text"].bitmap.font.size=26
     @sprites["level"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     pbSetSystemFont(@sprites["level"].bitmap)
-    @sprites["level"].bitmap.font.size=28
     @sprites["curtain"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["curtain"].z=99999
     @sprites["curtain"].bitmap.fill_rect(0,0,Graphics.width,Graphics.height,Color.new(0,0,0))
@@ -185,8 +183,8 @@ class VoltorbFlip
     @sprites["mark"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["memo"]=Sprite.new(@viewport)
     @sprites["memo"].bitmap=BitmapCache.load_bitmap(@directory+"memo")
-    @sprites["memo"].x=10
-    @sprites["memo"].y=244
+    @sprites["memo"].x=0
+    @sprites["memo"].y=171
     @sprites["memo"].visible=false
     @sprites["numbers"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["totalCoins"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
@@ -204,18 +202,18 @@ class VoltorbFlip
     for i in 0...3
       for j in 0...25
         points=@squares[j][2] if i==2
-        icons[j]=[@directory+"tiles",@squares[j][0],@squares[j][1],320+(i*64)+(points*64),0,64,64]
+        icons[j]=[@directory+"tiles",@squares[j][0],@squares[j][1],170+(i*34)+(points*34),0,34,34]
       end
       icons.compact!
       pbDrawImagePositions(@sprites[i].bitmap,icons)
     end
     icons=[]
     for i in 0...25
-      icons[i]=[@directory+"tiles",@squares[i][0],@squares[i][1],@squares[i][2]*64,0,64,64]
+      icons[i]=[@directory+"tiles",@squares[i][0],@squares[i][1],@squares[i][2]*34,0,34,34]
     end
     pbDrawImagePositions(@sprites[5].bitmap,icons)
     # Default cursor image
-    @cursor[0]=[@directory+"cursor",0+128,0,0,0,64,64]
+    @cursor[0]=[@directory+"cursor",82,6,0,0,34,34]
   end
 
   def getInput
@@ -223,16 +221,16 @@ class VoltorbFlip
       pbPlayCursorSE
       if @index[1]>0
         @index[1]-=1
-        @sprites["cursor"].y-=64
+        @sprites["cursor"].y-=48
       else
         @index[1]=4
-        @sprites["cursor"].y=256
+        @sprites["cursor"].y=192
       end
     elsif Input.trigger?(Input::DOWN)
       pbPlayCursorSE
       if @index[1]<4
         @index[1]+=1
-        @sprites["cursor"].y+=64
+        @sprites["cursor"].y+=48
       else
         @index[1]=0
         @sprites["cursor"].y=0
@@ -241,31 +239,31 @@ class VoltorbFlip
       pbPlayCursorSE
       if @index[0]>0
         @index[0]-=1
-        @sprites["cursor"].x-=64
+        @sprites["cursor"].x-=40
       else
         @index[0]=4
-        @sprites["cursor"].x=256
+        @sprites["cursor"].x=160
       end
     elsif Input.trigger?(Input::RIGHT)
       pbPlayCursorSE
       if @index[0]<4
         @index[0]+=1
-        @sprites["cursor"].x+=64
+        @sprites["cursor"].x+=40
       else
         @index[0]=0
         @sprites["cursor"].x=0
       end
     elsif Input.trigger?(Input::C)
-      if @cursor[0][3]==64   # If in mark mode
+      if @cursor[0][3]==34   # If in mark mode
         for i in 0...@squares.length
-          if @index[0]*64+128==@squares[i][0] && @index[1]*64==@squares[i][1] && @squares[i][3]==false
+          if @index[0]*34+82==@squares[i][0] && @index[1]*34==@squares[i][1] && @squares[i][3]==false
             pbSEPlay("Voltorb Flip mark")
           end
         end
         for i in 0...@marks.length+1
           if @marks[i]==nil
-            @marks[i]=[@directory+"tiles",@index[0]*64+128,@index[1]*64,256,0,64,64]
-          elsif @marks[i][1]==@index[0]*64+128 && @marks[i][2]==@index[1]*64
+            @marks[i]=[@directory+"tiles",@index[0]*34+82,@index[1]*34,136,0,34,34]
+          elsif @marks[i][1]==@index[0]*34+82 && @marks[i][2]==@index[1]*34
             @marks.delete_at(i)
             @marks.compact!
             @sprites["mark"].bitmap.clear
@@ -278,8 +276,8 @@ class VoltorbFlip
         # Display the tile for the selected spot
         icons=[]
         for i in 0...@squares.length
-          if @index[0]*64+128==@squares[i][0] && @index[1]*64==@squares[i][1] && @squares[i][3]==false
-            pbAnimateTile(@index[0]*64+128,@index[1]*64,@squares[i][2])
+          if @index[0]*34+82==@squares[i][0] && @index[1]*34==@squares[i][1] && @squares[i][3]==false
+            pbAnimateTile(@index[0]*34+82,@index[1]*34,@squares[i][2])
             @squares[i][3]=true
             # If Voltorb (0), display all tiles on the board
             if @squares[i][2]==0
@@ -288,7 +286,7 @@ class VoltorbFlip
               # Part1
               animation=[]
               for j in 0...3
-                animation[0]=icons[0]=[@directory+"tiles",@index[0]*64+128,@index[1]*64,704+(64*j),0,64,64]
+                animation[0]=icons[0]=[@directory+"tiles",@index[0]*34+82,@index[1]*34,374+(34*j),0,34,34]
                 pbDrawImagePositions(@sprites["animation"].bitmap,animation)
                 pbWait(Graphics.frame_rate/20)
                 @sprites["animation"].bitmap.clear
@@ -296,7 +294,7 @@ class VoltorbFlip
               # Part2
               animation=[]
               for j in 0...6
-                animation[0]=[@directory+"explosion",@index[0]*64-32+128,@index[1]*64-32,j*128,0,128,128]
+                animation[0]=[@directory+"explosion",@index[0]*34+82,@index[1]*34,j*64,0,64,64]
                 pbDrawImagePositions(@sprites["animation"].bitmap,animation)
                 pbWait(Graphics.frame_rate/10)
                 @sprites["animation"].bitmap.clear
@@ -320,7 +318,7 @@ class VoltorbFlip
               end
               # Update level text
               @sprites["level"].bitmap.clear
-              pbDrawShadowText(@sprites["level"].bitmap,8,150,118,28,"Level "+@level.to_s,Color.new(60,60,60),Color.new(150,190,170),1)
+              pbDrawShadowText(@sprites["level"].bitmap,2,-2,118,28,"Lv: "+@level.to_s,Color.new(0,0,0),Color.new(255,255,255,0),0)
               @points=0
               pbUpdateCoins
               # Revert numbers to 0s
@@ -336,7 +334,7 @@ class VoltorbFlip
               # Play tile animation
               animation=[]
               for j in 0...4
-                animation[0]=[@directory+"flipAnimation",@index[0]*64-14+128,@index[1]*64-16,j*92,0,92,96]
+                animation[0]=[@directory+"flipAnimation",@index[0]*34+82,@index[1]*34,j*46,0,46,48]
                 pbDrawImagePositions(@sprites["animation"].bitmap,animation)
                 pbWait(Graphics.frame_rate/20)
                 @sprites["animation"].bitmap.clear
@@ -369,7 +367,7 @@ class VoltorbFlip
         pbMessage(_INTL("\\se[Voltorb Flip gain coins]{1} received {2} Coins!",$Trainer.name,@points.to_s_formatted))
         # Update level text
         @sprites["level"].bitmap.clear
-        pbDrawShadowText(@sprites["level"].bitmap,8,150,118,28,_INTL("Level {1}",@level.to_s),Color.new(60,60,60),Color.new(150,190,170),1)
+        pbDrawShadowText(@sprites["level"].bitmap,2,-2,118,28,_INTL("Lv: {1}",@level.to_s),Color.new(0,0,0),Color.new(255,255,255,0),0)
         $PokemonGlobal.coins+=@points
         @points=0
         pbUpdateCoins
@@ -398,10 +396,10 @@ class VoltorbFlip
       pbPlayDecisionSE
       @sprites["cursor"].bitmap.clear
       if @cursor[0][3]==0 # If in normal mode
-        @cursor[0]=[@directory+"cursor",128,0,64,0,64,64]
+        @cursor[0]=[@directory+"cursor",68,0,34,0,34,34]
         @sprites["memo"].visible=true
       else # Mark mode
-        @cursor[0]=[@directory+"cursor",128,0,0,0,64,64]
+        @cursor[0]=[@directory+"cursor",68,0,0,0,34,34]
         @sprites["memo"].visible=false
       end
     elsif Input.trigger?(Input::B)
@@ -437,9 +435,9 @@ class VoltorbFlip
     numText+=num.to_s
     numImages=numText.split(//)[0...2]
     for j in 0...2
-      @numbers[j]=[@directory+"numbersSmall",472+j*16,i*64+8,numImages[j].to_i*16,0,16,16]
+      @numbers[j]=[@directory+"numbers",286+j*16,(i*48)+9,numImages[j].to_i*16,0,16,12]
     end
-    @voltorbNumbers[i]=[@directory+"numbersSmall",488,i*64+34,voltorbs*16,0,16,16]
+    @voltorbNumbers[i]=[@directory+"numbers",300,(i*48)+25,voltorbs*16,0,16,12]
     # Display the numbers
     pbDrawImagePositions(@sprites["numbers"].bitmap,@numbers)
     pbDrawImagePositions(@sprites["numbers"].bitmap,@voltorbNumbers)
@@ -455,9 +453,9 @@ class VoltorbFlip
     numText+=num.to_s
     numImages=numText.split(//)[0...2]
     for j in 0...2
-      @numbers[j]=[@directory+"numbersSmall",(i*64)+152+j*16,328,numImages[j].to_i*16,0,16,16]
+      @numbers[j]=[@directory+"numbers",(i*40)+84+j*16,249,numImages[j].to_i*16,0,16,12]
     end
-    @voltorbNumbers[i]=[@directory+"numbersSmall",(i*64)+168,354,voltorbs*16,0,16,16]
+    @voltorbNumbers[i]=[@directory+"numbers",(i*40)+98,265,voltorbs*16,0,16,12]
     # Display the numbers
     pbDrawImagePositions(@sprites["numbers"].bitmap,@numbers)
     pbDrawImagePositions(@sprites["numbers"].bitmap,@voltorbNumbers)
@@ -472,7 +470,7 @@ class VoltorbFlip
     coinText+=source.to_s
     coinImages=coinText.split(//)[0...5]
     for i in 0...5
-      @coins[i]=[@directory+"numbersScore",6+i*24,y,coinImages[i].to_i*24,0,24,38]
+      @coins[i]=[@directory+"numbers",1+i*16,y+14,coinImages[i].to_i*16,0,16,12]
     end
   end
 
@@ -492,11 +490,11 @@ class VoltorbFlip
     points=0
     for i in 0...3
       points=tile if i==2
-      icons[i]=[@directory+"tiles",x,y,320+(i*64)+(points*64),0,64,64]
+      icons[i]=[@directory+"tiles",x,y,170+(i*34)+(points*34),0,34,34]
       pbDrawImagePositions(@sprites["icon"].bitmap,icons)
       pbWait(Graphics.frame_rate/20)
     end
-    icons[3]=[@directory+"tiles",x,y,tile*64,0,64,64]
+    icons[3]=[@directory+"tiles",x,y,tile*34,0,34,34]
     pbDrawImagePositions(@sprites["icon"].bitmap,icons)
     pbSEPlay("Voltorb Flip tile")
   end
@@ -527,22 +525,22 @@ class VoltorbFlip
       icons=[]
       pbSEPlay("Voltorb Flip tile")
       for j in 0...5
-        icons[j]=[@directory+"tiles",@squares[i+(j*5)][0],@squares[i+(j*5)][1],448+(@squares[i+(j*5)][2]*64),0,64,64]
+        icons[j]=[@directory+"tiles",@squares[i+(j*5)][0],@squares[i+(j*5)][1],238+(@squares[i+(j*5)][2]*34),0,34,34]
       end
       pbDrawImagePositions(@sprites[i].bitmap,icons)
       pbWait(Graphics.frame_rate/20)
       for j in 0...5
-        icons[j]=[@directory+"tiles",@squares[i+(j*5)][0],@squares[i+(j*5)][1],384,0,64,64]
+        icons[j]=[@directory+"tiles",@squares[i+(j*5)][0],@squares[i+(j*5)][1],204,0,34,34]
       end
       pbDrawImagePositions(@sprites[i].bitmap,icons)
       pbWait(Graphics.frame_rate/20)
       for j in 0...5
-        icons[j]=[@directory+"tiles",@squares[i+(j*5)][0],@squares[i+(j*5)][1],320,0,64,64]
+        icons[j]=[@directory+"tiles",@squares[i+(j*5)][0],@squares[i+(j*5)][1],170,0,34,34]
       end
       pbDrawImagePositions(@sprites[i].bitmap,icons)
       pbWait(Graphics.frame_rate/20)
       for j in 0...5
-        icons[j]=[@directory+"tiles",@squares[i+(j*5)][0],@squares[i+(j*5)][1],896,0,64,64]
+        icons[j]=[@directory+"tiles",@squares[i+(j*5)][0],@squares[i+(j*5)][1],476,0,34,34]
       end
       pbDrawImagePositions(@sprites[i].bitmap,icons)
       pbWait(Graphics.frame_rate/20)

@@ -71,7 +71,6 @@ class TrainerCard
       end
       if Input.trigger?(Input::C) || Input.trigger?(Input::RIGHT)
         pbSEPlay("GUI sel decision")
-        #pbFadeOutAndHide(sprites){pbUpdateSpriteHash(sprites)}
         pbDisposeSpriteHash(sprites)
         viewport.dispose if viewport
         cardBack
@@ -225,7 +224,6 @@ class TrainerCard
       pbDrawTextPositions(overlay,textos)
       if Input.trigger?(Input::B)
         pbSEPlay("GUI menu close")
-        #pbFadeOutAndHide(sprites){pbUpdateSpriteHash(sprites)}
         pbDisposeSpriteHash(sprites)
         viewport.dispose if viewport
         cardFront
@@ -233,7 +231,6 @@ class TrainerCard
       end
       if Input.trigger?(Input::C) || Input.trigger?(Input::LEFT)
         pbSEPlay("GUI sel decision")
-        #pbFadeOutAndHide(sprites){pbUpdateSpriteHash(sprites)}
         pbDisposeSpriteHash(sprites)
         viewport.dispose if viewport
         cardFront

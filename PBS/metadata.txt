@@ -27,7 +27,7 @@ ShowArea = true
 # \PN'S HOUSE
 BattleBack = general
 MapPosition = 0,20,12
-HealingSpot = 2,8,8
+HealingSpot = 2,15,8
 #-------------------------------
 [004]
 # \PN'S ROOM
