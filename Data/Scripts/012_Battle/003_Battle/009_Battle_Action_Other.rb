@@ -187,6 +187,6 @@ class PokeBattle_Battle
     elsif battler.isSpecies?(:GROUDON)
       pbCommonAnimation("PrimalGroudon2",battler)
     end
-    pbDisplay(_INTL("{1}'s Primal Reversion!\nIt reverted to its primal form!",battler.pbThis))
+    pbDisplay(_INTL("{1}'s Primal Reversion!\nIt reverted to its\nprimal form!",battler.pbThis))
   end
 end

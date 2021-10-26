@@ -260,17 +260,24 @@ class PokemonDataBox < SpriteWrapper
     end
     # Draw Mega Evolution/Primal Reversion icon
     if @battler.mega?
-	  if @battler.shiny?
-	    imagePos.push(["Graphics/Pictures/Battle/icon_mega",@spriteBaseX+18,16])
-	  else
+      if @battler.shiny?
+        imagePos.push(["Graphics/Pictures/Battle/icon_mega",@spriteBaseX+18,16])
+      else
         imagePos.push(["Graphics/Pictures/Battle/icon_mega",@spriteBaseX+0,16])
-	  end
+      end
     elsif @battler.primal?
-      primalX = (@battler.opposes?) ? 208 : -28   # Foe's/player's
-      if @battler.isSpecies?(:KYOGRE)
-        imagePos.push(["Graphics/Pictures/Battle/icon_primal_Kyogre",@spriteBaseX+primalX,4])
-      elsif @battler.isSpecies?(:GROUDON)
-        imagePos.push(["Graphics/Pictures/Battle/icon_primal_Groudon",@spriteBaseX+primalX,4])
+      if @battler.shiny?
+        if @battler.isSpecies?(:KYOGRE)
+          imagePos.push(["Graphics/Pictures/Battle/icon_primal_Kyogre",@spriteBaseX+18,16])
+        elsif @battler.isSpecies?(:GROUDON)
+          imagePos.push(["Graphics/Pictures/Battle/icon_primal_Groudon",@spriteBaseX+18,16])
+        end
+      else
+        if @battler.isSpecies?(:KYOGRE)
+          imagePos.push(["Graphics/Pictures/Battle/icon_primal_Kyogre",@spriteBaseX+0,16])
+        elsif @battler.isSpecies?(:GROUDON)
+          imagePos.push(["Graphics/Pictures/Battle/icon_primal_Groudon",@spriteBaseX+0,16])
+        end
       end
     end
     # Draw owned icon (foe Pokémon only)

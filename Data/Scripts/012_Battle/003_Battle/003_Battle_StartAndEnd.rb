@@ -280,7 +280,7 @@ class PokeBattle_Battle
     when PBWeather::Rain;        pbDisplay(_INTL("It is\nraining."))
     when PBWeather::Sandstorm;   pbDisplay(_INTL("A SANDSTORM\nrages."))
     when PBWeather::Hail;        pbDisplay(_INTL("Hail is\nfalling."))
-    when PBWeather::HarshSun;    pbDisplay(_INTL("The sunlight is extremely\nharsh."))
+    when PBWeather::HarshSun;    pbDisplay(_INTL("The sunlight is\nextremely harsh."))
     when PBWeather::HeavyRain;   pbDisplay(_INTL("It is raining\nheavily."))
     when PBWeather::StrongWinds; pbDisplay(_INTL("The wind is strong."))
     when PBWeather::ShadowSky;   pbDisplay(_INTL("The sky is shadowy."))

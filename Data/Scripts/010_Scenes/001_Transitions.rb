@@ -85,6 +85,11 @@ module Graphics
     when "wavythreeballup";  @@transition = WavyThreeBallUp.new(duration)
     when "wavyspinball";     @@transition = WavySpinBall.new(duration)
     when "fourballburst";    @@transition = FourBallBurst.new(duration)
+    # GSC transitions
+    when "circle";           @@transition = Circle.new(duration)
+    when "fading";           @@transition = Fading.new(duration)
+    when "boxout";           @@transition = BoxOut.new(duration)
+    when "distortion";       @@transition = Distortion.new(duration)
     # Graphic transitions
     when "";                 @@transition = FadeTransition.new(duration)
     else; ret=false
@@ -1609,6 +1614,319 @@ class FourBallBurst
         @blacksprites[i].visible = true
         @blacksprites[i].zoom_x += (i%2==0) ? @addzoom : 0
         @blacksprites[i].zoom_y += (i%2==0) ? 0 : @addzoom
+      end
+    end
+    @duration -= 1
+  end
+end
+
+
+
+#===============================================================================
+# GSC wild battle - circle transition
+#===============================================================================
+class Circle
+  def initialize(numframes)
+    @numframes = numframes
+    @duration = numframes
+    @disposed = false
+    @bitmap = BitmapCache.load_bitmap("Graphics/Transitions/encounterWild")
+    if !@bitmap
+      @disposed = true
+      return
+    end
+    width  = @bitmap.width
+    height = @bitmap.height
+    cx = width/Graphics.width     # 28
+    cy = height/Graphics.height   # 01
+    @numtiles = cx*cy
+    @viewport = Viewport.new(0,0,Graphics.width,Graphics.height)
+    @viewport.z = 99999
+    @sprites = []
+    @frame = []
+    @addzoom = 1
+    for i in 0...@numtiles
+      @sprites[i] = Sprite.new(@viewport)
+      @sprites[i].ox = i*Graphics.width
+      @sprites[i].visible = false
+      @sprites[i].bitmap = @bitmap
+      @frame[i] = i
+    end
+  end
+
+  def disposed?; @disposed; end
+
+  def dispose
+    if !disposed?
+      @bitmap.dispose
+      for i in 0...@numtiles
+        if @sprites[i]
+          @sprites[i].visible = false
+          @sprites[i].dispose
+        end
+      end
+      @sprites.clear
+      @viewport.dispose if @viewport
+      @disposed = true
+    end
+  end
+
+  def update
+    return if disposed?
+    if @duration==0
+      dispose
+    else
+      if @duration > @frame.length
+        @duration = @frame.length
+      end
+      count = @frame.length-@duration
+      for i in 0...@frame.length
+        if @frame[i]==count
+          @sprites[i].visible = true
+        end
+      end
+    end
+    @duration -= 1
+  end
+end
+
+
+
+#===============================================================================
+# GSC wild battle - fading transition
+#===============================================================================
+class Fading
+  def initialize(numframes)
+    @numframes = numframes
+    @duration = numframes
+    @disposed = false
+    @bitmap = BitmapCache.load_bitmap("Graphics/Transitions/blacksquare")
+    if !@bitmap
+      @disposed = true
+      return
+    end
+    width  = @bitmap.width
+    height = @bitmap.height
+    cx = Graphics.width/width     # 20
+    cy = Graphics.height/height   # 18
+    @numtiles = cx*cy
+    @viewport = Viewport.new(0,0,Graphics.width,Graphics.height)
+    @viewport.z = 99999
+    @sprites = []
+    @frame = []
+    @addzoom = 1
+    for i in 0...@numtiles
+      @sprites[i] = Sprite.new(@viewport)
+      @sprites[i].x = width*(i%cx)
+      @sprites[i].y = height*(i/cx)
+      @sprites[i].visible = false
+      @sprites[i].bitmap = @bitmap
+      # File.open("test.txt","ab") {
+      #   |f| f.write("num: "+i.to_s)
+      #   f.write(", x: "+@sprites[i].x.to_s)
+      #   f.write(", y: "+@sprites[i].y.to_s)
+      #   f.write("\n")
+      # }
+    end
+    for n in 0...30
+      @frame[n] = n
+    end
+  end
+
+  def disposed?; @disposed; end
+
+  def dispose
+    if !disposed?
+      @bitmap.dispose
+      for i in 0...@numtiles
+        if @sprites[i]
+          @sprites[i].visible = false
+          @sprites[i].dispose
+        end
+      end
+      @sprites.clear
+      @viewport.dispose if @viewport
+      @disposed = true
+    end
+  end
+
+  def update
+    return if disposed?
+    if @duration==0
+      dispose
+    else
+      if @duration > @frame.length
+        @duration = @frame.length
+      end
+      count = @frame.length-@duration
+      for i in 0...@frame.length
+        if @frame[i]==count
+          for j in 0...@numtiles/@frame.length
+            randX = rand(20)
+            randY = rand(18)
+            num = 20*randY+randX
+            while @sprites[num].visible == true
+              randX = rand(20)
+              randY = rand(18)
+              num = 20*randY+randX
+            end
+            # File.open("test.txt","ab") {
+            #   |f| f.write(num.to_s+" ")
+            # }
+            @sprites[num].visible = true
+          end
+        end
+        # File.open("test.txt","ab") {
+        #   |f| f.write("\n")
+        # }
+      end
+    end
+    @duration -= 1
+  end
+end
+
+
+
+#===============================================================================
+# GSC wild battle - boxout transition
+#===============================================================================
+class BoxOut
+  def initialize(numframes)
+    @numframes = numframes
+    @duration = numframes
+    @disposed = false
+    @bitmap = BitmapCache.load_bitmap("Graphics/Transitions/blacksquare")
+    if !@bitmap
+      @disposed = true
+      return
+    end
+    width  = @bitmap.width
+    height = @bitmap.height
+    cx = Graphics.width/width     # 20
+    cy = Graphics.height/height   # 18
+    @numtiles = cx*cy
+    @viewport = Viewport.new(0,0,Graphics.width,Graphics.height)
+    @viewport.z = 99999
+    @sprites = []
+    @frame = []
+    for n in 0...30
+      @frame[n] = n
+      @sprites[n] = Sprite.new(@viewport)
+      @sprites[n].x = Graphics.width/2 - width/2
+      @sprites[n].y = Graphics.height/2 - height/2
+      @sprites[n].visible = false
+      @sprites[n].bitmap = @bitmap
+    end
+  end
+
+  def disposed?; @disposed; end
+
+  def dispose
+    if !disposed?
+      @bitmap.dispose
+      for i in 0...@numtiles
+        if @sprites[i]
+          @sprites[i].visible = false
+          @sprites[i].dispose
+        end
+      end
+      @sprites.clear
+      @viewport.dispose if @viewport
+      @disposed = true
+    end
+  end
+
+  def update
+    return if disposed?
+    if @duration==0
+      dispose
+    else
+      if @duration > @frame.length
+        @duration = @frame.length
+      end
+      count = @frame.length-@duration
+      for i in 0...@frame.length
+        zoomFactor = 2.0/3.0*(i+2)
+        if @frame[i]==count
+          @sprites[i].zoom_x = zoomFactor
+          @sprites[i].zoom_y = zoomFactor * 0.9
+          width2 = @bitmap.width * @sprites[i].zoom_x
+          height2 = @bitmap.height * @sprites[i].zoom_y
+          @sprites[i].x = Graphics.width/2 - width2/2
+          @sprites[i].y = Graphics.height/2 - height2/2
+          @sprites[i].visible = true
+        end
+      end
+    end
+    @duration -= 1
+  end
+end
+
+
+
+#===============================================================================
+# GSC wild battle - distortion transition
+#===============================================================================
+class Distortion
+  def initialize(numframes)
+    @numframes = numframes
+    @duration = numframes
+    @disposed = false
+    @bitmap = BitmapCache.load_bitmap("Graphics/Transitions/distortion")
+    if !@bitmap
+      @disposed = true
+      return
+    end
+    width  = @bitmap.width
+    height = @bitmap.height
+    cx = width/Graphics.width     # 05
+    cy = height/Graphics.height   # 01
+    @numtiles = cx*cy
+    @viewport = Viewport.new(0,0,Graphics.width,Graphics.height)
+    @viewport.z = 99999
+    @sprites = []
+    @frame = []
+    @addzoom = 1
+    for n in 0...30
+      @sprites[n] = Sprite.new(@viewport)
+      # 30 frames but only 5 sprites so show each sprite for 6 frames
+      @sprites[n].ox = (n/6)*Graphics.width
+      @sprites[n].visible = false
+      @sprites[n].bitmap = @bitmap
+      @frame[n] = n
+    end
+  end
+
+  def disposed?; @disposed; end
+
+  def dispose
+    if !disposed?
+      @bitmap.dispose
+      for i in 0...@numtiles
+        if @sprites[i]
+          @sprites[i].visible = false
+          @sprites[i].dispose
+        end
+      end
+      @sprites.clear
+      @viewport.dispose if @viewport
+      @disposed = true
+    end
+  end
+
+  def update
+    return if disposed?
+    if @duration==0
+      dispose
+    else
+      if @duration > @frame.length
+        @duration = @frame.length
+      end
+      count = @frame.length-@duration
+      for i in 0...@frame.length
+        if @frame[i]==count
+          @sprites[i].visible = true
+        end
       end
     end
     @duration -= 1

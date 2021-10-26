@@ -34,7 +34,7 @@ def pbBattleAnimation(bgm=nil,battletype=0,foe=nil)
   # Play battle music
   bgm = pbGetWildBattleBGM([0]) if !bgm
   pbBGMPlay(bgm)
-  # Take screenshot of game, for use in some animations
+  # Take @screencap of game, for use in some animations
   $game_temp.background_bitmap.dispose if $game_temp.background_bitmap
   $game_temp.background_bitmap = Graphics.snap_to_bitmap
   # Check for custom battle intro animations
@@ -56,47 +56,137 @@ def pbBattleAnimation(bgm=nil,battletype=0,foe=nil)
       location = 1
     end
     anim = ""
-    if PBDayNight.isDay?
-      case battletype
-      when 0, 2   # Wild, double wild
-        anim = ["SnakeSquares","DiagonalBubbleTL","DiagonalBubbleBR","RisingSplash"][location]
-      when 1      # Trainer
-        anim = ["TwoBallPass","ThreeBallDown","BallDown","WavyThreeBallUp"][location]
-      when 3      # Double trainer
-        anim = "FourBallBurst"
+
+    # GSC Battle Transition Conditions
+    anim = "Circle" # just a failsafe
+    case battletype
+    when 0, 2   # Wild, double wild
+      if $Trainer.firstAblePokemon.level+3 < foe[0].level
+        # BoxOut for dungeon maps, Fading otherwise
+        anim = (location == 2 ? "BoxOut" : "Fading")
+      else 
+        # Distortion for dungeon maps, Circle otherwise
+        anim = (location == 2 ? "Distortion" : "Circle")
       end
-    else
-      case battletype
-      when 0, 2   # Wild, double wild
-        anim = ["SnakeSquares","DiagonalBubbleBR","DiagonalBubbleBR","RisingSplash"][location]
-      when 1      # Trainer
-        anim = ["SpinBallSplit","BallDown","BallDown","WavySpinBall"][location]
-      when 3      # Double trainer
-        anim = "FourBallBurst"
-      end
+    when 1, 3   # Trainer, Double Trainer
+      anim = "Circle"
     end
+
     # Initial screen flashing
-    if location==2 || PBDayNight.isNight?
-      viewport.color = Color.new(0,0,0)         # Fade to black a few times
-    else
-      viewport.color = Color.new(255,255,255)   # Fade to white a few times
+    # if battletype==0 || battletype==2 # GSC Flashing - Wild Battle
+    if battletype==1 || battletype ==3 # GSC Trainer Battle's Pokeball Graphic
+      @sprites = []
+      @sprites[0] = Sprite.new(viewport)
+      @sprites[0].bitmap = BitmapCache.load_bitmap("Graphics/Transitions/pokeball")
+      @sprites[0].x = Graphics.width/2 - @sprites[0].bitmap.width/2
+      @sprites[0].y = Graphics.height/2 - @sprites[0].bitmap.height/2
+      @sprites[0].z = 1
+      @sprites[0].visible = true
     end
-    halfFlashTime = Graphics.frame_rate*2/10   # 0.2 seconds, 8 frames
-    alphaDiff = (255.0/halfFlashTime).ceil
-    2.times do
-      viewport.color.alpha = 0
-      for i in 0...halfFlashTime*2
-        if i<halfFlashTime; viewport.color.alpha += alphaDiff
-        else;               viewport.color.alpha -= alphaDiff
-        end
-        Graphics.update
-        pbUpdateSceneMap
+      if location==2 || PBDayNight.isNight?
+        viewport.color = Color.new(0,0,0)         # Fade to black a few times
+      else
+        viewport.color = Color.new(255,255,255)   # Fade to white a few times
       end
-    end
+      halfFlashTime = Graphics.frame_rate/4        # 0.25 seconds, 10 frames
+      alphaDiff = (255.0/halfFlashTime).ceil
+      3.times do
+        viewport.color.alpha = 0
+        for i in 0...halfFlashTime*2
+          if i<halfFlashTime; viewport.color.alpha += alphaDiff
+          else;               viewport.color.alpha -= alphaDiff
+          end
+          Graphics.update
+          pbUpdateSceneMap
+        end
+      end
+    # elsif battletype==1 || battletype==3 # GSC Flashing - Trainer Battle
+    #   if location==2 # In dungeons (caves)
+    #   else # Everywhere else
+    #     colors = [[255,229,251], [255,174,184], [255,114,87], [94,94,94]]
+    #   end
+    #   @screencap = Graphics.snap_to_bitmap
+    #   screenshots = []
+    #   for a in 0...13
+    #     screenshots[a] = nil
+    #   end
+    #   @sprites[1] = Sprite.new(viewport)
+    #   @sprites[1].bitmap = @screencap
+    #   @sprites[1].x = 0
+    #   @sprites[1].y = 0
+    #   @sprites[1].z = 2
+    #   @sprites[1].visible = false
+    #   halfFlashTime = 13 # 13 frames, repeated 3 times
+    #   3.times do
+    #     for i in 0...halfFlashTime
+    #       @sprites[1].bitmap = @screencap
+    #       if [0,6,12].include?(i)
+    #         if screenshots[i] == nil
+    #           screenshots[i] = replacePaletteBitmap(@screencap, colors)
+    #           if i==0
+    #             screenshots[6] = screenshots[i]
+    #             screenshots[12] = screenshots[i]
+    #           end
+    #         end
+    #       elsif [1,5].include?(i)
+    #         if screenshots[i] == nil
+    #           screenshots[i] = replacePaletteBitmap(@screencap, [colors[1], colors[2], colors[3], colors[3]])
+    #           if i==1
+    #             screenshots[5] = screenshots[i]
+    #           end
+    #         end
+    #       elsif [2,4].include?(i)
+    #         if screenshots[i] == nil
+    #           screenshots[i] = replacePaletteBitmap(@screencap, [colors[2], colors[3], colors[3], colors[3]])
+    #           if i==2
+    #             screenshots[4] = screenshots[i]
+    #           end
+    #         end
+    #       elsif [3].include?(i)
+    #         # @sprites[1].bitmap.fill_rect(0,0,@sprites[1].bitmap.width,@sprites[1].bitmap.height,Color.new(91,91,91))
+    #         # print("hi! this is frame 3")
+    #         if screenshots[i] == nil
+    #           screenshots[i] = replacePaletteBitmap(@screencap, [colors[3], colors[3], colors[3], colors[3]])
+    #         end
+    #       elsif [7,11].include?(i)
+    #         if screenshots[i] == nil
+    #           screenshots[i] = replacePaletteBitmap(@screencap, [colors[0], colors[0], colors[1], colors[2]])
+    #           if i==7
+    #             screenshots[11] = screenshots[i]
+    #           end
+    #         end
+    #       elsif [8,10].include?(i)
+    #         if screenshots[i] == nil
+    #           screenshots[i] = replacePaletteBitmap(@screencap, [colors[0], colors[0], colors[0], colors[1]])
+    #           if i==8
+    #             screenshots[10] = screenshots[i]
+    #           end
+    #         end
+    #       elsif [9].include?(i)
+    #         # print("hi! this is frame 9")
+    #         if screenshots[i] == nil
+    #           screenshots[i] = replacePaletteBitmap(@screencap, [colors[0], colors[0], colors[0], colors[0]])
+    #         end
+    #       end
+    #       @sprites[1].bitmap = screenshots[i]
+    #       @sprites[1].visible = true
+    #       Graphics.update
+    #       pbUpdateSceneMap
+    #     end
+    #   end
+    # end
+
     # Play main animation
     Graphics.freeze
     Graphics.transition(Graphics.frame_rate*1.25,sprintf("Graphics/Transitions/%s",anim))
     viewport.color = Color.new(0,0,0,255)   # Ensure screen is black
+    if @sprites && @sprites.length>0
+      for i in 0...@sprites.length
+        @sprites[i].bitmap.dispose
+        @sprites[i].visible = false
+      end
+      @sprites = []
+    end
     # Slight pause after animation before starting up the battle scene
     (Graphics.frame_rate/10).times do
       Graphics.update
@@ -726,4 +816,93 @@ def pbScrollMap(direction,distance,speed)
       oldy = $game_map.display_y
     end
   end
+end
+
+
+# Helper Classes
+def setNewPaletteBitmap(bitmap, usePalette)
+  usePalette = usePalette.reverse
+  palette = Hash.new
+  for x in 0...bitmap.width
+    for y in 0...bitmap.height
+      pixel = bitmap.get_pixel(x,y)
+      color = [pixel.red, pixel.green, pixel.blue]
+      next if palette.has_key?(color)
+      darkIndex = ((pixel.red + pixel.green + pixel.blue) / 3) / 64
+      palette[color] = usePalette[darkIndex]
+    end
+  end
+  for x in 0...bitmap.width
+    for y in 0...bitmap.height
+      pixel = bitmap.get_pixel(x,y)
+      color = [pixel.red, pixel.green, pixel.blue]
+      newColor = palette[color]
+      pixel.red = newColor[0]
+      pixel.green = newColor[1]
+      pixel.blue = newColor[2]
+      bitmap.set_pixel(x,y,pixel)
+    end
+  end
+  return bitmap
+end
+
+def getPalette(bitmap)
+  palette = []
+  for x in 0...bitmap.width
+    for y in 0...bitmap.height
+      pixel = bitmap.get_pixel(x,y)
+      color = [pixel.red, pixel.green, pixel.blue]
+      next if palette.include?(color)
+      palette.push(color)
+    end
+  end
+  return palette
+end
+
+def replacePalette
+end
+
+def setPalette(bitmap, oldPalette, newPalette)
+  for x in 0...bitmap.width
+    for y in 0...bitmap.height
+      pixel = bitmap.get_pixel(x,y)
+      color = [pixel.red, pixel.green, pixel.blue]
+      next if !oldPalette.include?(color)
+      darkIndex = ((pixel.red + pixel.green + pixel.blue) / 3) / 64
+      newColor = newPalette[darkIndex]
+      pixel.red = newColor[0]
+      pixel.green = newColor[1]
+      pixel.blue = newColor[2]
+      bitmap.set_pixel(x,y,pixel)
+    end
+  end
+end
+
+def replaceColorsBitmap(bitmap, color, newColor, usePalette, oldPalette=nil)
+  oldPalette = getPalette(bitmap) if oldPalette==nil
+  return bitmap if !oldPalette.include?(color)
+  for x in 0...bitmap.width
+    for y in 0...bitmap.height
+      pixel = bitmap.get_pixel(x,y)
+      next if [pixel.red, pixel.green, pixel.blue] != color
+      next if usePalette.include?(color)
+      pixel.red = newColor[0]
+      pixel.green = newColor[1]
+      pixel.blue = newColor[2]
+      bitmap.set_pixel(x,y,pixel)
+    end
+  end
+  return bitmap
+end
+
+def replacePaletteBitmap(bitmap, usePalette)
+  usePalette = usePalette.reverse
+  oldPalette = getPalette(bitmap)
+  for i in 0...oldPalette.length
+    color = oldPalette[i]
+    darkIndex = ((color[0] + color[1] + color[2]) / 3) / 64
+    newColor = usePalette[darkIndex]
+    bitmap = replaceColorsBitmap(bitmap, color, newColor, usePalette, oldPalette)
+  end
+  return bitmap
 end

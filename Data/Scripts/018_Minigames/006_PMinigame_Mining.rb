@@ -8,9 +8,9 @@ class MiningGameCounter < BitmapSprite
   attr_accessor :hits
 
   def initialize(x,y)
-    @viewport=Viewport.new(x,y,256,32)
+    @viewport=Viewport.new(x,y,320,32)
     @viewport.z=99999
-    super(256,32,@viewport)
+    super(320,32,@viewport)
     @hits=0
     @image=AnimatedBitmap.new(_INTL("Graphics/Pictures/Mining/cracks"))
     update
@@ -19,7 +19,7 @@ class MiningGameCounter < BitmapSprite
   def update
     self.bitmap.clear
     value=@hits
-    startx=256-48
+    startx=320-48
     while value>6
       self.bitmap.blt(startx,0,@image.bitmap,Rect.new(0,0,48,32))
       startx-=48
@@ -38,9 +38,9 @@ class MiningGameTile < BitmapSprite
   attr_reader :layer
 
   def initialize(x,y)
-    @viewport=Viewport.new(x,y,32,32)
+    @viewport=Viewport.new(x,y,16,16)
     @viewport.z=99999
-    super(32,32,@viewport)
+    super(16,16,@viewport)
     r = rand(100)
     if r<10;    @layer = 2   # 10%
     elsif r<25; @layer = 3   # 15%
@@ -60,7 +60,7 @@ class MiningGameTile < BitmapSprite
   def update
     self.bitmap.clear
     if @layer>0
-      self.bitmap.blt(0,0,@image.bitmap,Rect.new(0,32*(@layer-1),32,32))
+      self.bitmap.blt(0,0,@image.bitmap,Rect.new(0,16*(@layer-1),16,16))
     end
   end
 end
@@ -100,8 +100,8 @@ class MiningGameCursor < BitmapSprite
 
   def update
     self.bitmap.clear
-    x = 32*(@position%MiningGameScene::BOARDWIDTH)
-    y = 32*(@position/MiningGameScene::BOARDWIDTH)
+    x = 16*(@position%MiningGameScene::BOARDWIDTH)
+    y = 16*(@position/MiningGameScene::BOARDWIDTH)
     if @counter>0
       @counter -= 1
       toolx = x; tooly = y
@@ -112,19 +112,19 @@ class MiningGameCursor < BitmapSprite
         toolx += 6
       end
       self.bitmap.blt(toolx,tooly,@toolbitmap.bitmap,
-                      Rect.new(96*ToolPositions[i][0],96*@mode,96,96))
+                      Rect.new(48*ToolPositions[i][0],48*@mode,48,48))
       if i<5 && i%2==0
         if @hit==2
-          self.bitmap.blt(x-64,y,@hitsbitmap.bitmap,Rect.new(160*2,0,160,160))
+          self.bitmap.blt(x-32,y,@hitsbitmap.bitmap,Rect.new(80*2,0,80,80))
         else
-          self.bitmap.blt(x-64,y,@hitsbitmap.bitmap,Rect.new(160*@mode,0,160,160))
+          self.bitmap.blt(x-32,y,@hitsbitmap.bitmap,Rect.new(80*@mode,0,80,80))
         end
       end
       if @hit==1 && i<3
-        self.bitmap.blt(x-64,y,@hitsbitmap.bitmap,Rect.new(160*i,160,160,160))
+        self.bitmap.blt(x-32,y,@hitsbitmap.bitmap,Rect.new(80*i,80,80,80))
       end
     else
-      self.bitmap.blt(x,y+64,@cursorbitmap.bitmap,Rect.new(32*@mode,0,32,32))
+      self.bitmap.blt(x,y+32,@cursorbitmap.bitmap,Rect.new(16*@mode,0,16,16))
     end
   end
 end
@@ -132,70 +132,66 @@ end
 
 
 class MiningGameScene
-  BOARDWIDTH  = 13
-  BOARDHEIGHT = 10
+  BOARDWIDTH  = 16
+  BOARDHEIGHT = 16
   ITEMS = [   # Item, probability, graphic x, graphic y, width, height, pattern
-     [:DOMEFOSSIL,20, 0,3, 5,4,[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0]],
-     [:HELIXFOSSIL,5, 5,3, 4,4,[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0]],
-     [:HELIXFOSSIL,5, 9,3, 4,4,[1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1]],
-     [:HELIXFOSSIL,5, 13,3, 4,4,[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0]],
-     [:HELIXFOSSIL,5, 17,3, 4,4,[1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1]],
-     [:OLDAMBER,10, 21,3, 4,4,[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0]],
-     [:OLDAMBER,10, 25,3, 4,4,[1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1]],
-     [:ROOTFOSSIL,5, 0,7, 5,5,[1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,0,0,0,1,1,0,0,1,1,0]],
-     [:ROOTFOSSIL,5, 5,7, 5,5,[0,0,1,1,1,0,0,1,1,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,0]],
-     [:ROOTFOSSIL,5, 10,7, 5,5,[0,1,1,0,0,1,1,0,0,0,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1]],
-     [:ROOTFOSSIL,5, 15,7, 5,5,[0,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,0,0,1,1,1,0,0]],
-     [:SKULLFOSSIL,20, 20,7, 4,4,[1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0]],
-     [:ARMORFOSSIL,20, 24,7, 5,4,[0,1,1,1,0,0,1,1,1,0,1,1,1,1,1,0,1,1,1,0]],
-     [:CLAWFOSSIL,5, 0,12, 4,5,[0,0,1,1,0,1,1,1,0,1,1,1,1,1,1,0,1,1,0,0]],
-     [:CLAWFOSSIL,5, 4,12, 5,4,[1,1,0,0,0,1,1,1,1,0,0,1,1,1,1,0,0,1,1,1]],
-     [:CLAWFOSSIL,5, 9,12, 4,5,[0,0,1,1,0,1,1,1,1,1,1,0,1,1,1,0,1,1,0,0]],
-     [:CLAWFOSSIL,5, 13,12, 5,4,[1,1,1,0,0,1,1,1,1,0,0,1,1,1,1,0,0,0,1,1]],
-     [:FIRESTONE,20, 20,11, 3,3,[1,1,1,1,1,1,1,1,1]],
-     [:WATERSTONE,20, 23,11, 3,3,[1,1,1,1,1,1,1,1,0]],
-     [:THUNDERSTONE,20, 26,11, 3,3,[0,1,1,1,1,1,1,1,0]],
-     [:LEAFSTONE,10, 18,14, 3,4,[0,1,0,1,1,1,1,1,1,0,1,0]],
-     [:LEAFSTONE,10, 21,14, 4,3,[0,1,1,0,1,1,1,1,0,1,1,0]],
-     [:MOONSTONE,10, 25,14, 4,2,[0,1,1,1,1,1,1,0]],
-     [:MOONSTONE,10, 27,16, 2,4,[1,0,1,1,1,1,0,1]],
-     [:SUNSTONE,20, 21,17, 3,3,[0,1,0,1,1,1,1,1,1]],
-     [:OVALSTONE,150, 24,17, 3,3,[1,1,1,1,1,1,1,1,1]],
-     [:EVERSTONE,150, 21,20, 4,2,[1,1,1,1,1,1,1,1]],
-     [:STARPIECE,100, 0,17, 3,3,[0,1,0,1,1,1,0,1,0]],
-     [:REVIVE,100, 0,20, 3,3,[0,1,0,1,1,1,0,1,0]],
-     [:MAXREVIVE,50, 0,23, 3,3,[1,1,1,1,1,1,1,1,1]],
-     [:RAREBONE,50, 3,17, 6,3,[1,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,1]],
-     [:RAREBONE,50, 3,20, 3,6,[1,1,1,0,1,0,0,1,0,0,1,0,0,1,0,1,1,1]],
-     [:LIGHTCLAY,100, 6,20, 4,4,[1,0,1,0,1,1,1,0,1,1,1,1,0,1,0,1]],
-     [:HARDSTONE,200, 6,24, 2,2,[1,1,1,1]],
-     [:HEARTSCALE,200, 8,24, 2,2,[1,0,1,1]],
-     [:IRONBALL,100, 9,17, 3,3,[1,1,1,1,1,1,1,1,1]],
-     [:ODDKEYSTONE,100, 10,20, 4,4,[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:HEATROCK,50, 12,17, 4,3,[1,0,1,0,1,1,1,1,1,1,1,1]],
-     [:DAMPROCK,50, 14,20, 3,3,[1,1,1,1,1,1,1,0,1]],
-     [:SMOOTHROCK,50, 17,18, 4,4,[0,0,1,0,1,1,1,0,0,1,1,1,0,1,0,0]],
-     [:ICYROCK,50, 17,22, 4,4,[0,1,1,0,1,1,1,1,1,1,1,1,1,0,0,1]],
-     [:REDSHARD,100, 21,22, 3,3,[1,1,1,1,1,0,1,1,1]],
-     [:GREENSHARD,100, 25,20, 4,3,[1,1,1,1,1,1,1,1,1,1,0,1]],
-     [:YELLOWSHARD,100, 25,23, 4,3,[1,0,1,0,1,1,1,0,1,1,1,1]],
-     [:BLUESHARD,100, 26,26, 3,3,[1,1,1,1,1,1,1,1,0]],
-     [:INSECTPLATE,10, 0,26, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:DREADPLATE,10, 4,26, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:DRACOPLATE,10, 8,26, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:ZAPPLATE,10, 12,26, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:FISTPLATE,10, 16,26, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:FLAMEPLATE,10, 20,26, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:MEADOWPLATE,10, 0,29, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:EARTHPLATE,10, 4,29, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:ICICLEPLATE,10, 8,29, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:TOXICPLATE,10, 12,29, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:MINDPLATE,10, 16,29, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:STONEPLATE,10, 20,29, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:SKYPLATE,10, 0,32, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:SPOOKYPLATE,10, 4,32, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:IRONPLATE,10, 8,32, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
-     [:SPLASHPLATE,10, 12,32, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]]
+	   [:DOMEFOSSIL,20, 0,4, 2,2,[1,1,1,1]],      # 0
+     [:HELIXFOSSIL,20, 2,4, 2,2,[1,1,1,1]],     # 1
+     [:OLDAMBER,20, 4,4, 2,2,[1,1,1,1]],        # 2
+     [:ROOTFOSSIL,20, 6,4, 2,2,[1,1,1,1]],      # 3
+     [:CLAWFOSSIL,20, 8,4, 2,2,[1,1,1,1]],      # 4
+     [:SKULLFOSSIL,20, 10,4, 2,2,[1,1,1,1]],    # 5
+     [:ARMORFOSSIL,20, 12,4, 2,2,[1,1,1,1]],    # 6
+     [:COVERFOSSIL,20, 14,4, 2,2,[1,1,1,1]],    # 7
+     [:PLUMEFOSSIL,20, 16,4, 2,2,[1,1,1,1]],    # 8
+     [:JAWFOSSIL,20, 18,4, 2,2,[1,1,1,1]],      # 9
+     [:SAILFOSSIL,20, 0,6, 2,2,[1,1,1,1]],      # 10
+     [:FOSSILIZEDBIRD,20, 2,6, 2,2,[1,1,1,1]],  # 11
+     [:FOSSILIZEDFISH,20, 4,6, 2,2,[1,1,1,1]],  # 12
+     [:FOSSILIZEDDRAKE,20, 6,6, 2,2,[1,1,1,1]], # 13
+     [:FOSSILIZEDDINO,20, 8,6, 2,2,[1,1,1,1]],  # 14
+     [:FIRESTONE,20, 10,6, 2,2,[1,1,1,1]],      # 15
+     [:WATERSTONE,20, 12,6, 2,2,[1,1,1,1]],     # 16
+     [:THUNDERSTONE,20, 14,6, 2,2,[1,1,1,1]],   # 17
+     [:LEAFSTONE,20, 16,6, 2,2,[1,1,1,1]],      # 18
+     [:MOONSTONE,20, 18,6, 2,2,[1,1,1,1]],      # 19
+     [:SUNSTONE,20, 0,8, 2,2,[1,1,1,1]],        # 20
+     [:OVALSTONE,150, 2,8, 2,2,[1,1,1,1]],      # 21
+     [:EVERSTONE,150, 4,8, 2,2,[1,1,1,1]],      # 22
+     [:STARPIECE,100, 6,8, 2,2,[1,1,1,1]],      # 23
+     [:REVIVE,100, 8,8, 2,2,[1,1,1,1]],         # 24
+     [:MAXREVIVE,50, 10,8, 2,2,[1,1,1,1]],      # 25
+     [:RAREBONE,100, 12,8, 2,2,[1,1,1,1]],      # 26
+     [:LIGHTCLAY,100, 14,8, 2,2,[1,1,1,1]],     # 27
+     [:HARDSTONE,200, 16,8, 2,2,[1,1,1,1]],     # 28
+     [:HEARTSCALE,200, 18,8, 2,2,[1,1,1,1]],    # 29
+     [:IRONBALL,100, 0,10, 2,2,[1,1,1,1]],      # 30
+     [:ODDKEYSTONE,100, 2,10, 2,2,[1,1,1,1]],   # 31
+     [:HEATROCK,50, 4,10, 2,2,[1,1,1,1]],       # 32
+     [:DAMPROCK,50, 6,10, 2,2,[1,1,1,1]],       # 33
+     [:SMOOTHROCK,50, 8,10, 2,2,[1,1,1,1]],     # 34
+     [:ICYROCK,50, 10,10, 2,2,[1,1,1,1]],       # 35
+     [:REDSHARD,100, 12,10, 2,2,[1,1,1,1]],     # 36
+     [:GREENSHARD,100, 14,10, 2,2,[1,1,1,1]],   # 37
+     [:YELLOWSHARD,100, 16,10, 2,2,[1,1,1,1]],  # 38
+     [:BLUESHARD,100, 18,10, 2,2,[1,1,1,1]],    # 39
+     [:INSECTPLATE,10, 0,12, 2,2,[1,1,1,1]],    # 40
+     [:DREADPLATE,10, 2,12, 2,2,[1,1,1,1]],     # 41
+     [:DRACOPLATE,10, 4,12, 2,2,[1,1,1,1]],     # 42
+     [:ZAPPLATE,10, 6,12, 2,2,[1,1,1,1]],       # 43
+     [:FISTPLATE,10, 8,12, 2,2,[1,1,1,1]],      # 44
+     [:FLAMEPLATE,10, 10,12, 2,2,[1,1,1,1]],    # 45
+     [:MEADOWPLATE,10, 12,12, 2,2,[1,1,1,1]],   # 46
+     [:EARTHPLATE,10, 14,12, 2,2,[1,1,1,1]],    # 47
+     [:ICICLEPLATE,10, 16,12, 2,2,[1,1,1,1]],   # 48
+     [:TOXICPLATE,10, 18,12, 2,2,[1,1,1,1]],    # 49
+     [:MINDPLATE,10, 0,14, 2,2,[1,1,1,1]],      # 50
+     [:STONEPLATE,10, 2,14, 2,2,[1,1,1,1]],     # 51
+     [:SKYPLATE,10, 4,14, 2,2,[1,1,1,1]],       # 52
+     [:SPOOKYPLATE,10, 6,14, 2,2,[1,1,1,1]],    # 53
+     [:IRONPLATE,10, 8,14, 2,2,[1,1,1,1]],      # 54
+     [:SPLASHPLATE,10, 10,14, 2,2,[1,1,1,1]],   # 55
+     [:PIXIEPLATE,10, 12,14, 2,2,[1,1,1,1]]     # 56
   ]
   IRON = [   # Graphic x, graphic y, width, height, pattern
      [0,0, 1,4,[1,1,1,1]],
@@ -235,9 +231,9 @@ class MiningGameScene
         @sprites["tile#{j+i*BOARDWIDTH}"]=MiningGameTile.new(16*j,32+16*i)
       end
     end
-    @sprites["crack"]=MiningGameCounter.new(0,4)
-    @sprites["cursor"]=MiningGameCursor.new(0,0)   # central position, pick
-    @sprites["tool"]=IconSprite.new(268,160,@viewport)
+    @sprites["crack"]=MiningGameCounter.new(0,0)
+    @sprites["cursor"]=MiningGameCursor.new(0,0)   # start position (top left), pick
+    @sprites["tool"]=IconSprite.new(268,176,@viewport)
     @sprites["tool"].setBitmap(sprintf("Graphics/Pictures/Mining/toolicons"))
     @sprites["tool"].src_rect.set(0,0,40,40)
     update
@@ -284,7 +280,8 @@ class MiningGameScene
       oy=ITEMS[i[0]][3]
       rectx=ITEMS[i[0]][4]
       recty=ITEMS[i[0]][5]
-      layer.blt(32*i[1],64+32*i[2],@itembitmap.bitmap,Rect.new(32*ox,32*oy,32*rectx,32*recty))
+      p @items
+      layer.blt(16*i[1],32+16*i[2],@itembitmap.bitmap,Rect.new(16*ox,16*oy,16*rectx,16*recty))
     end
   end
 
@@ -310,17 +307,19 @@ class MiningGameScene
       oy=IRON[i[0]][1]
       rectx=IRON[i[0]][2]
       recty=IRON[i[0]][3]
-      layer.blt(32*i[1],64+32*i[2],@ironbitmap.bitmap,Rect.new(32*ox,32*oy,32*rectx,32*recty))
+      layer.blt(16*i[1],32+16*i[2],@ironbitmap.bitmap,Rect.new(16*ox,16*oy,16*rectx,16*recty))
     end
   end
 
   def pbNoDuplicateItems(newitem)
     return true if newitem==:HEARTSCALE   # Allow multiple Heart Scales
     fossils=[:DOMEFOSSIL,:HELIXFOSSIL,:OLDAMBER,:ROOTFOSSIL,
-             :SKULLFOSSIL,:ARMORFOSSIL,:CLAWFOSSIL]
+            :CLAWFOSSIL,:SKULLFOSSIL,:ARMORFOSSIL,:COVERFOSSIL,
+            :PLUMEFOSSIL,:JAWFOSSIL,:SAILFOSSIL,:FOSSILIZEDBIRD,
+            :FOSSILIZEDFISH,:FOSSILIZEDDRAKE,:FOSSILIZEDDINO]
     plates=[:INSECTPLATE,:DREADPLATE,:DRACOPLATE,:ZAPPLATE,:FISTPLATE,
             :FLAMEPLATE,:MEADOWPLATE,:EARTHPLATE,:ICICLEPLATE,:TOXICPLATE,
-            :MINDPLATE,:STONEPLATE,:SKYPLATE,:SPOOKYPLATE,:IRONPLATE,:SPLASHPLATE]
+            :MINDPLATE,:STONEPLATE,:SKYPLATE,:SPOOKYPLATE,:IRONPLATE,:SPLASHPLATE,:PIXIEPLATE]
     for i in @items
       preitem=ITEMS[i[0]][0]
       return false if preitem==newitem   # No duplicate items
@@ -482,10 +481,10 @@ class MiningGameScene
     for i in 1..halfFlashTime*2
       for index in revealed
         burieditem=@items[index]
-        revealeditems.bitmap.blt(32*burieditem[1],64+32*burieditem[2],
+        revealeditems.bitmap.blt(16*burieditem[1],32+16*burieditem[2],
            @itembitmap.bitmap,
-           Rect.new(32*ITEMS[burieditem[0]][2],32*ITEMS[burieditem[0]][3],
-           32*ITEMS[burieditem[0]][4],32*ITEMS[burieditem[0]][5]))
+           Rect.new(16*ITEMS[burieditem[0]][2],16*ITEMS[burieditem[0]][3],
+           16*ITEMS[burieditem[0]][4],16*ITEMS[burieditem[0]][5]))
         if i>halfFlashTime
           revealeditems.color = Color.new(255,255,255,(halfFlashTime*2-i)*alphaDiff)
         else
@@ -512,7 +511,7 @@ class MiningGameScene
       Input.update
       next if @sprites["cursor"].isAnimating?
       # Check end conditions
-      if @sprites["crack"].hits>=31
+      if @sprites["crack"].hits>=43
         @sprites["cursor"].visible=false
         pbSEPlay("Mining collapse")
         collapseviewport=Viewport.new(0,0,Graphics.width,Graphics.height)
@@ -566,7 +565,7 @@ class MiningGameScene
         newmode=(@sprites["cursor"].mode+1)%2
         @sprites["cursor"].mode=newmode
         @sprites["tool"].src_rect.set(newmode*40,0,40,40)
-        @sprites["tool"].y=160-72*newmode
+        @sprites["tool"].y=176-72*newmode
       elsif Input.trigger?(Input::C)   # Hit
         pbHit
       elsif Input.trigger?(Input::B)   # Quit

@@ -75,7 +75,7 @@ class VoltorbFlip
     for i in 0...25
       x=i if i%5==0
       r=rand(squareValues.length)
-      @squares[i]=[(i-x).abs*34+82,(i/5).abs*34,squareValues[r],false]
+      @squares[i]=[(i-x).abs*40+82,(i/5).abs*48+6,squareValues[r],false]
       squareValues.delete_at(r)
     end
     pbCreateSprites
@@ -256,14 +256,14 @@ class VoltorbFlip
     elsif Input.trigger?(Input::C)
       if @cursor[0][3]==34   # If in mark mode
         for i in 0...@squares.length
-          if @index[0]*34+82==@squares[i][0] && @index[1]*34==@squares[i][1] && @squares[i][3]==false
+          if @index[0]*40+82==@squares[i][0] && @index[1]*48+6==@squares[i][1] && @squares[i][3]==false
             pbSEPlay("Voltorb Flip mark")
           end
         end
         for i in 0...@marks.length+1
           if @marks[i]==nil
-            @marks[i]=[@directory+"tiles",@index[0]*34+82,@index[1]*34,136,0,34,34]
-          elsif @marks[i][1]==@index[0]*34+82 && @marks[i][2]==@index[1]*34
+            @marks[i]=[@directory+"tiles",@index[0]*40+82,@index[1]*48+6,136,0,34,34]
+          elsif @marks[i][1]==@index[0]*40+82 && @marks[i][2]==@index[1]*48+6
             @marks.delete_at(i)
             @marks.compact!
             @sprites["mark"].bitmap.clear
@@ -276,8 +276,8 @@ class VoltorbFlip
         # Display the tile for the selected spot
         icons=[]
         for i in 0...@squares.length
-          if @index[0]*34+82==@squares[i][0] && @index[1]*34==@squares[i][1] && @squares[i][3]==false
-            pbAnimateTile(@index[0]*34+82,@index[1]*34,@squares[i][2])
+          if @index[0]*40+82==@squares[i][0] && @index[1]*48+6==@squares[i][1] && @squares[i][3]==false
+            pbAnimateTile(@index[0]*40+82,@index[1]*48+6,@squares[i][2])
             @squares[i][3]=true
             # If Voltorb (0), display all tiles on the board
             if @squares[i][2]==0
@@ -286,7 +286,7 @@ class VoltorbFlip
               # Part1
               animation=[]
               for j in 0...3
-                animation[0]=icons[0]=[@directory+"tiles",@index[0]*34+82,@index[1]*34,374+(34*j),0,34,34]
+                animation[0]=icons[0]=[@directory+"tiles",@index[0]*40+82,@index[1]*48+6,374+(34*j),0,34,34]
                 pbDrawImagePositions(@sprites["animation"].bitmap,animation)
                 pbWait(Graphics.frame_rate/20)
                 @sprites["animation"].bitmap.clear
@@ -294,7 +294,7 @@ class VoltorbFlip
               # Part2
               animation=[]
               for j in 0...6
-                animation[0]=[@directory+"explosion",@index[0]*34+82,@index[1]*34,j*64,0,64,64]
+                animation[0]=[@directory+"explosion",@index[0]*40+68,@index[1]*48-10,j*64,0,64,64]
                 pbDrawImagePositions(@sprites["animation"].bitmap,animation)
                 pbWait(Graphics.frame_rate/10)
                 @sprites["animation"].bitmap.clear
@@ -334,7 +334,7 @@ class VoltorbFlip
               # Play tile animation
               animation=[]
               for j in 0...4
-                animation[0]=[@directory+"flipAnimation",@index[0]*34+82,@index[1]*34,j*46,0,46,48]
+                animation[0]=[@directory+"flipAnimation",@index[0]*40+76,@index[1]*48-1,j*46,0,46,48]
                 pbDrawImagePositions(@sprites["animation"].bitmap,animation)
                 pbWait(Graphics.frame_rate/20)
                 @sprites["animation"].bitmap.clear
@@ -396,10 +396,10 @@ class VoltorbFlip
       pbPlayDecisionSE
       @sprites["cursor"].bitmap.clear
       if @cursor[0][3]==0 # If in normal mode
-        @cursor[0]=[@directory+"cursor",68,0,34,0,34,34]
+        @cursor[0]=[@directory+"cursor",82,6,34,0,34,34]
         @sprites["memo"].visible=true
       else # Mark mode
-        @cursor[0]=[@directory+"cursor",68,0,0,0,34,34]
+        @cursor[0]=[@directory+"cursor",82,6,0,0,34,34]
         @sprites["memo"].visible=false
       end
     elsif Input.trigger?(Input::B)
