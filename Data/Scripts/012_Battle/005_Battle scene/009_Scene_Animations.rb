@@ -474,6 +474,9 @@ class PokeBattle_Scene
   #=============================================================================
   # Plays a move animation.
   def pbAnimation(moveID,user,targets,hitNum=0)
+    # GSC - Hide the HP Bar for the user until the animation completes, then re-show it
+    @sprites["dataBox_#{user.index}"].visible = false
+    sleep(0.1)
     animID = pbFindMoveAnimation(moveID,user.index,hitNum)
     return if !animID
     anim = animID[0]
@@ -487,6 +490,8 @@ class PokeBattle_Scene
         pbAnimationCore(animations[anim],user,target)
       end
     }
+    sleep(0.5)
+    @sprites["dataBox_#{user.index}"].visible = true
   end
 
   # Plays a common animation.
