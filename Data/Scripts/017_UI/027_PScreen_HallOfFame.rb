@@ -48,7 +48,7 @@ class HallOfFame_Scene
     @viewport=Viewport.new(0,0,Graphics.width, Graphics.height)
     @viewport.z=99999
     # Comment the below line to doesn't use a background
-    addBackgroundPlane(@sprites,"bg","hallfamebg",@viewport)
+    addBackgroundPlane(@sprites,"bg","bg_white_general",@viewport)
     @sprites["hallbars"]=IconSprite.new(@viewport)
     @sprites["hallbars"].setBitmap("Graphics/Pictures/Hall of Fame/hallfamebars")
     @sprites["hallbars"].visible = false

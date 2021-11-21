@@ -71,7 +71,7 @@ class Game_Player < Game_Character
     if !$PokemonTemp.encounterTriggered
       x_offset = (dir == 4) ? -1 : (dir == 6) ? 1 : 0
       y_offset = (dir == 8) ? -1 : (dir == 2) ? 1 : 0
-      if passable?(@x, @y, dir)
+      if can_move_in_direction?(dir)
         return if pbLedge(x_offset, y_offset)
         return if pbEndSurf(x_offset, y_offset)
         turn_generic(dir, true)
@@ -153,7 +153,7 @@ class Game_Player < Game_Character
     new_y = @y + (@direction == 2 ? 1 : @direction == 8 ? -1 : 0)
     return nil if !$game_map.valid?(new_x, new_y)
     for event in $game_map.events.values
-      next if event.x != new_x || event.y != new_y
+      next if !event.at_coordinate?(new_x, new_y)
       next if event.jumping? || event.over_trigger?
       return event
     end
@@ -161,7 +161,7 @@ class Game_Player < Game_Character
       new_x += (@direction == 6 ? 1 : @direction == 4 ? -1 : 0)
       new_y += (@direction == 2 ? 1 : @direction == 8 ? -1 : 0)
       for event in $game_map.events.values
-        next if event.x != new_x || event.y != new_y
+        next if !event.at_coordinate?(new_x, new_y)
         next if event.jumping? || event.over_trigger?
         return event
       end
@@ -176,7 +176,7 @@ class Game_Player < Game_Character
   #     d : direction (0,2,4,6,8)
   #         * 0 = Determines if all directions are impassable (for jumping)
   #-----------------------------------------------------------------------------
-  def passable?(x, y, d)
+  def passable?(x, y, d, strict = false)
     # Get new coordinates
     new_x = x + (d == 6 ? 1 : d == 4 ? -1 : 0)
     new_y = y + (d == 2 ? 1 : d == 8 ? -1 : 0)
@@ -236,7 +236,8 @@ class Game_Player < Game_Character
   end
 
   #-----------------------------------------------------------------------------
-  # * Same Position Starting Determinant
+  # * Trigger event(s) at the same coordinates as self with the appropriate
+  #   trigger(s) that can be triggered
   #-----------------------------------------------------------------------------
   def check_event_trigger_here(triggers)
     result = false
@@ -245,7 +246,7 @@ class Game_Player < Game_Character
     # All event loops
     for event in $game_map.events.values
       # If event coordinates and triggers are consistent
-      next if event.x != @x || event.y != @y
+      next if !event.at_coordinate?(@x, @y)
       next if !triggers.include?(event.trigger)
       # If starting determinant is same position event (other than jumping)
       next if event.jumping? || !event.over_trigger?
@@ -269,7 +270,7 @@ class Game_Player < Game_Character
     # All event loops
     for event in $game_map.events.values
       # If event coordinates and triggers are consistent
-      next if event.x != new_x || event.y != new_y
+      next if !event.at_coordinate?(new_x, new_y)
       next if !triggers.include?(event.trigger)
       # If starting determinant is front event (other than jumping)
       next if event.jumping? || event.over_trigger?
@@ -287,7 +288,7 @@ class Game_Player < Game_Character
         # All event loops
         for event in $game_map.events.values
           # If event coordinates and triggers are consistent
-          next if event.x != new_x || event.y != new_y
+          next if !event.at_coordinate?(new_x, new_y)
           next if !triggers.include?(event.trigger)
           # If starting determinant is front event (other than jumping)
           next if event.jumping? || event.over_trigger?
@@ -309,7 +310,7 @@ class Game_Player < Game_Character
     # All event loops
     for event in $game_map.events.values
       # If event coordinates and triggers are consistent
-      next if event.x != x || event.y != y
+      next if !event.at_coordinate?(x, y)
       if event.name[/trainer\((\d+)\)/i]
         distance = $~[1].to_i
         next if !pbEventCanReachPlayer?(event,self,distance)

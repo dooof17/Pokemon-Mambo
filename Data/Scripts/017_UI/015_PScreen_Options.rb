@@ -468,8 +468,8 @@ class PokemonOption_Scene
            end
          }
        ),
-=begin
-       EnumOption.new(_INTL("Screen Border"),[_INTL("Off"),_INTL("On")],
+
+       EnumOption.new(_INTL("BORDER"),[_INTL("OFF"),_INTL("ON")],
          proc { $PokemonSystem.border },
          proc { |value|
            oldvalue = $PokemonSystem.border
@@ -480,7 +480,6 @@ class PokemonOption_Scene
            end
          }
        )
-=end
     ]
     @PokemonOptions = pbAddOnOptions(@PokemonOptions)
     @sprites["option"] = Window_PokemonOption.new(@PokemonOptions,0,

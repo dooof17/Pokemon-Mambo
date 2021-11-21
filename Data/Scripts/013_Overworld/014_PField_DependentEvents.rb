@@ -401,7 +401,7 @@ class DependentEvents
       facingTile=$MapFactory.getFacingTile()
       self.eachEvent { |e,d|
         next if !d[9]
-        if e.x==$game_player.x && e.y==$game_player.y
+        if e.at_coordinate?($game_player.x, $game_player.y)
           # On same position
           if not e.jumping? && (!e.respond_to?("over_trigger") || e.over_trigger?)
             if e.list.size>1
@@ -412,7 +412,7 @@ class DependentEvents
             end
           end
         elsif facingTile && e.map.map_id==facingTile[0] &&
-              e.x==facingTile[1] && e.y==facingTile[2]
+              e.at_coordinate?(facingTile[1], facingTile[2])
           # On facing tile
           if not e.jumping? && (!e.respond_to?("over_trigger") || !e.over_trigger?)
             if e.list.size>1

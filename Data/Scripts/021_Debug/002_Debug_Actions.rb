@@ -21,8 +21,8 @@ def pbWarpToMap
       next if !map.passableStrict?(x,y,0,$game_player)
       blocked = false
       for event in map.events.values
-        if event.x==x && event.y==y && !event.through
-          blocked = true if self!=$game_player || event.character_name!=""
+        if event.at_coordinate?(x, y) && !event.through
+          blocked = true if event.character_name != ""
         end
       end
       next if blocked
@@ -203,7 +203,7 @@ def pbDebugDayCare
   viewport = Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z = 99999
   sprites = {}
-  addBackgroundPlane(sprites,"background","hatchbg",viewport)
+  addBackgroundPlane(sprites,"background","bg_white_general",viewport)
   sprites["overlay"] = BitmapSprite.new(Graphics.width,Graphics.height,viewport)
   pbSetSmallFont(sprites["overlay"].bitmap)
   sprites["cmdwindow"] = Window_CommandPokemonEx.new(commands)

@@ -1,12 +1,13 @@
 #===============================================================================
 # * Egg Hatch Animation - by FL (Credits will be apreciated)
 #                         Tweaked by Maruno
+#                         Tweaked for GSC by Caruban
 #===============================================================================
 # This script is for Pokémon Essentials. It's an egg hatch animation that
 # works even with special eggs like Manaphy egg.
 #===============================================================================
-# To this script works, put it above Main and put a picture (a 5 frames
-# sprite sheet) with egg sprite height and 5 times the egg sprite width at
+# To this script works, put it above Main and put a picture (a 3 frames
+# sprite sheet) with egg sprite height and 3 times the egg sprite width at
 # Graphics/Battlers/eggCracks.
 #===============================================================================
 class PokemonEggHatch_Scene
@@ -17,13 +18,14 @@ class PokemonEggHatch_Scene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     # Create background image
-    addBackgroundOrColoredPlane(@sprites,"background","hatchbg",
+    addBackgroundOrColoredPlane(@sprites,"background","bg_white_general",
        Color.new(248,248,248),@viewport)
     # Create egg sprite/Pokémon sprite
     @sprites["pokemon"]=PokemonSprite.new(@viewport)
     @sprites["pokemon"].setOffset(PictureOrigin::Bottom)
     @sprites["pokemon"].x = Graphics.width/2
-    @sprites["pokemon"].y = 264+56   # 56 to offset the egg sprite
+    @sprites["pokemon"].y = 264+56 -120  # 56 to offset the egg sprite 120 offset GSC
+    @sprites["pokemon"].mirror = true
     @sprites["pokemon"].setSpeciesBitmap(@pokemon.species,@pokemon.female?,
                                          (@pokemon.form rescue 0),@pokemon.shiny?,
                                          false,false,true)   # Egg sprite
@@ -43,8 +45,19 @@ class PokemonEggHatch_Scene
     @sprites["hatch"].ox = @sprites["pokemon"].ox
     @sprites["hatch"].oy = @sprites["pokemon"].oy
     @sprites["hatch"].bitmap = @hatchSheet.bitmap
-    @sprites["hatch"].src_rect = Rect.new(0,0,@hatchSheet.width/5,@hatchSheet.height)
+    @sprites["hatch"].src_rect = Rect.new(0,0,@hatchSheet.width/3,@hatchSheet.height)
     @sprites["hatch"].visible = false
+    # Load Flashes bitmap
+    crackfilename=sprintf("Graphics/Battlers/EggCrackEffect") rescue nil
+    crackfilename=pbResolveBitmap(crackfilename)
+    @flashSheet=AnimatedBitmap.new(crackfilename)
+    # Create egg flash sprite
+    @sprites["flash"]=SpriteWrapper.new(@viewport)
+    @sprites["flash"].x = 0
+    @sprites["flash"].y = 0
+    @sprites["flash"].bitmap = @flashSheet.bitmap
+    @sprites["flash"].src_rect = Rect.new(0,0,@flashSheet.width/18,@flashSheet.height)
+    @sprites["flash"].visible = false
     # Create flash overlay
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["overlay"].z=200
@@ -59,45 +72,61 @@ class PokemonEggHatch_Scene
   def pbMain
     pbBGMPlay("Evolution")
     # Egg animation
-    updateScene(Graphics.frame_rate*15/10)
-    pbPositionHatchMask(0)
+    updateScene(Graphics.frame_rate)
+    #
     pbSEPlay("Battle ball shake")
-    swingEgg(4)
-    updateScene(Graphics.frame_rate*2/10)
-    pbPositionHatchMask(1)
+    swingEgg(6,1)
+    updateScene(Graphics.frame_rate/2)
     pbSEPlay("Battle ball shake")
-    swingEgg(4)
-    updateScene(Graphics.frame_rate*4/10)
-    pbPositionHatchMask(2)
+    swingEgg(6,3)
+    updateScene(Graphics.frame_rate/2)
     pbSEPlay("Battle ball shake")
-    swingEgg(8,2)
-    updateScene(Graphics.frame_rate*4/10)
-    pbPositionHatchMask(3)
+    swingEgg(6,4)
+    pbPositionHatchMask(0)#
+    updateScene(Graphics.frame_rate/2)
     pbSEPlay("Battle ball shake")
-    swingEgg(16,4)
-    updateScene(Graphics.frame_rate*2/10)
-    pbPositionHatchMask(4)
+    swingEgg(6,6)
+    pbPositionHatchMask(1)#
+    updateScene(Graphics.frame_rate/2)
+    pbSEPlay("Battle ball shake")
+    swingEgg(6,6)
+    pbPositionHatchMask(2)#
+    updateScene(Graphics.frame_rate/2)
+    pbSEPlay("Battle ball shake")
+    swingEgg(6,6)
+    updateScene(Graphics.frame_rate/2)
+    #
     pbSEPlay("Battle recall")
-    # Fade and change the sprite
-    fadeTime = Graphics.frame_rate*4/10
-    toneDiff = (255.0/fadeTime).ceil
-    for i in 1..fadeTime
-      @sprites["pokemon"].tone=Tone.new(i*toneDiff,i*toneDiff,i*toneDiff)
-      @sprites["overlay"].opacity=i*toneDiff
-      updateScene
+    @sprites["flash"].visible = true
+    for i in 0..3
+      pbPositionFlash(i)
+      updateScene(Graphics.frame_rate/40)
     end
-    updateScene(Graphics.frame_rate*3/4)
+    # Fade and change the sprite
+    #fadeTime = Graphics.frame_rate*4/10
+    #toneDiff = (255.0/fadeTime).ceil
+    #for i in 1..fadeTime
+    #  @sprites["pokemon"].tone=Tone.new(i*toneDiff,i*toneDiff,i*toneDiff)
+    #  @sprites["overlay"].opacity=i*toneDiff
+    #  updateScene
+    #end
+
+    #updateScene(Graphics.frame_rate*3/4)
     @sprites["pokemon"].setPokemonBitmap(@pokemon) # Pokémon sprite
     @sprites["pokemon"].x = Graphics.width/2
-    @sprites["pokemon"].y = 264
+    @sprites["pokemon"].y = 264 -120
     pbApplyBattlerMetricsToSprite(@sprites["pokemon"],1,@pokemon.fSpecies)
     @sprites["hatch"].visible=false
-    for i in 1..fadeTime
-      @sprites["pokemon"].tone=Tone.new(255-i*toneDiff,255-i*toneDiff,255-i*toneDiff)
-      @sprites["overlay"].opacity=255-i*toneDiff
-      updateScene
+    #for i in 1..fadeTime
+    #  @sprites["pokemon"].tone=Tone.new(255-i*toneDiff,255-i*toneDiff,255-i*toneDiff)
+    #  @sprites["overlay"].opacity=255-i*toneDiff
+    #  updateScene
+    #end
+    for i in 4..18
+      pbPositionFlash(i)
+      updateScene(Graphics.frame_rate/40)
     end
-    @sprites["pokemon"].tone=Tone.new(0,0,0)
+    #@sprites["pokemon"].tone=Tone.new(0,0,0)
     @sprites["overlay"].opacity=0
     # Finish scene
     frames=pbCryFrameLength(@pokemon)
@@ -105,9 +134,9 @@ class PokemonEggHatch_Scene
     updateScene(frames)
     pbBGMStop()
     pbMEPlay("Evolution success")
-    pbMessage(_INTL("\\se[]{1} hatched from the Egg!\\wt[80]",@pokemon.name)) { update }
+    pbMessage(_INTL("\\se[]{1} came out of its EGG!\\wt[80]",@pokemon.name)) { update }
     if pbConfirmMessage(
-        _INTL("Would you like to nickname the newly hatched {1}?",@pokemon.name)) { update }
+        _INTL("Give a nickname to {1}?",@pokemon.name)) { update }
       nickname=pbEnterPokemonName(_INTL("{1}'s nickname?",@pokemon.name),
          0,PokeBattle_Pokemon::MAX_POKEMON_NAME_SIZE,"",@pokemon,true)
       @pokemon.name=nickname if nickname!=""
@@ -126,10 +155,14 @@ class PokemonEggHatch_Scene
     @sprites["hatch"].src_rect.x = index*@sprites["hatch"].src_rect.width
   end
 
+  def pbPositionFlash(index)
+    @sprites["flash"].src_rect.x = index*@sprites["flash"].src_rect.width
+  end
+
   def swingEgg(speed,swingTimes=1)
     @sprites["hatch"].visible = true
     speed = speed.to_f*20/Graphics.frame_rate
-    amplitude = 8
+    amplitude = 6
     targets = []
     swingTimes.times do
       targets.push(@sprites["pokemon"].x+amplitude)
@@ -178,16 +211,16 @@ class PokemonEggHatchScreen
 end
 
 
-
-def pbHatchAnimation(pokemon)
-  pbMessage(_INTL("Huh?\1"))
-  pbFadeOutInWithMusic {
-    scene=PokemonEggHatch_Scene.new
-    screen=PokemonEggHatchScreen.new(scene)
-    screen.pbStartScreen(pokemon)
-  }
-  return true
-end
+# For testing scene only
+#def pbHatchAnimationz(pokemon)
+#  pbMessage(_INTL("Huh?\1"))
+#  pbFadeOutInWithMusic {
+#    scene=PokemonEggHatchz_Scene.new
+#    screen=PokemonEggHatchScreen.new(scene)
+#    screen.pbStartScreen(pokemon)
+#  }
+#  return true
+#end
 
 def pbHatch(pokemon)
   speciesname = pokemon.speciesName
@@ -221,7 +254,8 @@ Events.onStepTaken += proc { |_sender,_e|
     egg.eggsteps -= 1
     for i in $Trainer.pokemonParty
       next if !isConst?(i.ability,PBAbilities,:FLAMEBODY) &&
-              !isConst?(i.ability,PBAbilities,:MAGMAARMOR)
+              !isConst?(i.ability,PBAbilities,:MAGMAARMOR) &&
+              !isConst?(i.ability,PBAbilities,:STEAMENGINE)
       egg.eggsteps -= 1
       break
     end

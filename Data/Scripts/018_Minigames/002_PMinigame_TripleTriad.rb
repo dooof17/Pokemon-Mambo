@@ -83,7 +83,7 @@ class TriadCard
   def self.createBack(type=-1,noback=false)
     bitmap = BitmapWrapper.new(36,40)
     if !noback
-      cardbitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/triad_card_opponent"))
+      cardbitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/Triple Triad/triad_card_opponent"))
       bitmap.blt(0,0,cardbitmap.bitmap,Rect.new(0,0,cardbitmap.width,cardbitmap.height))
       cardbitmap.dispose
     end
@@ -94,14 +94,14 @@ class TriadCard
     return TriadCard.createBack if owner==0
     bitmap = BitmapWrapper.new(36,40)
     if owner==2   # Opponent
-      cardbitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/triad_card_opponent"))
+      cardbitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/Triple Triad/triad_card_opponent"))
     else          # Player
-      cardbitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/triad_card_player"))
+      cardbitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/Triple Triad/triad_card_player"))
     end
     typebitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/types"))
     iconfile = pbCheckPokemonIconFiles([@species,0,false,@form,false])
     iconbitmap = AnimatedBitmap.new(iconfile)
-    numbersbitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/triad_numbers"))
+    numbersbitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/Triple Triad/triad_numbers"))
     # Draw card background
     bitmap.blt(0,0,cardbitmap.bitmap,Rect.new(0,0,cardbitmap.width,cardbitmap.height))
     # Draw Pokémon icon
@@ -157,7 +157,7 @@ class TriadScene
     # Allocate viewport
     @viewport = Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z = 99999
-    addBackgroundPlane(@sprites,"background","triad_bg",@viewport)
+    addBackgroundPlane(@sprites,"background","Triple Triad/triad_bg",@viewport)
     @sprites["helpwindow"] = Window_AdvancedTextPokemon.newWithSize("",
        0,Graphics.height-64,Graphics.width,64,@viewport)
     for i in 0...@battle.width*@battle.height

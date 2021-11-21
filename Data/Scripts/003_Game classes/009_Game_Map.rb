@@ -185,7 +185,7 @@ elsif (TIMESENSITIVETILESETSEVENING.include?(id) && PBDayNight.isNight?(pbGetTim
       terrain = @terrain_tags[event.tile_id]
       next if terrain == PBTerrain::Neutral
       next if event == self_event
-      next if event.x != x || event.y != y
+      next if !event.at_coordinate?(x, y)
       next if event.through
       passage = @passages[event.tile_id]
       return false if passage & bit != 0
@@ -290,7 +290,7 @@ elsif (TIMESENSITIVETILESETSEVENING.include?(id) && PBDayNight.isNight?(pbGetTim
     return false if !valid?(x, y)
     for event in events.values
       next if event == self_event || event.tile_id < 0 || event.through
-      next if event.x != x || event.y != y
+      next if !event.at_coordinate?(x, y)
       terrain = @terrain_tags[event.tile_id]
       next if terrain == PBTerrain::Neutral
       return false if @passages[event.tile_id] & 0x0f != 0
@@ -347,7 +347,7 @@ elsif (TIMESENSITIVETILESETSEVENING.include?(id) && PBDayNight.isNight?(pbGetTim
 
   def check_event(x,y)
     for event in self.events.values
-      return event.id if event.x == x and event.y == y
+      return event.id if event.at_coordinate?(x, y)
     end
   end
 

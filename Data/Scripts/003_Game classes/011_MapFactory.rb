@@ -177,7 +177,7 @@ class PokemonMapFactory
     end
     # Check passability of event(s) in that spot
     for event in map.events.values
-      next if event.x != x || event.y != y || event == thisEvent
+      next if event == thisEvent || !event.at_coordinate?(x, y)
       return false if !event.through && event.character_name != ""
     end
     # Check passability of player
@@ -204,7 +204,7 @@ class PokemonMapFactory
       return false if !map.passableStrict?(x,y,0,thisEvent)
     end
     for event in map.events.values
-      next if event == thisEvent || event.x != x || event.y != y
+      next if event == thisEvent || !event.at_coordinate?(x, y)
       return false if !event.through && event.character_name!=""
     end
     return true

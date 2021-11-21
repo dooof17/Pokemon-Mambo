@@ -32,14 +32,7 @@
 #==============================================================================#
 #                    Please give credit when using this.                       #
 #==============================================================================#
-=begin
-PluginManager.register({
-  :name => "Overworld Shadows",
-  :version => "1.12",
-  :credits => "Marin",
-  :link => "https://reliccastle.com/resources/161/"
-})
-=end
+
 Shadow_Path = "Graphics/Pictures/PlayerJump_shadow"
 
 # Whether or not the event names below need to match in capitals as well.

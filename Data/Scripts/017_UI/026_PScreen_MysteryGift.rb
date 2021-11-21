@@ -255,7 +255,7 @@ def pbDownloadMysteryGift(trainer)
   sprites={}
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
-  addBackgroundPlane(sprites,"background","mysteryGiftbg",viewport)
+  addBackgroundPlane(sprites,"background","bg_white_general",viewport)
   pbFadeInAndShow(sprites)
   sprites["msgwindow"]=pbCreateMessageWindow
   pbMessageDisplay(sprites["msgwindow"],_INTL("Searching for a gift.\nPlease wait...\\wtnp[0]"))

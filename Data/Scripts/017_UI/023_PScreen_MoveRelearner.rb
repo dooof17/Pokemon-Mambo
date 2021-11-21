@@ -58,13 +58,13 @@ class MoveRelearner_Scene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @sprites={}
-    addBackgroundPlane(@sprites,"bg","reminderbg",@viewport)
+    addBackgroundPlane(@sprites,"bg","Reminder/reminderbg",@viewport)
     @sprites["pokeicon"]=PokemonIconSprite.new(@pokemon,@viewport)
     @sprites["pokeicon"].setOffset(PictureOrigin::Center)
     @sprites["pokeicon"].x=32
     @sprites["pokeicon"].y=160
     @sprites["background"]=IconSprite.new(0,0,@viewport)
-    @sprites["background"].setBitmap("Graphics/Pictures/reminderSel")
+    @sprites["background"].setBitmap("Graphics/Pictures/Reminder/reminderSel")
     @sprites["background"].y=172
     @sprites["background"].src_rect=Rect.new(0,16,320,16)
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
@@ -118,7 +118,7 @@ class MoveRelearner_Scene
       end
       yPos+=16
     end
-    imagepos.push(["Graphics/Pictures/reminderSel",
+    imagepos.push(["Graphics/Pictures/Reminder/reminderSel",
        0,172+(@sprites["commands"].index-@sprites["commands"].top_item)*16,
        0,0,320,16])
     selMoveData=movesData[@moves[@sprites["commands"].index]]

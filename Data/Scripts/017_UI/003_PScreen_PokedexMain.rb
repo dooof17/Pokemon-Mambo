@@ -73,12 +73,12 @@ end
 
 class PokedexSearchSelectionSprite < SpriteWrapper
   attr_reader :index
-  attr_accessor :cmds
-  attr_accessor :minmax
+  #attr_accessor :cmds
+  #attr_accessor :minmax
 
   def initialize(viewport=nil)
     super(viewport)
-    @selbitmap = AnimatedBitmap.new("Graphics/Pictures/Pokedex/white_cursor")
+    @selbitmap = AnimatedBitmap.new("Graphics/Pictures/selarrow_white")
     self.bitmap = @selbitmap.bitmap
     self.mode = -1
     @index = 0
@@ -125,110 +125,14 @@ class PokedexSearchSelectionSprite < SpriteWrapper
   end
 
   def refresh
-    # Size and position cursor
-    if @mode==-1   # Main search screen
-      case @index
-      when 0,1,5    # Order, Name, Color
-        self.src_rect.y = 0; self.src_rect.height = 16
-		self.src_rect.x = 0; self.src_rect.width = 16
-      #when 1,5   # Name, color
-       # self.src_rect.y = 44; self.src_rect.height = 44
-      when 2     # Type
-        self.src_rect.y = 18; self.src_rect.height = 16
-		self.src_rect.x = 0; self.src_rect.width = 96
-      when 3,4   # Height, weight
-        self.src_rect.y = 0; self.src_rect.height = 34
-		self.src_rect.x = 0; self.src_rect.width = 16
-      when 6     # Form (shape)
-        self.src_rect.y = 34; self.src_rect.height = 48
-		self.src_rect.x = 0; self.src_rect.width = 52
-      else       # Reset/start/cancel
-        self.src_rect.y = 0; self.src_rect.height = 16
-		self.src_rect.x = 32; self.src_rect.width = 16
-      end
-      case @index
-      when 0         # Order
-        self.x = 128; self.y = 48
-      when 1         # Name
-        self.x = 128; self.y = 66 #+(@index-1)*52
-	  when 2         # Type
-	    self.x = 128; self.y = 84
-	  when 3         # Height
-	    self.x = 128; self.y = 102
-	  when 4         # Weight
-	    self.x = 128; self.y = 138
-      when 5         # Color
-        self.x = 128; self.y = 174
-      when 6         # Shape
-        self.x = 190; self.y = 192
-      when 7         # Reset
-        self.x = 36; self.y =242 #+(@index-7)*176; self.y = 334
-      when 8         # Start
-	    self.x = 152; self.y = 242
-	  when 9         # Cancel
-	    self.x = 268; self.y = 242
-	  end
-    else   # Parameter screen
-      case @index
-      when -2,-3   # OK, Cancel
-        self.src_rect.y = 0; self.src_rect.height = 16
-		self.src_rect.x = 0; self.src_rect.width = 16
-      else
-        case @mode
-        when 0     # Order
-          self.src_rect.y = 0; self.src_rect.height = 16
-		  self.src_rect.x = 0; self.src_rect.width = 16
-        when 1     # Name
-          self.src_rect.y = 0; self.src_rect.height = 16
-		  self.src_rect.x = 0; self.src_rect.width = 16
-        when 2,5   # Type, color
-          self.src_rect.y = 0; self.src_rect.height = 16
-		  self.src_rect.x = 0; self.src_rect.width = 16
-        when 3,4   # Height, weight
-          self.src_rect.y = 34; self.src_rect.height = 48
-		  self.src_rect.x = 0; self.src_rect.width = 52
-        when 6     # Shape
-          self.src_rect.y = 34; self.src_rect.height = 48
-		  self.src_rect.x = 0; self.src_rect.width = 52
-        end
-      end
-      case @index
-      when -1   # Blank option
-        if @mode==3 || @mode==4   # Height/weight range
-          self.x = @xstart+(@cmds+1)*@xgap*(@minmax%2)
-          self.y = @ystart+@ygap*((@minmax+1)%2)
-        else
-          self.x = @xstart+(@cols-1)*@xgap
-          self.y = @ystart+(@cmds/@cols).floor*@ygap
-        end
-      when -2   # OK
-        self.x = 20; self.y = 258
-      when -3   # Cancel
-        self.x = 188; self.y = 258
-      else
-        case @mode
-        when 0,1,2,5,6   # Order, name, type, color, shape
-          if @index>=@cmds
-            self.x = @xstart+(@cols-1)*@xgap
-            self.y = @ystart+(@cmds/@cols).floor*@ygap
-          else
-            self.x = @xstart+(@index%@cols)*@xgap
-            self.y = @ystart+(@index/@cols).floor*@ygap
-          end
-        when 3,4         # Height, weight
-          if @index>=@cmds
-            self.x = @xstart+(@cmds+1)*@xgap*((@minmax+1)%2)
-          else
-            self.x = @xstart+(@index+1)*@xgap
-          end
-          self.y = @ystart+@ygap*((@minmax+1)%2)
-        end
-      end
+    case @index
+    when 0; self.x = 34; self.y = 53
+    when 1; self.x = 34; self.y = 85
+    when 2; self.x = 34; self.y = 197
+    when 3; self.x = 34; self.y = 229
     end
   end
 end
-
-
 
 #===============================================================================
 # Pokédex main screen
@@ -242,6 +146,13 @@ class PokemonPokedex_Scene
   MODELIGHTEST  = 5
 
   def pbUpdate
+    if @sprites["searchbg"].visible
+      if @frame == 10
+        @frame = 0
+        @sprites["searchcursor"].visible = !(@sprites["searchcursor"].visible)
+      end
+      @frame += 1
+    end
     pbUpdateSpriteHash(@sprites)
   end
 
@@ -268,16 +179,30 @@ class PokemonPokedex_Scene
     addBackgroundPlane(@sprites,"searchbg","Pokedex/bg_search",@viewport)
     @sprites["searchbg"].visible = false
     @sprites["pokedex"] = Window_Pokedex.new(110,0,210,272,@viewport)
+    @sprites["bgicon"]=IconSprite.new(6,16,@viewport)
+    barBitmap = Bitmap.new(112,112)
+    barRect = Rect.new(0,0,barBitmap.width,barBitmap.height)
+    barBitmap.fill_rect(barRect,Color.new(88,184,0))
+    @sprites["bgicon"].bitmap = barBitmap
     @sprites["icon"] = PokemonSprite.new(@viewport)
     @sprites["icon"].setOffset(PictureOrigin::Center)
     @sprites["icon"].x = 62
     @sprites["icon"].y = 72
+    @sprites["icon"].tone = Tone.new(0,0,0,255)
+    @sprites["overlayscrn"] = IconSprite.new(0,0,@viewport)
+    @sprites["overlayscrn"].setBitmap("Graphics/Pictures/Pokedex/OverlayScreen")
+    @sprites["overlayscrn"].blend_type = 2
     @sprites["overlay"] = BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     pbSetSystemFont(@sprites["overlay"].bitmap)
     @sprites["searchcursor"] = PokedexSearchSelectionSprite.new(@viewport)
     @sprites["searchcursor"].visible = false
+    @sprites["searchanim"] = IconSprite.new(128,144,@viewport)
+    @sprites["searchanim"].setBitmap("Graphics/Pictures/Pokedex/icon_searching")
+    @sprites["searchanim"].src_rect.set(0,0,48,48)
+    @sprites["searchanim"].visible = false
+    @frame = 0
     @searchResults = false
-    @searchParams  = [$PokemonGlobal.pokedexMode,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+    @searchParams  = [$PokemonGlobal.pokedexMode,-1,0,-1,-1,-1,-1,-1,-1,-1]
     pbRefreshDexList($PokemonGlobal.pokedexIndex[pbGetSavePositionIndex])
     pbDeactivateWindows(@sprites)
     pbFadeInAndShow(@sprites)
@@ -346,7 +271,7 @@ class PokemonPokedex_Scene
     for i in 1...regionalSpecies.length
       nationalSpecies = regionalSpecies[i]
       if pbCanAddForModeList?($PokemonGlobal.pokedexMode,nationalSpecies)
-        form = $Trainer.formlastseen[nationalSpecies][1] || 0
+        form = ($Trainer.formlastseen[nationalSpecies][1] || 0)
         fspecies = pbGetFSpeciesFromForm(nationalSpecies,form)
         color  = speciesData[fspecies][SpeciesColor] || 0
         type1  = speciesData[fspecies][SpeciesType1] || 0
@@ -468,68 +393,17 @@ class PokemonPokedex_Scene
     base   = Color.new(248,248,248)
     shadow = Color.new(0,0,0,0)
     # Write various bits of text
-    textpos = [
-       [_INTL("SEARCH"),Graphics.width/2,8,2,base,shadow],
-       [_INTL("ORDER"),20,40,0,base,shadow],
-       [_INTL("NAME"),20,58,0,base,shadow],
-       [_INTL("TYPE"),20,76,0,base,shadow],
-       [_INTL("MIN HT"),20,94,0,base,shadow],
-       [_INTL("MAX HT"),20,112,0,base,shadow],
-       [_INTL("MIN WT"),20,130,0,base,shadow],
-       [_INTL("MAX WT"),20,148,0,base,shadow],
-	   [_INTL("COLOR"),20,166,0,base,shadow],
-	   [_INTL("SHAPE"),20,184,0,base,shadow],
-	   [_INTL("CLR"),20,250,0,base,shadow,1],
-       [_INTL("GO"),160,250,2,base,shadow,1],
-       [_INTL("[X]"),300,250,1,base,shadow,1]
-    ]
-    # Write order, name and color parameters
-    textpos.push([@orderCommands[params[0]],288,40,1,base,shadow,1])
-    textpos.push([(params[1]<0) ? "----" : @nameCommands[params[1]],288,58,1,base,shadow,1])
-    textpos.push([(params[8]<0) ? "----" : @colorCommands[params[8]],288,166,1,base,shadow,1])
-    # Draw type icons
+    textpos = []
+    # Draw type text
     if params[2]>=0
-      typerect = Rect.new(0,@typeCommands[params[2]]*28,64,28)
-      overlay.blt(144,78,@typebitmap.bitmap,typerect)
+	  textpos.push([_INTL("{1}",PBTypes.getName(params[2])),208,56,2,base,shadow,1])
     else
-      textpos.push(["----",208,76,1,base,shadow,1])
+      textpos.push(["----",208,56,2,base,shadow,1])
     end
     if params[3]>=0
-      typerect = Rect.new(0,@typeCommands[params[3]]*28,64,28)
-      overlay.blt(224,78,@typebitmap.bitmap,typerect)
+      textpos.push([_INTL("{1}",PBTypes.getName(params[3])),208,88,2,base,shadow,1])
     else
-      textpos.push(["----",288,76,1,base,shadow,1])
-    end
-    # Write height and weight limits
-    ht1 = (params[4]<0) ? 0 : (params[4]>=@heightCommands.length) ? 999 : @heightCommands[params[4]]
-    ht2 = (params[5]<0) ? 999 : (params[5]>=@heightCommands.length) ? 0 : @heightCommands[params[5]]
-    wt1 = (params[6]<0) ? 0 : (params[6]>=@weightCommands.length) ? 9999 : @weightCommands[params[6]]
-    wt2 = (params[7]<0) ? 9999 : (params[7]>=@weightCommands.length) ? 0 : @weightCommands[params[7]]
-    hwoffset = false
-    if pbGetCountry==0xF4   # If the user is in the United States
-      ht1 = (params[4]>=@heightCommands.length) ? 99*12 : (ht1/0.254).round
-      ht2 = (params[5]<0) ? 99*12 : (ht2/0.254).round
-      wt1 = (params[6]>=@weightCommands.length) ? 99990 : (wt1/0.254).round
-      wt2 = (params[7]<0) ? 99990 : (wt2/0.254).round
-      textpos.push([sprintf("%d'%02d''",ht1/12,ht1%12),288,94,1,base,shadow,1])
-      textpos.push([sprintf("%d'%02d''",ht2/12,ht2%12),288,112,1,base,shadow,1])
-      textpos.push([sprintf("%.1f",wt1/10.0),288,130,1,base,shadow,1])
-      textpos.push([sprintf("%.1f",wt2/10.0),288,148,1,base,shadow,1])
-      hwoffset = true
-    else
-      textpos.push([sprintf("%.1f",ht1/10.0),288,94,1,base,shadow,1])
-      textpos.push([sprintf("%.1f",ht2/10.0),288,112,1,base,shadow,1])
-      textpos.push([sprintf("%.1f",wt1/10.0),288,130,1,base,shadow,1])
-      textpos.push([sprintf("%.1f",wt2/10.0),288,148,1,base,shadow,1])
-    end
-    overlay.blt(288,102,@hwbitmap.bitmap,Rect.new(0,(hwoffset) ? 16 : 0,16,16))
-	overlay.blt(288,120,@hwbitmap.bitmap,Rect.new(0,(hwoffset) ? 16 : 0,16,16))
-    overlay.blt(288,138,@hwbitmap.bitmap,Rect.new(16,(hwoffset) ? 16 : 0,16,16))
-    overlay.blt(288,156,@hwbitmap.bitmap,Rect.new(16,(hwoffset) ? 16 : 0,16,16))
-    # Draw shape icon
-    if params[9]>=0
-      shaperect = Rect.new(0,params[9]*60,60,60)
-      overlay.blt(186,184,@shapebitmap.bitmap,shaperect)
+      textpos.push(["----",208,88,2,base,shadow,1])
     end
     # Draw all text
     pbDrawTextPositions(overlay,textpos)
@@ -721,8 +595,8 @@ class PokemonPokedex_Scene
     end
     # Filter by type
     if params[2]>=0 || params[3]>=0
-      stype1 = (params[2]>=0) ? @typeCommands[params[2]] : -1
-      stype2 = (params[3]>=0) ? @typeCommands[params[3]] : -1
+      stype1 = (params[2]>=0) ? params[2] : -1#@typeCommands[params[2]] : -1
+      stype2 = (params[3]>=0) ? params[3] : -1#@typeCommands[params[3]] : -1
       dexlist = dexlist.find_all { |item|
         next false if !$Trainer.owned[item[0]]
         type1 = item[6]
@@ -802,7 +676,7 @@ class PokemonPokedex_Scene
     oldspecies = @sprites["pokedex"].species
     @searchResults = false
     $PokemonGlobal.pokedexMode = MODENUMERICAL
-    @searchParams  = [$PokemonGlobal.pokedexMode,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+    @searchParams  = [$PokemonGlobal.pokedexMode,-1,0,-1,-1,-1,-1,-1,-1,-1]
     pbRefreshDexList($PokemonGlobal.pokedexIndex[pbGetSavePositionIndex])
     for i in 0...@dexlist.length
       next if @dexlist[i][0]!=oldspecies
@@ -1015,38 +889,10 @@ class PokemonPokedex_Scene
   def pbDexSearch
     oldsprites = pbFadeOutAndHide(@sprites)
     params = @searchParams.clone
-    @orderCommands = []
-    @orderCommands[MODENUMERICAL] = _INTL("NUMERICAL")
-    @orderCommands[MODEATOZ]      = _INTL("A TO Z")
-    @orderCommands[MODEHEAVIEST]  = _INTL("HEAVIEST")
-    @orderCommands[MODELIGHTEST]  = _INTL("LIGHTEST")
-    @orderCommands[MODETALLEST]   = _INTL("TALLEST")
-    @orderCommands[MODESMALLEST]  = _INTL("SMALLEST")
-    @nameCommands = [_INTL("A"),_INTL("B"),_INTL("C"),_INTL("D"),_INTL("E"),
-                    _INTL("F"),_INTL("G"),_INTL("H"),_INTL("I"),_INTL("J"),
-                    _INTL("K"),_INTL("L"),_INTL("M"),_INTL("N"),_INTL("O"),
-                    _INTL("P"),_INTL("Q"),_INTL("R"),_INTL("S"),_INTL("T"),
-                    _INTL("U"),_INTL("V"),_INTL("W"),_INTL("X"),_INTL("Y"),
-                    _INTL("Z")]
     @typeCommands = []
     for i in 0..PBTypes.maxValue
       @typeCommands.push(i) if !PBTypes.isPseudoType?(i)
     end
-    @heightCommands = [1,2,3,4,5,6,7,8,9,10,
-                       11,12,13,14,15,16,17,18,19,20,
-                       21,22,23,24,25,30,35,40,45,50,
-                       55,60,65,70,80,90,100]
-    @weightCommands = [5,10,15,20,25,30,35,40,45,50,
-                       55,60,70,80,90,100,110,120,140,160,
-                       180,200,250,300,350,400,500,600,700,800,
-                       900,1000,1250,1500,2000,3000,5000]
-    @colorCommands = []
-    for i in 0..PBColors.maxValue
-      j = PBColors.getName(i)
-      @colorCommands.push(j) if j
-    end
-    @shapeCommands = []
-    for i in 0...14; @shapeCommands.push(i); end
     @sprites["searchbg"].visible     = true
     @sprites["overlay"].visible      = true
     @sprites["searchcursor"].visible = true
@@ -1065,83 +911,54 @@ class PokemonPokedex_Scene
         oldindex = index
       end
       if Input.trigger?(Input::UP)
-        if index>=7; index = 6
-        #elsif index==5; index = 0
-        elsif index>0; index -= 1
-        end
-        pbPlayCursorSE if index!=oldindex
+        index -= 1 if index > 0
+        pbPlayCursorSE if index != oldindex
       elsif Input.trigger?(Input::DOWN)
-        if index==6; index = 8
-        elsif index<9; index += 1
-        end
+        index += 1 if index<3
         pbPlayCursorSE if index!=oldindex
       elsif Input.trigger?(Input::LEFT)
-        if index==6; index = 7
-        #elsif index==6; index = 3
-        elsif index>7; index -= 1
+        if index==0 || index==1
+			param_index = (index==0)? 2 : 3
+			param = params[param_index]
+			param -= 1
+			param -= 1 if PBTypes.isPseudoType?(param)
+			if index == 1 && param < 0
+				param = (param<-1)? PBTypes.maxValue : -1
+			elsif param < 0
+				param = PBTypes.maxValue
+			end
+			params[param_index] = param
+			pbRefreshDexSearch(params,index)
+			pbPlayCursorSE
         end
-        pbPlayCursorSE if index!=oldindex
       elsif Input.trigger?(Input::RIGHT)
-        if index==6; index = 9
-        #elsif index>=2 && index<=4; index = 6
-        elsif index==6 && index<9; index +=1 #|| index==8; index += 1
+        if index==0 || index==1
+			param_index = (index==0)? 2 : 3
+			param = params[param_index]
+			param += 1
+			param += 1 if PBTypes.isPseudoType?(param)
+			if index == 1 && param > PBTypes.maxValue
+				param = -1
+			elsif param > PBTypes.maxValue
+				param = 0
+			end
+			params[param_index] = param
+			pbRefreshDexSearch(params,index)
+			pbPlayCursorSE
         end
-        pbPlayCursorSE if index!=oldindex
-      elsif Input.trigger?(Input::ENTER)
-        index = 8
-        pbPlayCursorSE if index!=oldindex
       elsif Input.trigger?(Input::B)
         pbPlayCloseMenuSE
         break
       elsif Input.trigger?(Input::C)
-        pbPlayDecisionSE if index!=9
-        case index
-        when 0   # Choose sort order
-          newparam = pbDexSearchCommands(0,[params[0]],index)
-          params[0] = newparam[0] if newparam!=nil
-          pbRefreshDexSearch(params,index)
-        when 1   # Filter by name
-          newparam = pbDexSearchCommands(1,[params[1]],index)
-          params[1] = newparam[0] if newparam!=nil
-          pbRefreshDexSearch(params,index)
-        when 2   # Filter by type
-          newparam = pbDexSearchCommands(2,[params[2],params[3]],index)
-          if newparam!=nil
-            params[2] = newparam[0]
-            params[3] = newparam[1]
-          end
-          pbRefreshDexSearch(params,index)
-        when 3   # Filter by height range
-          newparam = pbDexSearchCommands(3,[params[4],params[5]],index)
-          if newparam!=nil
-            params[4] = newparam[0]
-            params[5] = newparam[1]
-          end
-          pbRefreshDexSearch(params,index)
-        when 4   # Filter by weight range
-          newparam = pbDexSearchCommands(4,[params[6],params[7]],index)
-          if newparam!=nil
-            params[6] = newparam[0]
-            params[7] = newparam[1]
-          end
-          pbRefreshDexSearch(params,index)
-        when 5   # Filter by color filter
-          newparam = pbDexSearchCommands(5,[params[8]],index)
-          params[8] = newparam[0] if newparam!=nil
-          pbRefreshDexSearch(params,index)
-        when 6   # Filter by form
-          newparam = pbDexSearchCommands(6,[params[9]],index)
-          params[9] = newparam[0] if newparam!=nil
-          pbRefreshDexSearch(params,index)
-        when 7   # Clear filters
-          for i in 0...10
-            params[i] = (i==0) ? MODENUMERICAL : -1
-          end
-          pbRefreshDexSearch(params,index)
-        when 8   # Start search (filter)
+        pbPlayDecisionSE if index!=2
+		case index
+        when 2   # Start search (filter)
+		  @frame = 0
+		  @sprites["searchcursor"].visible = true
+		  pbAnimSearch
           dexlist = pbSearchDexList(params)
           if dexlist.length==0
-            pbMessage(_INTL("No matching POKéMON were found."))
+            pbMessage(_INTL("<c3=FFFFFFFF,00000000>No matching POKéMON were found.</c3>\\wtnp[40]"),nil,0,"Graphics/Windowskins/search")
           else
             @dexlist = dexlist
             @sprites["pokedex"].commands = @dexlist
@@ -1151,7 +968,7 @@ class PokemonPokedex_Scene
             @searchParams = params
             break
           end
-        when 9   # Cancel
+        when 3   # Cancel
           pbPlayCloseMenuSE
           break
         end
@@ -1169,6 +986,18 @@ class PokemonPokedex_Scene
     return 0
   end
 
+  def pbAnimSearch
+    pbWait(20)
+    5.times do
+      i = 0
+      5.times do
+        @sprites["searchanim"].src_rect.set(0+48*i,0,48,48)
+        pbWait(4)
+        i += 1
+      end
+    end
+  end
+      
   def pbPokedex
     pbActivateWindow(@sprites,"pokedex") {
       loop do
