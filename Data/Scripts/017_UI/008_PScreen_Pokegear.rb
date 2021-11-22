@@ -180,7 +180,7 @@ class Window_PhoneList2 < Window_CommandPokemon2
   def drawCursor(index,rect)
     selarrow = AnimatedBitmap.new("Graphics/Pictures/Pokegear/phoneSel")
     if self.index==index
-      pbCopyBitmap(self.contents,selarrow.bitmap,rect.x,rect.y)
+      pbCopyBitmap(self.contents,selarrow.bitmap,rect.x,rect.y-3)
     end
     return Rect.new(rect.x+28,rect.y+8,rect.width-16,rect.height)
   end
@@ -219,6 +219,8 @@ end
 class PokegearGS_Scene
   SQUAREWIDTH  = 16
   SQUAREHEIGHT = 16
+  LEFT         = 0
+  TOP          = 0
   
   def pbStartScene
     @viewport = Viewport.new(0,0,Graphics.width,Graphics.height)
@@ -317,7 +319,7 @@ class PokegearGS_Scene
     @sprites["mapcursor"].x = -SQUAREWIDTH/2+(@mapX*SQUAREWIDTH)+(Graphics.width-@sprites["map"].bitmap.width)/2
     @sprites["mapcursor"].y = -SQUAREHEIGHT/2+(@mapY*SQUAREHEIGHT)+(Graphics.height-@sprites["map"].bitmap.height)/2
     @sprites["mapcursor"].visible = false
-    townmapdata = @mapdata[@region][2]
+    townmapdata = @mapdata[@mapindex][2]
     i=0
     for loc in townmapdata
       if loc[0] == @mapX && loc[1] == @mapY
@@ -488,7 +490,7 @@ class PokegearGS_Scene
   end
   
   def pbChangeMap(sum)
-    map     = @mapdata[@region]
+    map     = @mapdata[@mapindex]
     townmapdata = map[2]
     @map_idx += sum
     @map_idx = 0 if @map_idx >= townmapdata.length
@@ -520,8 +522,8 @@ class PokegearGS_Scene
     @helpwindow.visible = (page != 2)
     @sprites["map"].visible = (page == 2)
     @sprites["mapbar"].visible = (page==2)
-    @sprites["player"].visible = (page == 2)
-    @sprites["mapcursor"].visible = (page == 2)
+    @sprites["player"].visible = (page == 2) if @sprites["player"]
+    @sprites["mapcursor"].visible = (page == 2) if @sprites["mapcursor"]
     
     pbUpdatePhone if page==3 # Update for phone
     pbUpdateText

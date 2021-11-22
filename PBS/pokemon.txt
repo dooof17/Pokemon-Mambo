@@ -28334,7 +28334,6 @@ Height = 1.8
 Weight = 89.0
 Color = Green
 Shape = 13
-RegionalNumbers = 901,901
 Kind = AXE
 Pokedex = It slashes through grass with its sharp scythes, moving too fast for the human eye to track.
 BattlerPlayerX = 0
