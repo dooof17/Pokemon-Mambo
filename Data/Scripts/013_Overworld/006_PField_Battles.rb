@@ -141,13 +141,13 @@ def pbPrepareBattle(battle)
     backdrop = battleRules["backdrop"]
   elsif $PokemonGlobal.nextBattleBack
     backdrop = $PokemonGlobal.nextBattleBack
-  elsif $PokemonGlobal.surfing
-    backdrop = "water"   # This applies wherever you are, including in caves
+  #elsif $PokemonGlobal.surfing
+    #backdrop = "water"   # This applies wherever you are, including in caves
   else
     back = pbGetMetadata($game_map.map_id,MetadataBattleBack)
     backdrop = back if back && back!=""
   end
-  backdrop = "indoor1" if !backdrop
+  backdrop = "general" if !backdrop
   battle.backdrop = backdrop
   # Choose a name for bases depending on environment
   if battleRules["base"].nil?

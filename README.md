@@ -7,7 +7,7 @@ All contributions and credits are listed in the official posts, where you can al
 - Pokecommunity --> https://www.pokecommunity.com/showthread.php?t=454199
 - Relic Castle --> https://reliccastle.com/threads/3987/
 
-Current Version: 1.1
+Current Version: 1.3
 
 *Created using Pokémon Essentials v18.1*
 

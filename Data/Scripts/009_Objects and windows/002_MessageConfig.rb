@@ -369,37 +369,31 @@ end
 #===============================================================================
 # Gets the name of the system small font.
 def pbSmallFontName
-  return MessageConfig.pbTryFonts("Power Green Small","Pokemon Emerald Small",
-     "Arial Narrow","Arial")
+  return MessageConfig.pbTryFonts("GSCFontSmall","Arial Narrow","Arial")
 end
 
 # Gets the name of the system narrow font.
 def pbNarrowFontName
-  return MessageConfig.pbTryFonts("Power Green Narrow","Pokemon Emerald Narrow",
-     "Arial Narrow","Arial")
+  return MessageConfig.pbTryFonts("GSCFontNarrow","Arial Narrow","Arial")
 end
 
 # Sets a bitmap's font to the system font.
 def pbSetSystemFont(bitmap)
   fontname = MessageConfig.pbGetSystemFontName
   bitmap.font.name = fontname
-  if fontname == "Pokemon GB Font [Extended]"
-    bitmap.font.size = 26
-  else
-    bitmap.font.size = 36
-  end
+  bitmap.font.size = 36
 end
 
 # Sets a bitmap's font to the system small font.
 def pbSetSmallFont(bitmap)
   bitmap.font.name = pbSmallFontName
-  bitmap.font.size = 25
+  bitmap.font.size = 36
 end
 
 # Sets a bitmap's font to the system narrow font.
 def pbSetNarrowFont(bitmap)
   bitmap.font.name = pbNarrowFontName
-  bitmap.font.size = 31
+  bitmap.font.size = 36
 end
 
 #===============================================================================

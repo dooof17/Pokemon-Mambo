@@ -549,8 +549,8 @@ class TargetMenuDisplay < BattleMenuBase
     textpos = []
     @buttons.each_with_index do |button,i|
       next if !button || @texts[i].nil? || @texts[i]==""
-      x = button.x-self.x+button.src_rect.width/2
-      y = button.y-self.y+15
+      x = button.x-self.x + button.src_rect.width/2
+      y = button.y-self.y + 7
       textpos.push([@texts[i],x,y,2,TEXT_BASE_COLOR,TEXT_SHADOW_COLOR])
     end
     pbDrawTextPositions(@overlay.bitmap,textpos)

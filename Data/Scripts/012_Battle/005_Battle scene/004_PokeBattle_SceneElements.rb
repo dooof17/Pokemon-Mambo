@@ -437,8 +437,8 @@ class AbilitySplashBar < SpriteWrapper
   attr_reader :battler
   attr_accessor :ability
 
-  TEXT_BASE_COLOR   = Color.new(0,0,0)
-  TEXT_SHADOW_COLOR = Color.new(248,248,248)
+  TEXT_BASE_COLOR   = Color.new(255,255,255)
+  TEXT_SHADOW_COLOR = Color.new(0,0,0)
 
   def initialize(side,viewport=nil)
     super(viewport)
@@ -449,15 +449,16 @@ class AbilitySplashBar < SpriteWrapper
     @bgBitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/Battle/ability_bar"))
     @bgSprite = SpriteWrapper.new(viewport)
     @bgSprite.bitmap = @bgBitmap.bitmap
-    @bgSprite.src_rect.y      = (side==0) ? 0 : @bgBitmap.height/2
-    @bgSprite.src_rect.height = @bgBitmap.height/2
+    @bgSprite.src_rect.y      = 0
+    @bgSprite.src_rect.height = @bgBitmap.height
+    @bgSprite.mirror          = (side==0) ? false : true
     # Create bitmap that displays the text
-    @contents = BitmapWrapper.new(@bgBitmap.width,@bgBitmap.height/2)
+    @contents = BitmapWrapper.new(@bgBitmap.width,@bgBitmap.height)
     self.bitmap = @contents
-    pbSetSystemFont(self.bitmap)
+    pbSetSmallFont(self.bitmap)
     # Position the bar
     self.x       = (side==0) ? -Graphics.width/2 : Graphics.width
-    self.y       = (side==0) ? 180 : 80
+    self.y       = (side==0) ? 128 : 70
     self.z       = 120
     self.visible = false
   end
@@ -513,12 +514,12 @@ class AbilitySplashBar < SpriteWrapper
     self.bitmap.clear
     return if !@battler
     textPos = []
-    textX = (@side==0) ? 10 : self.bitmap.width-8
+    textX = (@side==0) ? 2 : self.bitmap.width-8
     # Draw Pokémon's name
-    textPos.push([_INTL("{1}'s",@battler.name),textX,2,@side==1,
+    textPos.push([_INTL("{1}'s",@battler.name),textX,-8,@side==1,
        TEXT_BASE_COLOR,TEXT_SHADOW_COLOR,true])
     # Draw Pokémon's ability
-    textPos.push([(@ability.is_a?(String))? @ability : @battler.abilityName,textX,32,@side==1,
+    textPos.push([(@ability.is_a?(String))? @ability : @battler.abilityName,textX,8,@side==1,
        TEXT_BASE_COLOR,TEXT_SHADOW_COLOR,true])
     pbDrawTextPositions(self.bitmap,textPos)
   end
