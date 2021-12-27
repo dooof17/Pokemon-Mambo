@@ -365,7 +365,7 @@ class PokegearGS_Scene
     end
     @sprites["list"].commands = @commands
     for i in 0...@sprites["list"].page_item_max
-      @sprites["rematch[#{i}]"] = IconSprite.new(468,62+i*32,@viewport)
+      @sprites["rematch[#{i}]"] = IconSprite.new(286,61+i*32,@viewport)
       j = i+@sprites["list"].top_item
       next if j>=@commands.length
       next if j>@trainers.length-1
@@ -400,6 +400,7 @@ class PokegearGS_Scene
     # Text
     @sprites["overlay"] = BitmapSprite.new(Graphics.width,Graphics.height,@viewport) 
     pbUpdateText
+    pbChangePage
     
     pbFadeInAndShow(@sprites) { pbUpdate }
   end
@@ -502,7 +503,7 @@ class PokegearGS_Scene
     pbUpdateText
   end
   
-  def pbChangePage(oldpage)
+  def pbChangePage(oldpage = 0)
     if @page==4
       $game_system.bgm_memorize
       pbBGMStop
@@ -524,7 +525,11 @@ class PokegearGS_Scene
     @sprites["mapbar"].visible = (page==2)
     @sprites["player"].visible = (page == 2) if @sprites["player"]
     @sprites["mapcursor"].visible = (page == 2) if @sprites["mapcursor"]
-    
+    for i in 0...@sprites["list"].page_item_max
+      if @sprites["rematch[#{i}]"]
+        @sprites["rematch[#{i}]"].visible = (page == 3)\
+      end
+    end    
     pbUpdatePhone if page==3 # Update for phone
     pbUpdateText
   end
@@ -594,7 +599,7 @@ class PokegearGS_Scene
         trainer = @trainers[j]
         if trainer.length==4
           if trainer[3]
-            @sprites["rematch[#{i}]"].setBitmap("Graphics/Pictures/phoneRematch")
+            @sprites["rematch[#{i}]"].setBitmap("Graphics/Pictures/Pokegear/phoneRematch")
           end
         end
       end
