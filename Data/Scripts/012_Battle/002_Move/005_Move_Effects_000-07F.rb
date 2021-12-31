@@ -687,7 +687,7 @@ class PokeBattle_Move_023 < PokeBattle_Move
 
   def pbEffectGeneral(user)
     user.effects[PBEffects::FocusEnergy] = 2
-    @battle.pbDisplay(_INTL("{1} is getting pumped!",user.pbThis))
+    @battle.pbDisplay(_INTL("{1}'s\ngetting pumped!",user.pbThis))
   end
 end
 
@@ -1058,11 +1058,11 @@ class PokeBattle_Move_03A < PokeBattle_Move
     if user.hasActiveAbility?(:CONTRARY)
       user.stages[PBStats::ATTACK] = -6
       @battle.pbCommonAnimation("StatDown",user)
-      @battle.pbDisplay(_INTL("{1} cut its own HP and minimized its Attack!",user.pbThis))
+      @battle.pbDisplay(_INTL("{1}\ncut its HP and\nminimized ATTACK!",user.pbThis))
     else
       user.stages[PBStats::ATTACK] = 6
       @battle.pbCommonAnimation("StatUp",user)
-      @battle.pbDisplay(_INTL("{1} cut its own HP and maximized its Attack!",user.pbThis))
+      @battle.pbDisplay(_INTL("{1}\ncut its HP and\nmaximized ATTACK!",user.pbThis))
     end
     user.pbItemHPHealCheck
   end

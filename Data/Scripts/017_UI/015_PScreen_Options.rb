@@ -467,18 +467,6 @@ class PokemonOption_Scene
              ObjectSpace.each_object(TilemapLoader) { |o| o.updateClass if !o.disposed? }
            end
          }
-       ),
-
-       EnumOption.new(_INTL("BORDER"),[_INTL("OFF"),_INTL("ON")],
-         proc { $PokemonSystem.border },
-         proc { |value|
-           oldvalue = $PokemonSystem.border
-           $PokemonSystem.border = value
-           if value!=oldvalue
-             pbSetResizeFactor($PokemonSystem.screensize)
-             ObjectSpace.each_object(TilemapLoader) { |o| o.updateClass if !o.disposed? }
-           end
-         }
        )
     ]
     @PokemonOptions = pbAddOnOptions(@PokemonOptions)

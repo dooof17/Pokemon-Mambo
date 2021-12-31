@@ -2481,9 +2481,9 @@ class PokeBattle_Move_0D4 < PokeBattle_FixedDamageMove
 
   def pbDisplayUseMessage(user)
     if @damagingTurn   # Attack turn
-      @battle.pbDisplayBrief(_INTL("{1} unleashed energy!",user.pbThis))
+      @battle.pbDisplayBrief(_INTL("{1}\nunleashed energy!",user.pbThis))
     elsif user.effects[PBEffects::Bide]>1   # Charging turns
-      @battle.pbDisplayBrief(_INTL("{1} is storing energy!",user.pbThis))
+      @battle.pbDisplayBrief(_INTL("{1}\nis storing energy!",user.pbThis))
     else
       super   # Start using Bide
     end

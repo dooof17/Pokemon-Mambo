@@ -172,6 +172,7 @@ class PokeBattle_Scene
     @sprites["abilityBar_#{side}"].battler = battler
     @sprites["abilityBar_#{side}"].ability = ability
     abilitySplashAnim = AbilitySplashAppearAnimation.new(@sprites,@viewport,side)
+    pbSEPlay("ability_triggered")
     loop do
     #  @sprites["abilityBar_#{side}"].ability = ability
       abilitySplashAnim.update

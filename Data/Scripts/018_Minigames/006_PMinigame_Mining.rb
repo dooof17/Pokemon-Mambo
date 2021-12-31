@@ -280,7 +280,6 @@ class MiningGameScene
       oy=ITEMS[i[0]][3]
       rectx=ITEMS[i[0]][4]
       recty=ITEMS[i[0]][5]
-      p @items
       layer.blt(16*i[1],32+16*i[2],@itembitmap.bitmap,Rect.new(16*ox,16*oy,16*rectx,16*recty))
     end
   end

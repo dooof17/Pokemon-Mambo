@@ -703,6 +703,8 @@ class PokemonSummary_Scene
     overlay = @sprites["overlay"].bitmap
     base   = Color.new(0,0,0)
     shadow = Color.new(255,255,255,0)
+    increaseBase = Color.new(255,0,0)
+    decreaseBase = Color.new(0,0,255)
     # Determine which stats are boosted and lowered by the Pokémon's nature
     statsbase = []
     PBStats.eachStat { |s| statsbase[s] = base }
@@ -728,6 +730,56 @@ class PokemonSummary_Scene
        [_INTL("SPEED"),176,248,0,statsbase[PBStats::SPEED]],
        [sprintf("%d",@pokemon.speed),320,264,1,base,shadow]
     ]
+    # Checks the Pokémon's nature to draw increase or decrease arrows
+    #==============================================
+    # Increase arrow (red color)
+
+    # Attack up
+    if @pokemon.nature == PBNatures::ADAMANT || @pokemon.nature == PBNatures::NAUGHTY || @pokemon.nature == PBNatures::LONELY ||
+       @pokemon.nature == PBNatures::BRAVE
+       textpos.push([_INTL("↑"),320,120,1,increaseBase])
+    # Defense up
+    elsif @pokemon.nature == PBNatures::BOLD || @pokemon.nature == PBNatures::IMPISH || @pokemon.nature == PBNatures::LAX ||
+          @pokemon.nature == PBNatures::RELAXED
+          textpos.push([_INTL("↑"),320,152,1,increaseBase])
+    # Spcl. Attk up
+    elsif @pokemon.nature == PBNatures::MODEST || @pokemon.nature == PBNatures::MILD || @pokemon.nature == PBNatures::RASH ||
+          @pokemon.nature == PBNatures::QUIET
+          textpos.push([_INTL("↑"),320,184,1,increaseBase])
+    # Spcl. Def up
+    elsif @pokemon.nature == PBNatures::CALM || @pokemon.nature == PBNatures::GENTLE || @pokemon.nature == PBNatures::CAREFUL ||
+          @pokemon.nature == PBNatures::SASSY
+          textpos.push([_INTL("↑"),320,216,1,increaseBase])
+    # Speed up
+    elsif @pokemon.nature == PBNatures::TIMID || @pokemon.nature == PBNatures::HASTY || @pokemon.nature == PBNatures::JOLLY ||
+          @pokemon.nature == PBNatures::NAIVE
+          textpos.push([_INTL("↑"),320,248,1,increaseBase])
+    end
+#==============================================
+    # Decrease arrow (blue color)
+
+    # Attack down
+    if @pokemon.nature == PBNatures::BOLD || @pokemon.nature == PBNatures::MODEST || @pokemon.nature == PBNatures::CALM ||
+       @pokemon.nature == PBNatures::TIMID
+       textpos.push([_INTL("↓"),320,120,1,decreaseBase])
+    # Defense down
+    elsif @pokemon.nature == PBNatures::LONELY || @pokemon.nature == PBNatures::MILD || @pokemon.nature == PBNatures::GENTLE ||
+          @pokemon.nature == PBNatures::HASTY
+          textpos.push([_INTL("↓"),320,152,1,decreaseBase])
+    # Spcl. Attk down
+    elsif @pokemon.nature == PBNatures::ADAMANT || @pokemon.nature == PBNatures::IMPISH || @pokemon.nature == PBNatures::CAREFUL ||
+          @pokemon.nature == PBNatures::JOLLY
+          textpos.push([_INTL("↓"),320,184,1,decreaseBase])
+    # Spcl. Def down
+    elsif @pokemon.nature == PBNatures::NAUGHTY || @pokemon.nature == PBNatures::LAX || @pokemon.nature == PBNatures::RASH ||
+          @pokemon.nature == PBNatures::NAIVE
+          textpos.push([_INTL("↓"),320,216,1,decreaseBase])
+    # Speed down
+    elsif @pokemon.nature == PBNatures::BRAVE || @pokemon.nature == PBNatures::RELAXED || @pokemon.nature == PBNatures::QUIET ||
+          @pokemon.nature == PBNatures::SASSY
+          textpos.push([_INTL("↓"),320,248,1,decreaseBase])
+    end
+  #==============================================
     # Write Original Trainer's name and ID number
 	$Trainer.male? ? gender = "♂" : "♀"
     if @pokemon.ot==""
