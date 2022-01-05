@@ -65,7 +65,7 @@ end
 #===============================================================================
 # Giving Pokémon to the player (will send to storage if party is full)
 #===============================================================================
-def pbAddPokemon(pokemon,level=nil,seeform=true)
+def pbAddPokemon(pokemon,level=nil,seeform=true,ownform=true)
   return if !pokemon
   if pbBoxesFull?
     pbMessage(_INTL("There's no more room for Pokémon!\1"))
@@ -80,10 +80,11 @@ def pbAddPokemon(pokemon,level=nil,seeform=true)
   pbMessage(_INTL("{1} obtained {2}!\\me[Pkmn get]\\wtnp[80]\1",$Trainer.name,speciesname))
   pbNicknameAndStore(pokemon)
   pbSeenForm(pokemon) if seeform
+  pbOwnedForm(pokemon) if ownform
   return true
 end
 
-def pbAddPokemonSilent(pokemon,level=nil,seeform=true)
+def pbAddPokemonSilent(pokemon,level=nil,seeform=true,ownform=true)
   return false if !pokemon || pbBoxesFull?
   pokemon = getID(PBSpecies,pokemon)
   if pokemon.is_a?(Integer) && level.is_a?(Integer)
@@ -92,6 +93,7 @@ def pbAddPokemonSilent(pokemon,level=nil,seeform=true)
   $Trainer.seen[pokemon.species]  = true
   $Trainer.owned[pokemon.species] = true
   pbSeenForm(pokemon) if seeform
+  pbOwnedForm(pokemon) if ownform
   pokemon.pbRecordFirstMoves
   if $Trainer.party.length<6
     $Trainer.party[$Trainer.party.length] = pokemon
@@ -106,7 +108,7 @@ end
 #===============================================================================
 # Giving Pokémon/eggs to the player (can only add to party)
 #===============================================================================
-def pbAddToParty(pokemon,level=nil,seeform=true)
+def pbAddToParty(pokemon,level=nil,seeform=true,ownform=true)
   return false if !pokemon || $Trainer.party.length>=6
   pokemon = getID(PBSpecies,pokemon)
   if pokemon.is_a?(Integer) && level.is_a?(Integer)
@@ -116,10 +118,11 @@ def pbAddToParty(pokemon,level=nil,seeform=true)
   pbMessage(_INTL("{1} obtained {2}!\\me[Pkmn get]\\wtnp[80]\1",$Trainer.name,speciesname))
   pbNicknameAndStore(pokemon)
   pbSeenForm(pokemon) if seeform
+  pbOwnedForm(pokemon) if ownform
   return true
 end
 
-def pbAddToPartySilent(pokemon,level=nil,seeform=true)
+def pbAddToPartySilent(pokemon,level=nil,seeform=true,ownform=true)
   return false if !pokemon || $Trainer.party.length>=6
   pokemon = getID(PBSpecies,pokemon)
   if pokemon.is_a?(Integer) && level.is_a?(Integer)
@@ -128,12 +131,13 @@ def pbAddToPartySilent(pokemon,level=nil,seeform=true)
   $Trainer.seen[pokemon.species]  = true
   $Trainer.owned[pokemon.species] = true
   pbSeenForm(pokemon) if seeform
+  pbOwnedForm(pokemon) if ownform
   pokemon.pbRecordFirstMoves
   $Trainer.party[$Trainer.party.length] = pokemon
   return true
 end
 
-def pbAddForeignPokemon(pokemon,level=nil,ownerName=nil,nickname=nil,ownerGender=0,seeform=true)
+def pbAddForeignPokemon(pokemon,level=nil,ownerName=nil,nickname=nil,ownerGender=0,seeform=true,ownform=true)
   return false if !pokemon || $Trainer.party.length>=6
   pokemon = getID(PBSpecies,pokemon)
   if pokemon.is_a?(Integer) && level.is_a?(Integer)
@@ -150,14 +154,15 @@ def pbAddForeignPokemon(pokemon,level=nil,ownerName=nil,nickname=nil,ownerGender
   # Recalculate stats
   pokemon.calcStats
   if ownerName
-    pbMessage(_INTL("\\me[Pkmn get]{1} received a Pokémon from {2}.\1",$Trainer.name,ownerName))
+    pbMessage(_INTL("\\me[Pkmn get]{1} received a POKéMON from {2}!\\wtnp[80]\1",$Trainer.name,ownerName))
   else
-    pbMessage(_INTL("\\me[Pkmn get]{1} received a Pokémon.\1",$Trainer.name))
+    pbMessage(_INTL("\\me[Pkmn get]{1} received a POKéMON!\\wtnp[80]\1",$Trainer.name))
   end
   pbStorePokemon(pokemon)
   $Trainer.seen[pokemon.species]  = true
   $Trainer.owned[pokemon.species] = true
   pbSeenForm(pokemon) if seeform
+  pbOwnedForm(pokemon) if ownform
   return true
 end
 
@@ -238,6 +243,28 @@ def pbUpdateLastSeenForm(pkmn)
   $Trainer.formlastseen[pkmn.species] = [] if !$Trainer.formlastseen[pkmn.species]
   $Trainer.formlastseen[pkmn.species] = [pkmn.gender,form]
 end
+
+def pbOwnedForm(pkmn,gender=0,form=0)
+  $Trainer.formowned     = [] if !$Trainer.formowned
+  if pkmn.is_a?(PokeBattle_Pokemon)
+    gender  = pkmn.gender
+    form    = (pkmn.form rescue 0)
+    species = pkmn.species
+  else
+    species = getID(PBSpecies,pkmn)
+  end
+  return if !species || species<=0
+  fSpecies = pbGetFSpeciesFromForm(species,form)
+  species, form = pbGetSpeciesFromFSpecies(fSpecies)
+  gender = 0 if gender>1
+  dexForm = pbGetSpeciesData(species,form,SpeciesPokedexForm)
+  form = dexForm if dexForm>0
+  fSpecies = pbGetFSpeciesFromForm(species,form)
+  formName = pbGetMessage(MessageTypes::FormNames,fSpecies)
+  form = 0 if !formName || formName==""
+  $Trainer.formowned[species] = [[],[]] if !$Trainer.formowned[species]
+  $Trainer.formowned[species][gender][form] = true
+  end
 
 
 

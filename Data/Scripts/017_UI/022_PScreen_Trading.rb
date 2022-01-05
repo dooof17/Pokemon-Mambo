@@ -215,6 +215,7 @@ def pbStartTrade(pokemonIndex,newpoke,nickname,trainerName,trainerGender=0)
   $Trainer.seen[yourPokemon.species]  = true
   $Trainer.owned[yourPokemon.species] = true
   pbSeenForm(yourPokemon)
+  pbOwnedForm(yourPokemon)
   pbFadeOutInWithMusic {
     evo = PokemonTrade_Scene.new
     evo.pbStartScreen(myPokemon,yourPokemon,$Trainer.name,opponent.name)

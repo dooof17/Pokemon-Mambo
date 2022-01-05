@@ -10,6 +10,7 @@ class PokeBattle_Trainer
   attr_accessor :owned
   attr_accessor :formseen
   attr_accessor :formlastseen
+  attr_accessor :formowned
   attr_accessor :shadowcaught
   attr_accessor :party
   attr_accessor :pokedex    # Whether the Pokédex was obtained
@@ -207,6 +208,17 @@ class PokeBattle_Trainer
     return ret
   end
 
+  def numFormsOwned(species)
+    species=getID(PBSpecies,species)
+    return 0 if species<=0
+    ret=0
+    array=@formowned[species]
+    for i in 0...[array[0].length,array[1].length].max
+      ret+=1 if array[0][i] || array[1][i]
+    end
+    return ret
+  end
+
   def seen?(species)
     species=getID(PBSpecies,species)
     return species>0 ? @seen[species] : false
@@ -233,12 +245,14 @@ class PokeBattle_Trainer
     @seen         = []
     @owned        = []
     @formseen     = []
+    @formowned    = []
     @formlastseen = []
     for i in 1..PBSpecies.maxValue
       @seen[i]         = false
       @owned[i]        = false
       @formlastseen[i] = []
       @formseen[i]     = [[],[]]
+      @formowned[i]       = [[],[]]
     end
   end
 

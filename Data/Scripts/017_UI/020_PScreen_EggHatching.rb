@@ -234,12 +234,13 @@ def pbHatch(pokemon)
   $Trainer.seen[pokemon.species]  = true
   $Trainer.owned[pokemon.species] = true
   pbSeenForm(pokemon)
+  pbOwnedForm(pokemon)
   pokemon.pbRecordFirstMoves
   if !pbHatchAnimation(pokemon)
     pbMessage(_INTL("Huh?\1"))
     pbMessage(_INTL("...\1"))
     pbMessage(_INTL("... .... .....\1"))
-    pbMessage(_INTL("{1} hatched from the Egg!",speciesname))
+    pbMessage(_INTL("{1} hatched from the EGG!",speciesname))
     if pbConfirmMessage(_INTL("Would you like to nickname the newly hatched {1}?",speciesname))
       nickname = pbEnterPokemonName(_INTL("{1}'s nickname?",speciesname),
          0,PokeBattle_Pokemon::MAX_POKEMON_NAME_SIZE,"",pokemon)

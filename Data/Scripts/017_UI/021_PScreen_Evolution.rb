@@ -570,6 +570,7 @@ class PokemonEvolutionScene
     $Trainer.seen[@newspecies]  = true
     $Trainer.owned[@newspecies] = true
     pbSeenForm(@pokemon)
+    pbOwnedForm(@pokemon)
     # Learn moves upon evolution for evolved species
     movelist = @pokemon.getMoveList
     for i in movelist
@@ -601,5 +602,6 @@ class PokemonEvolutionScene
     $Trainer.seen[new_species]  = true
     $Trainer.owned[new_species] = true
     pbSeenForm(new_pkmn)
+    pbOwnedForm(new_pkmn)
   end
 end

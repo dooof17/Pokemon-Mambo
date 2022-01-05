@@ -43,6 +43,7 @@ module PokeBattle_BattleCommon
   def pbRecordAndStoreCaughtPokemon
     @caughtPokemon.each do |pkmn|
       pbSeenForm(pkmn)   # In case the form changed upon leaving battle
+      pbOwnedForm(pkmn)
       # Record the Pokémon's species as owned in the Pokédex
       if !pbPlayer.hasOwned?(pkmn.species)
         pbPlayer.setOwned(pkmn.species)
