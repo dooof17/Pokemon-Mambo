@@ -468,9 +468,7 @@ class PokemonSummary_Scene
     @sprites["itemicon"].visible = true
     textpos  = [
        [_INTL("ITEM"),2,120,0,base,shadow],
-       [_INTL("MOVE"),0,152,0,base,shadow],
-       [_INTL("INFO/"),0,200,0,base,shadow],
-       [_INTL("PRESS Z"),0,216,0,base,shadow]	   
+       [_INTL("Z > Info"),320,136,1,base,shadow] 
     ]
     # Write the held item's name
     if @pokemon.hasItem?
@@ -488,21 +486,17 @@ class PokemonSummary_Scene
     yPos = 152
     for i in 0...@pokemon.moves.length
       move = @pokemon.moves[i]
-	  moveName = PBMoves.getName(move.id)
+      moveName = PBMoves.getName(move.id)
       if move.id>0
-	    if moveName.to_s.length > 12
-          textpos.push([moveName,320,yPos,1,moveBase,moveShadow])
-		else
-		  textpos.push([moveName,128,yPos,0,moveBase,moveShadow])
-		end
+        textpos.push([moveName,2,yPos,0,moveBase,moveShadow])
         if move.totalpp>0
-          textpos.push([_INTL("pp"),192,yPos+14,0,moveBase,moveShadow])
+          textpos.push([_INTL("pp"),192,yPos + 14,0,moveBase,moveShadow])
           ppfraction = 0
           if move.pp==0;                 ppfraction = 3
           elsif move.pp*4<=move.totalpp; ppfraction = 2
           elsif move.pp*2<=move.totalpp; ppfraction = 1
           end
-          textpos.push([sprintf("%d/%d",move.pp,move.totalpp),320,yPos+16,1,ppBase[ppfraction],ppShadow[ppfraction]])
+          textpos.push([sprintf("%d/%d",move.pp,move.totalpp),320,yPos + 16,1,ppBase[ppfraction],ppShadow[ppfraction]])
         end
       else
         textpos.push(["-",130,yPos,0,moveBase,moveShadow])
