@@ -23,7 +23,7 @@ class PokemonTilesetScene
   def pbUpdateTileset
     @sprites["overlay"].bitmap.clear
     textpos = []
-    @sprites["tileset"].src_rect = Rect.new(0,@topy,TILESET_WIDTH,Graphics.height)
+    @sprites["tileset"].src_rect = Rect.new(0,@topy,TILESET_WIDTH,Graphics.height - @sprites["title"].height)
     tilesize = @tileset.terrain_tags.xsize
     for yy in 0...Graphics.height/TILE_SIZE
       ypos = (yy+(@topy/TILE_SIZE))*8+384
@@ -33,7 +33,7 @@ class PokemonTilesetScene
         if ypos<384
           @tilehelper.bltTile(@sprites["overlay"].bitmap,xx*TILE_SIZE,yy*TILE_SIZE,xx*48)
         end
-        textpos.push(["#{terr}",xx*TILE_SIZE+TILE_SIZE/2,yy*TILE_SIZE,2,Color.new(80,80,80),Color.new(192,192,192)])
+        textpos.push(["#{terr}",xx*TILE_SIZE+TILE_SIZE/2,yy*TILE_SIZE,2,Color.new(0,0,0),Color.new(255,255,255)])
       end
     end
     @sprites["overlay"].bitmap.fill_rect(@x,@y-@topy,TILE_SIZE,4,Color.new(255,0,0))
@@ -82,17 +82,20 @@ class PokemonTilesetScene
     @tileset = @tilesetwrapper.data[1]
     @tilehelper = TileDrawingHelper.fromTileset(@tileset)
     @sprites = {}
-    @sprites["title"] = Window_UnformattedTextPokemon.new(_INTL("Tileset Editor\r\nPgUp/PgDn: SCROLL\r\nZ: MENU"))
+    addBackgroundPlane(@sprites,"background","bg_blue",@viewport)
+    @sprites["title"] = Window_UnformattedTextPokemon.new(_INTL("↑↓: Scroll, Z: Menu"))
     @sprites["title"].viewport = @viewport
-    @sprites["title"].x        = TILESET_WIDTH
-    @sprites["title"].y        = 0
-    @sprites["title"].width    = Graphics.width - TILESET_WIDTH
-    @sprites["title"].height   = 128
+    @sprites["title"].x        = 0
+    @sprites["title"].y        = Graphics.height - @sprites["title"].height
+    @sprites["title"].width    = Graphics.width
+    @sprites["title"].height   = 64
+    helpwindow_height = @sprites["title"].height # = 64
     @sprites["tileset"] = IconSprite.new(0,0,@viewport)
     @sprites["tileset"].setBitmap("Graphics/Tilesets/#{@tileset.tileset_name}")
-    @sprites["tileset"].src_rect = Rect.new(0,0,TILESET_WIDTH,Graphics.height)
-    @sprites["overlay"] = BitmapSprite.new(TILESET_WIDTH,Graphics.height,@viewport)
-    @sprites["overlay"].x = 0
+    @sprites["tileset"].src_rect = Rect.new(0,0,TILESET_WIDTH,Graphics.height - helpwindow_height) 
+    @sprites["tileset"].x = 32
+    @sprites["overlay"] = BitmapSprite.new(TILESET_WIDTH,Graphics.height - helpwindow_height,@viewport)
+    @sprites["overlay"].x = 32
     @sprites["overlay"].y = 0
     pbSetSystemFont(@sprites["overlay"].bitmap)
     @sprites["title"].visible = true
@@ -116,7 +119,7 @@ class PokemonTilesetScene
       elsif Input.repeat?(Input::DOWN)
         @y += TILE_SIZE
         @y = height-TILE_SIZE if @y>=height-TILE_SIZE
-        @topy = @y-Graphics.height+TILE_SIZE if @y-@topy>=Graphics.height
+        @topy = @y-(Graphics.height - helpwindow_height)+TILE_SIZE if @y>= @topy + (Graphics.height - helpwindow_height)
         pbUpdateTileset
       elsif Input.repeat?(Input::LEFT)
         @x -= TILE_SIZE
@@ -137,9 +140,9 @@ class PokemonTilesetScene
         @y += (Graphics.height/TILE_SIZE)*TILE_SIZE
         @topy += (Graphics.height/TILE_SIZE)*TILE_SIZE
         @y = height-TILE_SIZE if @y>=height-TILE_SIZE
-        @topy = @y-Graphics.height+TILE_SIZE if @y-@topy>=Graphics.height
+        @topy = @y-(Graphics.height - helpwindow_height)+TILE_SIZE if @y>= @topy + (Graphics.height - helpwindow_height)
         if @topy>=height-Graphics.height
-          @topy = height-Graphics.height
+          @topy = height-Graphics.height + helpwindow_height
         end
         pbUpdateTileset
       elsif Input.trigger?(Input::A)
@@ -153,7 +156,7 @@ class PokemonTilesetScene
         case ret
         when 0
           @y = height-TILE_SIZE
-          @topy = @y-Graphics.height+TILE_SIZE if @y-@topy>=Graphics.height
+          @topy = @y-(Graphics.height - helpwindow_height)+TILE_SIZE if @y>= @topy + (Graphics.height - helpwindow_height)
           pbUpdateTileset
         when 1
           @y = -TILE_SIZE
