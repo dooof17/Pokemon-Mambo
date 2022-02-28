@@ -9,7 +9,7 @@ TrainerBattleBGM = VS Trainer.ogg
 BicycleBGM = Bicycle.ogg
 WildBattleBGM = VS Wild.ogg
 SurfBGM = Surf.ogg
-Home = 3,13,8,8
+Home = 91,8,12,0
 #-------------------------------
 [001]
 # INTRO

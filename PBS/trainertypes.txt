@@ -69,3 +69,4 @@
 66,PkMnTRAINER_Red,POKéMON TRAINER,100,VS Gym Leader and Elite.ogg,,,Male,,
 67,PROFESSOR,PROFESSOR,100,VS Champion,,,Male,,
 68,MADJE,MANO,100,VS Gym Leader and Elite.ogg,,,Male,,
+69,LEADER_Gomas,LIDER,100,VS Gym Leader and Elite.ogg,,,Male,,

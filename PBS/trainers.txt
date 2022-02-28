@@ -3,3 +3,20 @@
 [MADJE,MADJE]
 LoseText = "AHAHAHHAAH ÉS BUE BURRO XD."
 Pokemon = ARCEUS,1
+#-------------------------------
+[SCIENTIST,PEREIRA]
+LoseText = "Olha ele, bué tadinho."
+Pokemon = RIOLU,7
+#-------------------------------
+[POKEMANIAC,SIMBA]
+LoseText = "Miau miau!"
+Pokemon = SILICOBRA,7
+#-------------------------------
+[LEADER_Gomas,GOMAS]
+Items = POTION
+LoseText = "TADINHOOOOOO."
+Ace = 3
+Pokemon = SILICOBRA,7
+    Moves = WRAP,GROWL,SCREECH
+Pokemon = LITTEN,8
+Pokemon = EKANS,10
