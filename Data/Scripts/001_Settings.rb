@@ -57,7 +57,7 @@ TIME_SHADING = false
 # * Whether TMs can be used infinitely as in Gen 5 (true), or are one-use-only
 #      as in older Gens (false).
 #===============================================================================
-POISON_IN_FIELD         = true
+POISON_IN_FIELD         = false
 POISON_FAINT_IN_FIELD   = false
 FISHING_AUTO_HOOK       = false
 DIVING_SURFACE_ANYWHERE = false
@@ -156,7 +156,7 @@ NEWEST_BATTLE_MECHANICS   = true
 DYNAMIC_PRIORITY          = true
 SCALED_EXP_FORMULA        = true
 SPLIT_EXP_BETWEEN_GAINERS = false
-ENABLE_CRITICAL_CAPTURES  = false
+ENABLE_CRITICAL_CAPTURES  = true
 GAIN_EXP_FOR_CAPTURE      = true
 MEGA_RINGS                = [:MEGARING, :MEGABRACELET, :MEGACUFF, :MEGACHARM, :KEYSTONE]
 
@@ -230,7 +230,7 @@ NUM_STORAGE_BOXES = 30
 #      reduced by 1, thus making the first listed species have a species number
 #      of 0 (e.g. Victini in Unova's Dex).
 #===============================================================================
-USE_CURRENT_REGION_DEX = false
+USE_CURRENT_REGION_DEX = true
 def pbDexNames; return [
   [_INTL("KANTO"), 0],
   [_INTL("JOHTO"), 1],
