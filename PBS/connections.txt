@@ -1,6 +1,6 @@
 ﻿# See the documentation on the wiki to learn how to edit this file.
 #-------------------------------
-# CARREGUETO CITY (96) - ROUTE 1 (94)
-96,East,0,94,West,11
-# CARREGUETO CITY (96) - CACÉM TOWN (90)
-96,East,23,90,West,0
+# CACÉM TOWN (90) - ROUTE 1 (94)
+90,0,0,94,0,34
+# ROUTE 1 (94) - CARREGUETO CITY (96)
+94,0,11,96,43,0
