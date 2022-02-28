@@ -58,10 +58,10 @@ module Input
     alias fast_forward_button_to_key buttonToKey
   end
   
-  F = 50
+  W = 50
   
   def self.buttonToKey(btn)
-    return [0x46] if btn == Input::F
+    return [0x46] if btn == Input::W
     fast_forward_button_to_key(btn)
   end
 end

@@ -1,23 +1,71 @@
 ﻿# See the documentation on the wiki to learn how to edit this file.
 #-------------------------------
 [000]
-PlayerA = POKEMONTRAINER_Gold,trchar000,Gold-onbike,PKMN-SURF_A,boy_run,PKMN-SURF_A,Gold-fishing,Gold-fishing
-PlayerB = POKEMONTRAINER_Crystal,trchar001,Crystal-onbike,PKMN-SURF_B,girl_run,PKMN-SURF_B,Crystal-fishing,Crystal-fishing
-TrainerVictoryME = Trainer Defeated.ogg
 WildVictoryME = Wild Defeated.ogg
+PlayerB = POKEMONTRAINER_Crystal,trchar001,Crystal-onbike,PKMN-SURF_B,girl_run,PKMN-SURF_B,Crystal-fishing,Crystal-fishing
+PlayerA = POKEMONTRAINER_Gold,trchar000,Gold-onbike,PKMN-SURF_A,boy_run,PKMN-SURF_A,Gold-fishing,Gold-fishing
+TrainerVictoryME = Trainer Defeated.ogg
 TrainerBattleBGM = VS Trainer.ogg
-SurfBGM = Surf.ogg
 BicycleBGM = Bicycle.ogg
-Home = 3,13,8,8
 WildBattleBGM = VS Wild.ogg
+SurfBGM = Surf.ogg
+Home = 3,13,8,8
 #-------------------------------
 [001]
 # INTRO
 #-------------------------------
 [090]
 # CACÉM TOWN
-SnapEdges = true
 BattleBack = general
-Bicycle = true
-Outdoor = true
 ShowArea = true
+SnapEdges = false
+Outdoor = true
+Bicycle = true
+#-------------------------------
+[091]
+# KUBIKO DO \PN
+ShowArea = false
+SnapEdges = false
+Outdoor = false
+#-------------------------------
+[092]
+# KUBIKO DO MADJE
+ShowArea = false
+SnapEdges = false
+Outdoor = false
+#-------------------------------
+[093]
+# LABORATORIO DO STOR DRED
+ShowArea = false
+SnapEdges = false
+Outdoor = false
+#-------------------------------
+[094]
+# ROUTE 1
+BattleBack = general
+ShowArea = true
+SnapEdges = false
+Outdoor = true
+Bicycle = true
+#-------------------------------
+[095]
+# CU DO GOMAS
+BattleBack = general
+ShowArea = true
+SnapEdges = true
+Outdoor = false
+#-------------------------------
+[096]
+# CARREGUETO CITY
+BattleBack = general
+ShowArea = true
+SnapEdges = false
+Outdoor = true
+Bicycle = true
+#-------------------------------
+[097]
+# CENTRO COLOMBO
+ShowArea = false
+SnapEdges = false
+Outdoor = false
+#-------------------------------
