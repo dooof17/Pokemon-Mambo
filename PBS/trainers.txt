@@ -28,3 +28,10 @@ Pokemon = MUDKIP,12
 [FISHERMAN,ALBERTO]
 LoseText = "CHORA MAIS!"
 Pokemon = SHELLOS_1,9
+#-------------------------------
+[MADJE,MADJE,1]
+LoseText = "AHAHAHHAAH ÉS BUE BURRO XD."
+Pokemon = NUMEL,14
+Pokemon = COMBEE,13
+    Gender = Male
+Pokemon = PETILIL,10
