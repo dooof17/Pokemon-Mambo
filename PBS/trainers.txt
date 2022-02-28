@@ -20,3 +20,11 @@ Pokemon = SILICOBRA,7
     Moves = WRAP,GROWL,SCREECH
 Pokemon = LITTEN,8
 Pokemon = EKANS,10
+#-------------------------------
+[FISHERMAN,JOÃO]
+LoseText = "PUTA!"
+Pokemon = MUDKIP,12
+#-------------------------------
+[FISHERMAN,ALBERTO]
+LoseText = "CHORA MAIS!"
+Pokemon = SHELLOS_1,9

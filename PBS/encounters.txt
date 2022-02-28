@@ -31,3 +31,22 @@ Cave
     DRATINI,1,5
     DRATINI,1,5
     EKANS,5,6
+#-------------------------------
+100 # ROUTE 2
+25,10,10
+Land
+    PIDOVE,5,9
+    PIDOVE,5,9
+    PIDOVE,5,9
+    PIDOVE,5,9
+    PETILIL,5,9
+    PETILIL,5,9
+    PETILIL,5,9
+    CHERUBI,5,9
+    CHERUBI,5,9
+    CHERUBI,5,9
+    CHERUBI,5,9
+    COMBEE,5,9
+OldRod
+    MAGIKARP,5,9
+    MUDKIP,5,9

@@ -699,3 +699,6 @@
 689,DIANCITE,DIANCITE,DIANCITE,1,0,"Mega evolves DIANCIE.",0,0,12,
 690,REDORB,RED ORB,RED ORB,1,0,"Returns GROUDON to its original form.",0,0,0,
 691,BLUEORB,BLUE ORB,BLUE ORB,1,0,"Returns KYOGRE to its original form.",0,0,0,
+#-------------ITEMS NOVOS MEUS------------------
+692,EXPALL,Exp Share,Exp Shares,8,0,ACTIVATED An Item that allows Exp Sharing throughout the entire team.,2,0,6
+693,EXPALLOFF,Exp Share,Exp Shares,8,0,DEACTIVATED An Item that allows Exp Sharing throughout the entire team.,2,0,6

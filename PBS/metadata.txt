@@ -68,3 +68,24 @@ BattleBack = general
 ShowArea = false
 Outdoor = false
 SnapEdges = false
+#-------------------------------
+[098]
+# CARREGUETO GYM
+ShowArea = false
+Outdoor = false
+SnapEdges = false
+#-------------------------------
+[099]
+# CARREGUETO TUNNEL
+ShowArea = false
+Outdoor = false
+Bicycle = true
+SnapEdges = false
+#-------------------------------
+[100]
+# ROUTE 2
+ShowArea = true
+Outdoor = true
+Bicycle = true
+SnapEdges = false
+BattleBack = general
