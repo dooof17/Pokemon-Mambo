@@ -60,6 +60,18 @@ Height = 2.2
 Weight = 50.5
 Pokedex = With its muscular strength now greatly increased, it can fly continuously for two weeks without resting.
 #-------------------------------
+[INFERNAPE,1]
+FormName = Mega Infernape
+Type1 = WATER
+Type2 = FIGHTING
+MegaStone = INFERNAPEITE
+BaseStats = 64,78,52,81,78,52
+Abilities = SWIFTSWIM
+HiddenAbility = SWIFTSWIM
+Height = 2.2
+Weight = 50.5
+Pokedex = With its muscular strength now greatly increased, it can swim continuously for two weeks without resting.
+#-------------------------------
 [RATTATA,1]
 FormName = Alolan
 Type1 = DARK
