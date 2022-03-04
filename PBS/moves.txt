@@ -673,7 +673,7 @@
 654,SPARKLINGARIA,SPARKLING ARIA,15A,90,WATER,Special,100,10,100,AllNearOthers,0,befk,"The user bursts into song, emitting many bubbles. Any burnt Pokémon will be healed by these bubbles."
 655,SURF,SURF,075,90,WATER,Special,100,15,0,AllNearOthers,0,bef,"It swamps the area around the user with a giant wave. It can also be used for crossing water."
 656,LIQUIDATION,LIQUIDATION,043,85,WATER,Physical,100,10,20,NearOther,0,abef,"The user slams into the target using a full-force blast of water. May lower the target's Defense."
-657,DIVE,DIVE,0CB,80,WATER,Physical,100,10,0,NearOther,0,abef,"Diving on the first turn, the user rises and hits on the next turn. It can be used to dive in the ocean."
+657,DIVE,DIVE,0CB,40,WATER,Physical,100,10,0,NearOther,0,abef,"Diving on the first turn, the user rises and hits on the next turn. It can be used to dive in the ocean."
 658,SCALD,SCALD,00A,80,WATER,Special,100,15,30,NearOther,0,befg,"The user shoots boiling hot water at its target. It may also leave the target with a burn."
 659,WATERPLEDGE,WATER PLEDGE,108,80,WATER,Special,100,10,0,NearOther,0,bef,"A column of water strikes the target. When combined with its fire equivalent, it makes a rainbow."
 660,WATERFALL,WATERFALL,00F,80,WATER,Physical,100,15,20,NearOther,0,abe,"The user charges at the target and may make it flinch. It can also be used to climb a waterfall."

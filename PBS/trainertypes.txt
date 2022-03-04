@@ -70,3 +70,5 @@
 67,PROFESSOR,PROFESSOR,100,VS Champion,,,Male,,
 68,MADJE,MANO,100,VS Gym Leader and Elite.ogg,,,Male,,
 69,LEADER_Gomas,LIDER,100,VS Gym Leader and Elite.ogg,,,Male,,
+70,LEADER_Laranja,LIDER,100,VS Gym Leader and Elite.ogg,,,Male,,
+71,POLITICO,EX POLITICO,32,Battle Team Rocket.ogg,,Trainers' Eyes Meet (Team Rocket).ogg,Male,,

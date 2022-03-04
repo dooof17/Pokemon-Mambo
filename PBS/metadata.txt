@@ -65,7 +65,7 @@ BattleBack = general
 #-------------------------------
 [097]
 # CENTRO COLOMBO
-ShowArea = false
+ShowArea = true
 Outdoor = false
 SnapEdges = false
 #-------------------------------
@@ -128,5 +128,11 @@ SnapEdges = false
 [106]
 # BICLA SHOP
 ShowArea = false
+Outdoor = false
+SnapEdges = false
+#-------------------------------
+[107]
+# SEDE JSD MIRI CITY
+ShowArea = true
 Outdoor = false
 SnapEdges = false

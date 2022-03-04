@@ -31,7 +31,34 @@ Pokemon = SHELLOS_1,9
 #-------------------------------
 [MADJE,MADJE,1]
 LoseText = "AHAHAHHAAH ÉS BUE BURRO XD."
-Pokemon = NUMEL,14
+Pokemon = PETILIL,10
 Pokemon = COMBEE,13
     Gender = Male
-Pokemon = PETILIL,10
+Pokemon = NUMEL,14
+#-------------------------------
+[BEAUTY,ANDREIA BERNARDO]
+LoseText = "Continuem a votar PS!"
+Pokemon = SKITTY,16
+    Item = FLAMEORB
+#-------------------------------
+[LASS,FELISBELA]
+LoseText = "Continuem a votar PS!"
+Pokemon = DELCATTY,12
+#-------------------------------
+[POLITICO,PASSOS COELHO]
+LoseText = "TROIKA! TROIKA! TROIKA!"
+Pokemon = BUNNELBY,15
+    Moves = THIEF,GROWL
+#-------------------------------
+[POLITICO,PAULO PORTAS]
+LoseText = "NÃO PERCA O MEU BLOCO TELEVISIVO TODAS AS SEXTAS FEIRAS NA TVI!"
+Pokemon = WISHIWASHI,12
+    Moves = PROTECT,BIDE,THIEF
+#-------------------------------
+[LEADER_Laranja,LARANJA]
+Items = POTION
+LoseText = "PIIIIIIIIIIIIZZZZZZZZZAAAAAAAAAAAAAAAA."
+Pokemon = CHIMCHAR,13
+Pokemon = INFERNAPE,18
+    Item = INFERNAPEITE
+    Moves = DIVE,MACHPUNCH,LEER,GROWL
