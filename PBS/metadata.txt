@@ -89,3 +89,44 @@ Outdoor = true
 Bicycle = true
 SnapEdges = false
 BattleBack = general
+#-------------------------------
+[101]
+# ROUTE 2 TUNNEL
+ShowArea = false
+Outdoor = false
+SnapEdges = false
+#-------------------------------
+[102]
+# MIRI CITY
+ShowArea = true
+Outdoor = true
+Bicycle = true
+SnapEdges = false
+BattleBack = general
+#-------------------------------
+
+[103]
+# GRUTA DO ADAMASTOR
+ShowArea = true
+Outdoor = false
+SnapEdges = true
+BattleBack = general
+#-------------------------------
+[104]
+# GRUTA DO ADAMASTOR
+ShowArea = true
+Outdoor = false
+SnapEdges = true
+BattleBack = general
+#-------------------------------
+[105]
+# MIRI CITY POKECENTER
+ShowArea = false
+Outdoor = false
+SnapEdges = false
+#-------------------------------
+[106]
+# BICLA SHOP
+ShowArea = false
+Outdoor = false
+SnapEdges = false
