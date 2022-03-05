@@ -50,3 +50,15 @@ Land
 OldRod
     MAGIKARP,5,9
     MUDKIP,5,9
+#-------------------------------
+102 # MIRI CITY
+25,10,10
+Water
+    WISHIWASHI,3,14
+    WISHIWASHI,3,14
+    TENTACOOL,5,13
+    TENTACOOL,5,13
+    BARBOACH,2,7
+OldRod
+    FEEBAS,5,10
+    CORSOLA,5,15
