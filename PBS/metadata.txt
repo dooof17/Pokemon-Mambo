@@ -1,138 +1,137 @@
 ﻿# See the documentation on the wiki to learn how to edit this file.
 #-------------------------------
 [000]
-PlayerB = POKEMONTRAINER_Crystal,trchar001,Crystal-onbike,PKMN-SURF_B,girl_run,PKMN-SURF_B,Crystal-fishing,Crystal-fishing
-PlayerA = POKEMONTRAINER_Gold,trchar000,Gold-onbike,PKMN-SURF_A,boy_run,PKMN-SURF_A,Gold-fishing,Gold-fishing
-TrainerBattleBGM = VS Trainer.ogg
+WildBattleBGM = VS Wild.ogg
 Home = 91,8,12,0
 SurfBGM = Surf.ogg
+TrainerBattleBGM = VS Trainer.ogg
+BicycleBGM = Bicycle.ogg
+PlayerB = POKEMONTRAINER_Crystal,trchar001,Crystal-onbike,PKMN-SURF_B,girl_run,PKMN-SURF_B,Crystal-fishing,Crystal-fishing
+PlayerA = POKEMONTRAINER_Gold,trchar000,Gold-onbike,PKMN-SURF_A,boy_run,PKMN-SURF_A,Gold-fishing,Gold-fishing
 TrainerVictoryME = Trainer Defeated.ogg
 WildVictoryME = Wild Defeated.ogg
-BicycleBGM = Bicycle.ogg
-WildBattleBGM = VS Wild.ogg
 #-------------------------------
 [001]
 # INTRO
 #-------------------------------
 [090]
 # CACÉM TOWN
-ShowArea = true
-Outdoor = true
-Bicycle = true
-SnapEdges = false
 BattleBack = general
+Bicycle = true
+Outdoor = true
+ShowArea = true
+SnapEdges = false
 #-------------------------------
 [091]
 # KUBIKO DO \PN
-ShowArea = false
 Outdoor = false
+ShowArea = false
 SnapEdges = false
 #-------------------------------
 [092]
 # KUBIKO DO MADJE
-ShowArea = false
 Outdoor = false
+ShowArea = false
 SnapEdges = false
 #-------------------------------
 [093]
 # LABORATÓRIO DO STOR DRED
-ShowArea = false
 Outdoor = false
+ShowArea = false
 SnapEdges = false
 #-------------------------------
 [094]
 # ROUTE 1
-ShowArea = true
-Outdoor = true
-Bicycle = true
-SnapEdges = false
 BattleBack = general
+Bicycle = true
+Outdoor = true
+ShowArea = true
+SnapEdges = false
 #-------------------------------
 [095]
 # CU DO GOMAS
-ShowArea = true
-Outdoor = false
-SnapEdges = true
 BattleBack = general
+Outdoor = false
+ShowArea = true
+SnapEdges = true
 #-------------------------------
 [096]
 # CARREGUETO CITY
-ShowArea = true
-Outdoor = true
-Bicycle = true
-SnapEdges = false
 BattleBack = general
+Bicycle = true
+Outdoor = true
+ShowArea = true
+SnapEdges = false
 #-------------------------------
 [097]
 # CENTRO COLOMBO
-ShowArea = true
 Outdoor = false
+ShowArea = true
 SnapEdges = false
 #-------------------------------
 [098]
 # CARREGUETO GYM
-ShowArea = false
 Outdoor = false
+ShowArea = false
 SnapEdges = false
 #-------------------------------
 [099]
 # CARREGUETO TUNNEL
-ShowArea = false
-Outdoor = false
 Bicycle = true
+Outdoor = false
+ShowArea = false
 SnapEdges = false
 #-------------------------------
 [100]
 # ROUTE 2
-ShowArea = true
-Outdoor = true
-Bicycle = true
-SnapEdges = false
 BattleBack = general
+Bicycle = true
+Outdoor = true
+ShowArea = true
+SnapEdges = false
 #-------------------------------
 [101]
 # ROUTE 2 TUNNEL
-ShowArea = false
 Outdoor = false
+ShowArea = false
 SnapEdges = false
 #-------------------------------
 [102]
 # MIRI CITY
-ShowArea = true
-Outdoor = true
-Bicycle = true
-SnapEdges = false
 BattleBack = general
+Bicycle = true
+Outdoor = true
+ShowArea = true
+SnapEdges = false
 #-------------------------------
-
 [103]
 # GRUTA DO ADAMASTOR
-ShowArea = true
-Outdoor = false
-SnapEdges = true
 BattleBack = general
+Outdoor = false
+ShowArea = true
+SnapEdges = true
 #-------------------------------
 [104]
 # GRUTA DO ADAMASTOR
-ShowArea = true
-Outdoor = false
-SnapEdges = true
 BattleBack = general
+Outdoor = false
+ShowArea = true
+SnapEdges = true
 #-------------------------------
 [105]
-# MIRI CITY POKECENTER
-ShowArea = false
+# MIRI CITY POKé CENTER
 Outdoor = false
+ShowArea = false
 SnapEdges = false
 #-------------------------------
 [106]
 # BICLA SHOP
-ShowArea = false
 Outdoor = false
+ShowArea = false
 SnapEdges = false
 #-------------------------------
 [107]
 # SEDE JSD MIRI CITY
-ShowArea = true
 Outdoor = false
+ShowArea = true
 SnapEdges = false
