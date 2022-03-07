@@ -135,3 +135,11 @@ SnapEdges = false
 Outdoor = false
 ShowArea = true
 SnapEdges = false
+#-------------------------------
+[108]
+# ROUTE 3
+BattleBack = general
+Bicycle = true
+Outdoor = true
+ShowArea = true
+SnapEdges = false
