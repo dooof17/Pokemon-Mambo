@@ -62,3 +62,19 @@ Water
 OldRod
     FEEBAS,5,10
     CORSOLA,5,15
+#-------------------------------
+110 # LIDL
+25,10,10
+Cave
+    SHUPPET,8,10
+    SHUPPET,8,10
+    DUSKULL,9,11
+    DUSKULL,9,11
+    GASTLY,9,11
+    GASTLY,9,11
+    PUMPKABOO,8,12
+    PUMPKABOO,8,12
+    CLEFFA,2,14
+    CLEFFA,2,14
+    MIMIKYU,5,13
+    MIMIKYU,6,14

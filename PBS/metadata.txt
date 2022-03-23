@@ -143,3 +143,17 @@ Bicycle = true
 Outdoor = true
 ShowArea = true
 SnapEdges = false
+#-------------------------------
+[109]
+# GRUTA DO POÇO VELHO
+BattleBack = general
+Outdoor = false
+ShowArea = true
+SnapEdges = true
+#-------------------------------
+[110]
+# LIDL
+BattleBack = general
+Outdoor = false
+ShowArea = true
+SnapEdges = true
