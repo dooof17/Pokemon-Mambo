@@ -11,6 +11,7 @@ Pokemon = RIOLU,7
 [POKEMANIAC,SIMBA]
 LoseText = "Miau miau!"
 Pokemon = SILICOBRA,7
+    Moves = WRAP,GROWL,SCREECH
 #-------------------------------
 [LEADER_Gomas,GOMAS]
 Items = POTION
